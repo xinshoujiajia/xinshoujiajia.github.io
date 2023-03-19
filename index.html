@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-iPad上的iVim安装及自动补全配置" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/03/20/iPad%E4%B8%8A%E7%9A%84iVim%E5%AE%89%E8%A3%85%E5%8F%8A%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time class="dt-published" datetime="2023-03-19T16:13:51.000Z" itemprop="datePublished">2023-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/03/20/iPad%E4%B8%8A%E7%9A%84iVim%E5%AE%89%E8%A3%85%E5%8F%8A%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E9%85%8D%E7%BD%AE/">iPad上的iVim安装及自动补全配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="title-iPad上的iVim安装及自动补全配置date-2023-03-19-23-44-56categories-iPadtags-vim"><a href="#title-iPad上的iVim安装及自动补全配置date-2023-03-19-23-44-56categories-iPadtags-vim" class="headerlink" title="title: iPad上的iVim安装及自动补全配置date: 2023-03-19 23:44:56categories:- iPadtags:- vim"></a>title: iPad上的iVim安装及自动补全配置<br>date: 2023-03-19 23:44:56<br>categories:<br>- iPad<br>tags:<br>- vim</h2><h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>由于学校对电脑没有硬性要求，所以决定试一下用iPad代替笔记本，但是需要一个代码编辑器，虽然vs code也可以但是还是想要不需要网络在本地写代码，而且还是习惯用vim，所以最后还是选择了App Store里的iVim，现在来记录一下iPad上iVim的安装和配置。</p>
+<h2 id="安装和基本使用"><a href="#安装和基本使用" class="headerlink" title="安装和基本使用"></a>安装和基本使用</h2><p>首先，在App Store安装iVim，运行之后使用方法和vim相同，可以通过<code>:ishare</code>分享当前编辑的文件。启动iVim，默认路径在 “我的iPad &gt; iVim” 目录下，在命令模式下输入<code>:terminal</code>可以打开ivish，iVim自带的shell，可以使用一些基本的命令，可以按下tab查看可以使用的命令。</p>
+<h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>iVim自带有python3和lua，虽然带有ivish，但是ivish不能运行sh脚本，所以不能使用运行在外部shell的插件，但是能使用调用python的插件。</p>
+<p>在terminal下输入<code>ls -a</code>可以查看iVim目录下.开头的隐藏文件，例如.vim&#x2F;和之后创建的.vimrc。在terminal下输入<code>mv .vim vim</code>，让.vim目录能够通过“文件”打开，或者也可以在命令模式下输入<code>:e .</code>，然后选择.vim按下R，重命名为vim。由于iVim不带有git，所以不能通过配置插件管理器然后用<code>:PluginInstall</code>安装插件，所以我索性也没安装插件管理器，通过最原始的方法去GitHub上一个个下下来移动到vim目录，之后将vim改回.vim，重启iVim，就能加载插件了。</p>
+<p>反之，另一种安装插件的方法，将下载的插件.zip文件移到iVim目录下解压，然后在terminal下输入<code>cp -r xxx/* .vim/</code>，也可以完成插件安装，之后还能用rm -rf删除下载的插件。</p>
+<h2 id="自动补全插件"><a href="#自动补全插件" class="headerlink" title="自动补全插件"></a>自动补全插件</h2><p>大部分的插件都能通过上面的方法安装，但是我花了挺长时间弄自动补全插件的，所以特别记录一下。由于之前使用的Debian官方源带有youcompleteme，我之前用的一直都是ycm自动补全，配置参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/33046090">这里</a>。</p>
+<p>但是ycm需要clang支持，所以这里明显不能使用，于是了解到vim7.3之后内置了omni complete，于是按了ctrl+n，发现真的有基于文件内容的补全，但是omni支持tags补全，又经过一番搜索了解到可以通过ctags来生成C语言的tags。</p>
+<h3 id="在iPad上生成C语言的tags"><a href="#在iPad上生成C语言的tags" class="headerlink" title="在iPad上生成C语言的tags"></a>在iPad上生成C语言的tags</h3><p>如果手头上没有电脑，还有一个比较绕圈子的方法，App Store安装ish，<code>apk add ctags build-base</code>（换源自行百度），然后新建个目录，<code>cp /usr/include/*.h c_src</code>，然后运行<code>ctags -R  --C-kinds=+p --fields=+aS --extra=+q c_src</code>，将生成的”tags”文件移动到iVim下，创建.vim&#x2F;tags目录，将tags移动到创建的tags目录并重命名为c，然后编辑.vimrc，加入<code>set tags+=~/.vim/tags/c</code>，再按ctrl+n已经能补全C语言的函数了。</p>
+<p>其他语言的应该也可以通过添加对应语言的tags来实现补全，如果使用python的话应该能使用python编写的python补全插件，这个应该比较好找，但是本人不使用python。</p>
+<h3 id="自动弹出补全框"><a href="#自动弹出补全框" class="headerlink" title="自动弹出补全框"></a>自动弹出补全框</h3><p>虽然已经有了基于tags的补全，但是居然还需要手动触发，这个跟我的习惯还是不相符，于是又找到了autocomplpop插件（简称acp），去github下载然后安装。这时候我们再输入，发现已经能在输入两个字符的时候弹出补全框了，但是是基于文件的补全，再去.vimrc中加入<code>let g:acp_completeOption = &#39;.,w,b,t&#39;</code>为acp加入tags补全。</p>
+<h3 id="通过tab确认选择"><a href="#通过tab确认选择" class="headerlink" title="通过tab确认选择"></a>通过tab确认选择</h3><p>在使用vim之前用vs和vs code时留下的习惯，既然都已经折腾了这么久了，所以还是再多折腾一下用tab来确认，在网上抄改的配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">inoremap &lt;expr&gt;&lt;tab&gt; MayComplete()</span><br><span class="line">func MayComplete()</span><br><span class="line">    if(pumvisible())</span><br><span class="line">        return &quot;\&lt;cr&gt;&quot;</span><br><span class="line">    endif</span><br><span class="line">    return &quot;\&lt;tab&gt;&quot;</span><br><span class="line">endfunc</span><br></pre></td></tr></table></figure>
+<p>pumvisible()在menu显示时返回一个非0的值，也就是在显示补全菜单时按下tab就会返回enter，确认当前选择，否则就是正常tab。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/03/20/iPad%E4%B8%8A%E7%9A%84iVim%E5%AE%89%E8%A3%85%E5%8F%8A%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E9%85%8D%E7%BD%AE/" data-id="clffllezg00018pyq0jcqc4h2" data-title="iPad上的iVim安装及自动补全配置" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/20/iPad%E4%B8%8A%E7%9A%84iVim%E5%AE%89%E8%A3%85%E5%8F%8A%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E9%85%8D%E7%BD%AE/">iPad上的iVim安装及自动补全配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
