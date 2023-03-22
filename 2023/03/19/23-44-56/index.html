@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="起因由于学校对电脑没有硬性要求，所以决定试一下用iPad代替笔记本，但是需要一个代码编辑器，虽然vs code也可以但是还是想要不需要网络在本地写代码，而且还是习惯用vim，所以最后还是选择了App Store里的iVim，现在来记录一下iPad上iVim的安装和配置。 安装和基本使用首先，在App Store安装iVim，运行之后使用方法和vim相同，可以通过:ishare分享当前编辑的文件。启">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iPad上的iVim安装及自动补全配置">
+<meta property="og:url" content="http://example.com/2023/03/19/23-44-56/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="起因由于学校对电脑没有硬性要求，所以决定试一下用iPad代替笔记本，但是需要一个代码编辑器，虽然vs code也可以但是还是想要不需要网络在本地写代码，而且还是习惯用vim，所以最后还是选择了App Store里的iVim，现在来记录一下iPad上iVim的安装和配置。 安装和基本使用首先，在App Store安装iVim，运行之后使用方法和vim相同，可以通过:ishare分享当前编辑的文件。启">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-19T15:44:56.000Z">
+<meta property="article:modified_time" content="2023-03-19T16:25:30.221Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="vim">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/03/19/23-44-56/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>iPad上的iVim安装及自动补全配置 | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/19/23-44-56/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iPad上的iVim安装及自动补全配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-19 23:44:56" itemprop="dateCreated datePublished" datetime="2023-03-19T23:44:56+08:00">2023-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-20 00:25:30" itemprop="dateModified" datetime="2023-03-20T00:25:30+08:00">2023-03-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iPad/" itemprop="url" rel="index"><span itemprop="name">iPad</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>由于学校对电脑没有硬性要求，所以决定试一下用iPad代替笔记本，但是需要一个代码编辑器，虽然vs code也可以但是还是想要不需要网络在本地写代码，而且还是习惯用vim，所以最后还是选择了App Store里的iVim，现在来记录一下iPad上iVim的安装和配置。</p>
+<h2 id="安装和基本使用"><a href="#安装和基本使用" class="headerlink" title="安装和基本使用"></a>安装和基本使用</h2><p>首先，在App Store安装iVim，运行之后使用方法和vim相同，可以通过<code>:ishare</code>分享当前编辑的文件。启动iVim，默认路径在 “我的iPad &gt; iVim” 目录下，在命令模式下输入<code>:terminal</code>可以打开ivish，iVim自带的shell，可以使用一些基本的命令，可以按下tab查看可以使用的命令。</p>
+<h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>iVim自带有python3和lua，虽然带有ivish，但是ivish不能运行sh脚本，所以不能使用运行在外部shell的插件，但是能使用调用python的插件。</p>
+<p>在terminal下输入<code>ls -a</code>可以查看iVim目录下.开头的隐藏文件，例如.vim&#x2F;和之后创建的.vimrc。在terminal下输入<code>mv .vim vim</code>，让.vim目录能够通过“文件”打开，或者也可以在命令模式下输入<code>:e .</code>，然后选择.vim按下R，重命名为vim。由于iVim不带有git，所以不能通过配置插件管理器然后用<code>:PluginInstall</code>安装插件，所以我索性也没安装插件管理器，通过最原始的方法去GitHub上一个个下下来移动到vim目录，之后将vim改回.vim，重启iVim，就能加载插件了。</p>
+<p>反之，另一种安装插件的方法，将下载的插件.zip文件移到iVim目录下解压，然后在terminal下输入<code>cp -r xxx/* .vim/</code>，也可以完成插件安装，之后还能用rm -rf删除下载的插件。</p>
+<h2 id="自动补全插件"><a href="#自动补全插件" class="headerlink" title="自动补全插件"></a>自动补全插件</h2><p>大部分的插件都能通过上面的方法安装，但是我花了挺长时间弄自动补全插件的，所以特别记录一下。由于之前使用的Debian官方源带有youcompleteme，我之前用的一直都是ycm自动补全，配置参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/33046090">这里</a>。</p>
+<p>但是ycm需要clang支持，所以这里明显不能使用，于是了解到vim7.3之后内置了omni complete，于是按了ctrl+n，发现真的有基于文件内容的补全，但是omni支持tags补全，又经过一番搜索了解到可以通过ctags来生成C语言的tags。</p>
+<h3 id="在iPad上生成C语言的tags"><a href="#在iPad上生成C语言的tags" class="headerlink" title="在iPad上生成C语言的tags"></a>在iPad上生成C语言的tags</h3><p>如果手头上没有电脑，还有一个比较绕圈子的方法，App Store安装ish，<code>apk add ctags build-base</code>（换源自行百度），然后新建个目录，<code>cp /usr/include/*.h c_src</code>，然后运行<code>ctags -R  --C-kinds=+p --fields=+aS --extra=+q c_src</code>，将生成的”tags”文件移动到iVim下，创建.vim&#x2F;tags目录，将tags移动到创建的tags目录并重命名为c，然后编辑.vimrc，加入<code>set tags+=~/.vim/tags/c</code>，再按ctrl+n已经能补全C语言的函数了。</p>
+<p>其他语言的应该也可以通过添加对应语言的tags来实现补全，如果使用python的话应该能使用python编写的python补全插件，这个应该比较好找，但是本人不使用python。</p>
+<h3 id="自动弹出补全框"><a href="#自动弹出补全框" class="headerlink" title="自动弹出补全框"></a>自动弹出补全框</h3><p>虽然已经有了基于tags的补全，但是居然还需要手动触发，这个跟我的习惯还是不相符，于是又找到了autocomplpop插件（简称acp），去github下载然后安装。这时候我们再输入，发现已经能在输入两个字符的时候弹出补全框了，但是是基于文件的补全，再去.vimrc中加入<code>let g:acp_completeOption = &#39;.,w,b,t&#39;</code>为acp加入tags补全。</p>
+<h3 id="通过tab确认选择"><a href="#通过tab确认选择" class="headerlink" title="通过tab确认选择"></a>通过tab确认选择</h3><p>在使用vim之前用vs和vs code时留下的习惯，既然都已经折腾了这么久了，所以还是再多折腾一下用tab来确认，在网上抄改的配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">inoremap &lt;expr&gt;&lt;tab&gt; MayComplete()</span><br><span class="line">func MayComplete()</span><br><span class="line">    if(pumvisible())</span><br><span class="line">        return &quot;\&lt;cr&gt;&quot;</span><br><span class="line">    endif</span><br><span class="line">    return &quot;\&lt;tab&gt;&quot;</span><br><span class="line">endfunc</span><br></pre></td></tr></table></figure>
+<p>pumvisible()在menu显示时返回一个非0的值，也就是在显示补全菜单时按下tab就会返回enter，确认当前选择，否则就是正常tab。</p>
+<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>至此，iPad上的iVim就安装好了，并且配置了基于tags的C语言自动补全插件。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vim/" rel="tag"># vim</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/03/22/22-23-18/" rel="next" title="记录一个链表的实现">
+      记录一个链表的实现 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%92%8C%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">安装和基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">安装插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E6%8F%92%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">自动补全插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8iPad%E4%B8%8A%E7%94%9F%E6%88%90C%E8%AF%AD%E8%A8%80%E7%9A%84tags"><span class="nav-number">3.1.</span> <span class="nav-text">在iPad上生成C语言的tags</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%BC%B9%E5%87%BA%E8%A1%A5%E5%85%A8%E6%A1%86"><span class="nav-number">3.2.</span> <span class="nav-text">自动弹出补全框</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87tab%E7%A1%AE%E8%AE%A4%E9%80%89%E6%8B%A9"><span class="nav-number">3.3.</span> <span class="nav-text">通过tab确认选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9D%9F"><span class="nav-number">4.</span> <span class="nav-text">结束</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
