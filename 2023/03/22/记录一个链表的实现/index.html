@@ -6,16 +6,18 @@
   
   <title>记录一个链表的实现 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="title: 记录一个链表的实现date: 2023-03-22 22:23:18tags:- C语言- 数据结构前言时隔半年多没有敲代码了，既然已经在iPad上安装好了iVim，接下来就又可以敲代码了，所以就打算先搓一个最基本的数据结构——链表。 虽然很早以前就看过数据结构，但是一个真正的完整的自己用的链表我还是第一次写，以前的都是在写算法题时需要写的半成品，而且封装非常丑陋，甚至不封装，毕竟">
+  <meta name="description" content="前言时隔半年多没有敲代码了，既然已经在iPad上安装好了iVim，接下来就又可以敲代码了，所以就打算先搓一个最基本的数据结构——链表。 虽然很早以前就看过数据结构，但是一个真正的完整的自己用的链表我还是第一次写，以前的都是在写算法题时需要写的半成品，而且封装非常丑陋，甚至不封装，毕竟是一次性的代码，只要运行通过了就不会再看了。所以这次要写的，是一个完整的封装好看的链表。  准备工作在正式开始写代码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记录一个链表的实现">
 <meta property="og:url" content="http://example.com/2023/03/22/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="title: 记录一个链表的实现date: 2023-03-22 22:23:18tags:- C语言- 数据结构前言时隔半年多没有敲代码了，既然已经在iPad上安装好了iVim，接下来就又可以敲代码了，所以就打算先搓一个最基本的数据结构——链表。 虽然很早以前就看过数据结构，但是一个真正的完整的自己用的链表我还是第一次写，以前的都是在写算法题时需要写的半成品，而且封装非常丑陋，甚至不封装，毕竟">
+<meta property="og:description" content="前言时隔半年多没有敲代码了，既然已经在iPad上安装好了iVim，接下来就又可以敲代码了，所以就打算先搓一个最基本的数据结构——链表。 虽然很早以前就看过数据结构，但是一个真正的完整的自己用的链表我还是第一次写，以前的都是在写算法题时需要写的半成品，而且封装非常丑陋，甚至不封装，毕竟是一次性的代码，只要运行通过了就不会再看了。所以这次要写的，是一个完整的封装好看的链表。  准备工作在正式开始写代码">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-03-22T14:43:25.000Z">
-<meta property="article:modified_time" content="2023-03-22T14:43:26.434Z">
+<meta property="article:published_time" content="2023-03-22T14:23:18.000Z">
+<meta property="article:modified_time" content="2023-03-22T14:48:27.359Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -76,7 +78,7 @@
         <section id="main"><article id="post-记录一个链表的实现" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/03/22/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="article-date">
-  <time class="dt-published" datetime="2023-03-22T14:43:25.000Z" itemprop="datePublished">2023-03-22</time>
+  <time class="dt-published" datetime="2023-03-22T14:23:18.000Z" itemprop="datePublished">2023-03-22</time>
 </a>
     
   </div>
@@ -95,8 +97,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="title-记录一个链表的实现date-2023-03-22-22-23-18tags-C语言-数据结构"><a href="#title-记录一个链表的实现date-2023-03-22-22-23-18tags-C语言-数据结构" class="headerlink" title="title: 记录一个链表的实现date: 2023-03-22 22:23:18tags:- C语言- 数据结构"></a>title: 记录一个链表的实现<br>date: 2023-03-22 22:23:18<br>tags:<br>- C语言<br>- 数据结构</h2><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>时隔半年多没有敲代码了，既然已经在iPad上安装好了iVim，接下来就又可以敲代码了，所以就打算先搓一个最基本的数据结构——链表。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>时隔半年多没有敲代码了，既然已经在iPad上安装好了iVim，接下来就又可以敲代码了，所以就打算先搓一个最基本的数据结构——链表。</p>
 <p>虽然很早以前就看过数据结构，但是一个真正的完整的自己用的链表我还是第一次写，以前的都是在写算法题时需要写的半成品，而且封装非常丑陋，甚至不封装，毕竟是一次性的代码，只要运行通过了就不会再看了。所以这次要写的，是一个完整的封装好看的链表。</p>
 <hr>
 <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>在正式开始写代码之前还需要一些准备工作，虽然链表是个很简单的数据结构，但是在一些地方的实现上会有所不同，首先需要明确自己要写的是一个什么样的链表。我的想法是，既然不是写算法题，而是自用，那就不用死扣性能，而是要让一个链表包含尽可能多的功能，而且有可复用性，所以列出了以下几点：</p>
@@ -185,10 +186,12 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/03/22/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/" data-id="clfjsoq540003l9yq2net00tr" data-title="记录一个链表的实现" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/03/22/%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/" data-id="clfjswool0003qryq5vn63lq4" data-title="记录一个链表的实现" class="article-share-link">Share</a>
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li></ul>
+
     </footer>
   </div>
   
@@ -225,7 +228,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/" rel="tag">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li></ul>
     </div>
   </div>
 
@@ -235,7 +238,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/vim/" style="font-size: 10px;">vim</a>
+      <a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 10px;">C语言</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a>
     </div>
   </div>
 
