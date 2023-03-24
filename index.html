@@ -176,10 +176,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-03-22 22:23:18 / 修改时间：22:48:27" itemprop="dateCreated datePublished" datetime="2023-03-22T22:23:18+08:00">2023-03-22</time>
+              <time title="创建时间：2023-03-22 22:23:18" itemprop="dateCreated datePublished" datetime="2023-03-22T22:23:18+08:00">2023-03-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-24 22:43:04" itemprop="dateModified" datetime="2023-03-24T22:43:04+08:00">2023-03-24</time>
+              </span>
 
           
 
@@ -276,7 +282,24 @@
 <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">LinkListSetData</span><span class="params">(LinkList l, <span class="type">size_t</span> index, <span class="type">void</span> *data, <span class="type">size_t</span> size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">void</span> *p = <span class="built_in">LinkListGetData</span>(l, index);</span><br><span class="line">    <span class="keyword">if</span> (p == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memcpy</span>(p, data, size);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">LinkListSetDataFront</span><span class="params">(LinkList l)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">void</span> *p = <span class="built_in">LinkListGetDataFront</span>(l);</span><br><span class="line">    <span class="keyword">if</span> (p == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memcpy</span>(p, data, size);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">LinkListSetDataTail</span><span class="params">(LinkList l)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">void</span> *p = <span class="built_in">LinkListGetDataTail</span>(l);</span><br><span class="line">    <span class="keyword">if</span> (p == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memcpy</span>(p, data, size);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>至此链表结构和功能已经基本完成了，能够完成增删查改，应该已经符合一个链表的定义了。但是要想实际使用还是有一些问题，鉴于文章篇幅，这些就放在下一篇文章来实现了。</p>
+<h3 id="链表的遍历"><a href="#链表的遍历" class="headerlink" title="链表的遍历"></a>链表的遍历</h3><p>链表也是一个数组，数组最常用的一个操作应该是遍历，所以还需要实现链表的遍历。直接按索引用for循环来遍历当然也可以，但是通过索引查找数据会重复遍历很多次，性能会很差，所以最好不要通过索引遍历。当然还有可能会这样写<code>for(Node *p = l-&gt;next; p != l; p = p-&gt;next)</code>这样就不会有上面的问题，但是根据操作的规范，我们不应该直接操作结构的内部数据，应该将它当作黑箱，只使用它的接口。所以我的想法就是为节点也实现几个接口。</p>
+<p>首先应该给节点增加Next和Previous操作，但是我这个是循环链表，还需要判断指向的是不是头节点，要解决这个问题有两种方法：</p>
+<ol>
+<li>给头节点新增一个parent节点，用于保存头节点，然后将头节点的parent设为NULL，这样就可以很好的辨别头节点了，缺点是节点的成员变量从3个变成了4个，所占的空间增加了33%。</li>
+<li>Next和Previous增加一个参数，传递头节点，然后判断返回的节点不为头节点，缺点是多一个参数，而且不好看，反直觉，要是长期使用，那就不应该写得这么奇怪。</li>
+</ol>
+<p>这里我选择了第一种，增加parent节点，并且为Node新建一个头文件和c文件，将节点和链表分离，因为事到如今我觉得这个节点不再是链表的附庸了，它也有了自己的函数，和自己的作用，所以是时候把它从链表的文件里分离出来了。</p>
+<p>Node的接口也很简单，就是对每个成员变量写个Get&#x2F;Set，就完成了，因为过于简单繁琐，就不贴代码了，记得再把所有的创建节点的函数都加上parent的赋值。然后给出个用Node遍历的示范，代码如下：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(Node *p = <span class="constructor">LinkListGetFront(<span class="params">l</span>)</span>; <span class="constructor">NodeGetParent(<span class="params">p</span>)</span>; p = <span class="constructor">NodeGetNext(<span class="params">p</span>)</span>)</span><br></pre></td></tr></table></figure>
+<p>写到一半人就犯懒了，如果以后每次都写这么长一个for那人肯定会疯掉，这里面有价值的就两个东西，遍历的变量名，也就是p，还有起始位置，所以我们再写个define，代码如下：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define <span class="constructor">LinkListFor(<span class="params">p</span>,<span class="params">q</span>)</span> <span class="keyword">for</span>(Node *p = q; <span class="constructor">NodeGetParent(<span class="params">p</span>)</span>; p = <span class="constructor">NodeGetNext(<span class="params">p</span>)</span>)</span><br></pre></td></tr></table></figure>
+<p>p为循环用的变量名，q为起始位置。下面附带个反向版本的：<br>如下：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define <span class="constructor">LinkListForReverse(<span class="params">p</span>,<span class="params">q</span>)</span> <span class="keyword">for</span>(Node *p = q; <span class="constructor">NodeGetParent(<span class="params">p</span>)</span>; p = <span class="constructor">NodeGetPrevious(<span class="params">p</span>)</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="链表头保存数据大小"><a href="#链表头保存数据大小" class="headerlink" title="链表头保存数据大小"></a>链表头保存数据大小</h3><p>这个是可选的，因为突然想到，所以就加进来了。一般链表保存的都是同一种类型的数据，所以它们应该具有相同的大小（如果大小真的不同那就保存指针，指针大小都是相同的），而且链表保存的数据类型在创建时就可以确定，所以我们可以在LinkListHeader里面增加一个成员变量size来保存一个数据的大小，这样就只需要在创建链表的时候指定一次大小，往后的操作都不需要额外传入数据的大小了，这样一行的长度就可以短一些，但是需要写一个函数来获取数据的大小，因为整体比较简单，就不贴代码了，记得修改之前的插入函数和创建函数。</p>
+<hr>
+<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>至此链表结构和功能已经基本完成了，能够完成增删查改和遍历，应该就能正常使用了，后续可能会出文章改进，或者先来使用一下我的链表。</p>
 
       
     </div>
