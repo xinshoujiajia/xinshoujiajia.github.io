@@ -153,6 +153,109 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/26/00-35-42/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/26/00-35-42/" class="post-title-link" itemprop="url">算式的链表实现</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-03-26 00:35:42 / 修改时间：00:36:52" itemprop="dateCreated datePublished" datetime="2023-03-26T00:35:42+08:00">2023-03-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>既然链表已经写好了，那就需要使用一下。从以前开始我就有一个想法，把数学的算式用一个结构保存下来，并且能够对它进行一些操作，有点像以前写的什么中缀表达式后缀表达式的，但是不局限于求值，或许还能有其他的用处。</p>
+<p>首先分析一下算式的结构，我们可以很明显的发现算式是一个链式的结构，所以可以用链表模拟。一个算式里面每一个值之间的连接方式无疑就是加减乘除，但是这4种运算符有两种优先级，乘除优先于加减，然后减可以当作加上它的相反数，除可以变成乘上负一次方或者乘上一个分数，所以实际需要考虑的就是加和乘。</p>
+<p>因为计算优先级的问题，如果在一个链表里面同时包含加和乘，那会让计算变得很复杂所以我的想法是加法和乘法分别用两个链表来表示，例如$1\times 2+3\times 4$，我们可以写成3个链表，第一个链表只保存加法运算，有两个项，两个项分别是一个链表，只保存乘法运算。</p>
+<h2 id="数学对象的实现"><a href="#数学对象的实现" class="headerlink" title="数学对象的实现"></a>数学对象的实现</h2><p>因为以后是想写成像Markdown或者latex那样的数学公式的，所以除了基本运算以外，后面还会有分数和次方之类的东西，所以我们先为数学对象定义一个基类，它的成员变量暂时为一个函数指针output，即输出这个数学对象，往后不管是常数还是根号，都继承自这个基类，代码如下：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _MathObject _MathObject;</span><br><span class="line"><span class="keyword">typedef</span> _MathObject* MathObject;</span><br><span class="line"><span class="keyword">struct</span> _MathObject</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">void</span> (*<span class="keyword">output</span>) (MathObject obj);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>嗯……写得够丑了但是感觉这样MathObject更常用，然后再举例常数怎么写，代码如下：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">typedef struct</span><br><span class="line">&#123;</span><br><span class="line">	_MathObject m<span class="comment">;</span></span><br><span class="line">	int value<span class="comment">;</span></span><br><span class="line">&#125; ConstValue<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>第一个变量为_MathObject即为继承自_MathObject，value的类型其实应该用double，但是这里为了方便，还是用了int，然后我们需要从输入的字符串中构建数学对象，然后这个应该是叫什么工厂函数吧，用一个函数来调用其他的对象的构造函数，现在因为只有常数一个类型，所以肯定是调用常数的构造函数，</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">char</span> *<span class="constructor">MathObjectBuildFromstr(MathObject <span class="operator">*</span><span class="params">obj</span>, <span class="params">char</span> <span class="operator">*</span><span class="params">str</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	return <span class="constructor">ConstValueBuildFromstr(<span class="params">obj</span>, <span class="params">str</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回值为处理了数学对象之后的字符串，我想象中的构建流程是：一开始对字符串调用算式的构造函数，算式的构造函数再对字符串的每个项调用项的构造函数，项再对字符串调用数学对象的构造函数，每个构造函数都会返回它们处理过之后的字符串，直到字符串处理完。</p>
+<p>常数构造函数的操作就是从字符串当前位置读取数字，直到遇到一个非数字字符时返回，代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">char</span> *<span class="title">ConstValueBuildFromstr</span><span class="params">(MathObject *obj, <span class="type">char</span> *str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">char</span> *p = str;</span><br><span class="line">	<span class="type">int</span> value = <span class="number">0</span>;</span><br><span class="line">	ConstValue c;</span><br><span class="line">	<span class="keyword">while</span>(*p)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">isdigit</span>(*p))</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">		value = <span class="number">10</span> * value -<span class="string">&#x27;0&#x27;</span> + *p;</span><br><span class="line">		p++;</span><br><span class="line">	&#125;</span><br><span class="line">	c.m.output = ConstValueOutput;</span><br><span class="line">	c.value = value;</span><br><span class="line">	*obj = (MathObject)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(ConstValue));</span><br><span class="line">	<span class="built_in">memcpy</span>(*obj, &amp;c, <span class="built_in">sizeof</span>(ConstValue));</span><br><span class="line">	<span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出函数过于简单，就不贴代码了。</p>
+<hr>
+<h2 id="算式的形式"><a href="#算式的形式" class="headerlink" title="算式的形式"></a>算式的形式</h2><p>前面也说了，算式和项都是链表的形式，所以这里稍微懒一下：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">typedef LinkList Suanshi<span class="comment">;</span></span><br><span class="line">typedef LinkList Team<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="创建函数"><a href="#创建函数" class="headerlink" title="创建函数"></a>创建函数</h2><p>创建函数方面，因为项会有正负号，所以在创建一个TeamInfo，来保存符号，并且在创建的时候指定符号，代码如下：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">typedef <span class="keyword">struct</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">char</span> operate;</span><br><span class="line">&#125; TeamInfo;</span><br><span class="line"></span><br><span class="line">void <span class="constructor">TeamCreate(Suanshi <span class="operator">*</span><span class="params">t</span>, <span class="params">char</span> <span class="params">opt</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="constructor">LinkListCreate(<span class="params">t</span>, <span class="params">sizeof</span>(MathObject)</span>);</span><br><span class="line">	TeamInfo I;</span><br><span class="line">	<span class="module-access"><span class="module"><span class="identifier">I</span>.</span></span>operate = opt;</span><br><span class="line">	<span class="constructor">LinkListSetHeaderInfo(<span class="operator">*</span><span class="params">t</span>, &amp;I, <span class="params">sizeof</span>(I)</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算式的创建函数比较简单，就是设置size为sizeof(Team)就行了，没有什么好说的。记得再为获取Team的符号写个函数，这里不贴代码了。</p>
+<hr>
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>前面也说了，我们要解析字符串，构造算式的时候构造项，然后在构造项的时候再构造数学对象，主要是靠数学对象的构造函数来处理字符串，</p>
+<h3 id="算式的构造函数"><a href="#算式的构造函数" class="headerlink" title="算式的构造函数"></a>算式的构造函数</h3><p>首先从构造算式开始，算式的构造函数只需要调用项的构造函数来构造项，并且按照顺序保存项，代码如下：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">void <span class="constructor">SuanshiBuildFromstr(Suanshi <span class="params">s</span>, <span class="params">char</span> <span class="operator">*</span><span class="params">str</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">char</span> *p = str;</span><br><span class="line">	Team t;</span><br><span class="line">	<span class="constructor">TeamCreate(&amp;<span class="params">t</span>, <span class="operator">*</span><span class="params">p</span> <span class="operator">==</span> &#x27;-&#x27; ? &#x27;-&#x27; : 0)</span>;</span><br><span class="line">	p = <span class="constructor">TeamBuildFromstr(<span class="params">t</span>, <span class="params">p</span>)</span>;</span><br><span class="line">	<span class="constructor">LinkListInsertTail(<span class="params">s</span>, &amp;<span class="params">t</span>)</span>;</span><br><span class="line">	<span class="keyword">while</span>(*p)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(isblank(*p))</span><br><span class="line">		&#123;</span><br><span class="line">			p++;</span><br><span class="line">			continue;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="constructor">TeamCreate(&amp;<span class="params">t</span>, <span class="operator">*</span><span class="params">p</span>)</span>;</span><br><span class="line">		p++;</span><br><span class="line">		p = <span class="constructor">TeamBuildFromstr(<span class="params">t</span>, <span class="params">p</span>)</span>;</span><br><span class="line">		<span class="constructor">LinkListInsertTail(<span class="params">s</span>, &amp;<span class="params">t</span>)</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先第一个项前面只需要判段是不是负号，如果不是那就不需要符号。往后就是一直构建项，记得剔除空白字符，这里假设项和项之间是直接连接（起码我想不出还会有什么其他情况），所以就不判断p的是不是正负号，直接以当前的p作为符号。</p>
+<hr>
+<h3 id="项的构造函数"><a href="#项的构造函数" class="headerlink" title="项的构造函数"></a>项的构造函数</h3><p>项的构造是调用数学对象的构造函数，按照顺序构造数学对象，并且保存。依然要注意剔除空白字符，当遇到正负号时就说明当前项构造完了，就应该返回去算式构造函数，构造下一个项，代码如下：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">char *TeamBuildFromstr(<span class="name">Team</span> <span class="literal">t</span>, char *str)</span><br><span class="line">&#123;</span><br><span class="line">	char *p = str<span class="comment">;</span></span><br><span class="line">	MathObject obj<span class="comment">;</span></span><br><span class="line">	while(<span class="name">*p</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		if(<span class="name">isblank</span>(<span class="name">*p</span>))</span><br><span class="line">		&#123;</span><br><span class="line">			p++<span class="comment">;</span></span><br><span class="line">			continue<span class="comment">;</span></span><br><span class="line">		&#125;</span><br><span class="line">		if(<span class="name">*p</span> == &#x27;+&#x27;||*p == &#x27;-&#x27;)</span><br><span class="line">		&#123;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">		if(*p == &#x27;*&#x27;)</span><br><span class="line">		&#123;</span><br><span class="line">			p++<span class="comment">;</span></span><br><span class="line">		&#125;</span><br><span class="line">		p = MathObjectBuildFromstr(<span class="name">&amp;obj</span>, p)<span class="comment">;</span></span><br><span class="line">		LinkListInsertTail(<span class="name">t</span>, <span class="symbol">&amp;obj</span>)<span class="comment">;</span></span><br><span class="line">	&#125;</span><br><span class="line">	return p<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="输出函数"><a href="#输出函数" class="headerlink" title="输出函数"></a>输出函数</h2><p>既然构造也是链式的，那输出也应该是链式的，按照构造的顺序来输出，首先是算式的输出函数依次调用每个项的输出函数，然后在每个项再调用数学对象的输出函数。</p>
+<h3 id="算式的输出函数"><a href="#算式的输出函数" class="headerlink" title="算式的输出函数"></a>算式的输出函数</h3><p>算式的输出比较简单，为了方便看，在最后用一个puts(“”)来换行，注意我们的节点保存的是指向每个项的指针的指针，所以输出的时候记得转换一下类型，代码如下：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void <span class="built_in">SuanshiOutput</span>(Suanshi s)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">LinkListFor</span>(p,LinkListGetFront(s))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">TeamOutput</span>(*(Team*)<span class="built_in">NodeGetData</span>(p));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">puts</span>(&quot;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="项的输出函数"><a href="#项的输出函数" class="headerlink" title="项的输出函数"></a>项的输出函数</h3><p>项的输出要注意的就是，项的最前面是正负号，不是乘号，所以第一个数学对象单独输出，并输出符号，然后在后面每一个数学对象前面加上乘号，代码如下：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">void <span class="constructor">TeamOutput(Team <span class="params">t</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	Node *p = <span class="constructor">LinkListGetFront(<span class="params">t</span>)</span>;</span><br><span class="line">	MathObject obj = *(MathObject*)<span class="constructor">NodeGetData(<span class="params">p</span>)</span>;</span><br><span class="line">	putchar(<span class="constructor">TeamGetOperate(<span class="params">t</span>)</span>);</span><br><span class="line">	obj-&gt;output(obj);</span><br><span class="line">	<span class="constructor">LinkListFor(<span class="params">q</span>, LinkListGetFront(<span class="params">p</span>)</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">		obj = *(MathObject*)<span class="constructor">NodeGetData(<span class="params">q</span>)</span>;</span><br><span class="line">		obj-&gt;output(obj);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="实际使用测试"><a href="#实际使用测试" class="headerlink" title="实际使用测试"></a>实际使用测试</h2><p>现在算式的大概形式已经完成了，现在来用一段简单的代码来测试一下：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#<span class="keyword">include</span> <span class="string">&quot;Suanshi.h&quot;</span></span><br><span class="line"><span class="built_in">int</span> main<span class="literal">()</span></span><br><span class="line">&#123;</span><br><span class="line">	Suanshi s;</span><br><span class="line">	<span class="built_in">char</span> str<span class="literal">[]</span> = <span class="string">&quot;1*2+3*4&quot;</span>;</span><br><span class="line">	<span class="constructor">SuanshiCreate(&amp;<span class="params">s</span>)</span>;</span><br><span class="line">	<span class="constructor">SuanshiBuildFromstr(<span class="params">s</span>,<span class="params">str</span>)</span>;</span><br><span class="line">	<span class="constructor">SuanshiOutput(<span class="params">s</span>)</span>;</span><br><span class="line">	return <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里不出意外，输出会和我们的str一样，但是这个是已经被我们结构化保存在算式和项里面了，可以很方便的进行操作。</p>
+<hr>
+<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>到这里大概框架已经完成了，之后可以考虑一下增加更多的数学对象，还有解析和输出Markdown的数学公式，这估计会是个大工程，所以本文就先到此结束。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/22/22-23-18/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -468,7 +571,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
