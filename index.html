@@ -153,6 +153,81 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/27/12-58-55/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/27/12-58-55/" class="post-title-link" itemprop="url">在iPad上的开发环境</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-03-27 12:58:55 / 修改时间：12:59:27" itemprop="dateCreated datePublished" datetime="2023-03-27T12:58:55+08:00">2023-03-27</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="编辑器———iVim"><a href="#编辑器———iVim" class="headerlink" title="编辑器———iVim"></a>编辑器———iVim</h2><p>前文也说过，我目前手头上只有iPad，而且因为网络问题，也不好使用远程服务器上的vs code，而且没有鼠标只有蓝牙键盘，一边按键盘一边在屏幕上按来按去拖来拖去看起来会很蠢，所以我又用起了以前用过的vim。</p>
+<hr>
+<h2 id="万能的iSH"><a href="#万能的iSH" class="headerlink" title="万能的iSH"></a>万能的iSH</h2><p>iPad上不越狱的话很少有能支持本地编译的app（有几个但是都会带着一个代码编辑器），所以为了省事和一劳永逸，我直接装了iSH，一个模拟x86架构的Linux，里面可以使用gcc、git甚至nethack。</p>
+<h3 id="iSH能做什么"><a href="#iSH能做什么" class="headerlink" title="iSH能做什么"></a>iSH能做什么</h3><p>我们可以用mount -t ios . &#x2F;mnt&#x2F;path来挂载平板上的文件夹到iSH里面，所以可以在iSH内操作平板上的文件（查看.开头的文件）</p>
+<p>可以查看文件那就也可以编译文件，在iSH上安装build-base后就可以用gcc编译我们写的C源代码了，还可以用clang-format格式化代码，还可以配置git将代码push到github上，还可以用clang-format格式化代码。</p>
+<h3 id="iSH缺陷"><a href="#iSH缺陷" class="headerlink" title="iSH缺陷"></a>iSH缺陷</h3><p>至于为什么不在iSH下使用vim，因为iSH太慢了，开一个vim都要卡上几秒，而且有时候画面会错位，或者打开vim之后不显示，总之就是问题太多了，既然iPad上面有移植的iVim而且即稳定又快捷。</p>
+<p>iSH上不知道为什么不能使用gdb，所以在平板上几乎没有调试手段了，只能自己手动printf要查看的变量，然后在要打断点的地方getchar，只能这样原始的手动调试。</p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>所以平常的工作流程可能是这样的：</p>
+<ol>
+<li>在iVim上写代码</li>
+<li>在iSH上编译运行</li>
+<li>在1和2之间反复横跳</li>
+<li>如果记得的话就在iSH用clang-format格式化一下</li>
+<li>在iSH上git push</li>
+</ol>
+<p>所以整个流程看起来非常脑残，要在两个不同应用（或者说窗口）之间反复横跳。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/26/00-35-42/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -571,7 +646,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -582,7 +657,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
