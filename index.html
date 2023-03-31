@@ -153,6 +153,85 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/30/14-36-16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/30/14-36-16/" class="post-title-link" itemprop="url">对于链表的改进</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-30 14:36:16" itemprop="dateCreated datePublished" datetime="2023-03-30T14:36:16+08:00">2023-03-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-31 21:39:38" itemprop="dateModified" datetime="2023-03-31T21:39:38+08:00">2023-03-31</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>昨天在github上看到一个非常震惊的项目，<a target="_blank" rel="noopener" href="https://github.com/xunanmu/c_language_template">c_language_template</a>，用C语言实现C++那样的模板。这个让我看到了一种非常神奇的写法，用define来实现C++的模板，对于每一个实例都在一个块内具体化，然后通过块内最后一行返回对象，通过它就可以调用块内实现的具体函数。</p>
+<p>这个也让我学到了一种在C语言实现C++的类的方法。这种写法大概就是，在将公共函数和公共变量塞在一个结构体里面，私有变量和函数的实现全部塞在一个块内，块的最后一行返回那个塞满公共函数的结构体，将这个块用define包装一下，就变成了构造函数（宏）。</p>
+<p>这样写的好处：</p>
+<ol>
+<li>函数可以少写一个参数，可以像C++那样使用成员函数。</li>
+<li>用了模板之后可以省略大量的类型转换。</li>
+<li>限定了函数和变量的作用域。</li>
+</ol>
+<p>这样写的坏处：</p>
+<ol>
+<li>每个这样创建一个对象，都会实例化出很多个一样的函数，感觉上会很占用栈的空间。</li>
+<li>编译器会弹出大量的警告，好像是什么蹦床函数。</li>
+<li>由于作用域的问题，不能嵌套使用。</li>
+</ol>
+<p>总之，我觉得这样写很有意思，而且只要减少成员函数的大小，应该就没有问题了。所以我的想法是结合两种写法，我的Node依然用void * 类型的实现，函数也都是用以前的void * ，然后实例化的成员函数则是调用这些函数，同时对返回值进行类型转换，这样包装一下就可以像写C++一样写C语言了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/27/12-58-55/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -646,7 +725,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
