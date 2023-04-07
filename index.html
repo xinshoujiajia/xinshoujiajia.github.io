@@ -153,6 +153,80 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/04/07/16-25-38/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/04/07/16-25-38/" class="post-title-link" itemprop="url">在web上玩galgame</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-04-07 16:25:38 / 修改时间：16:26:10" itemprop="dateCreated datePublished" datetime="2023-04-07T16:25:38+08:00">2023-04-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天有了一个令人欣喜的发现，欣喜到足以让我写一篇博客。</p>
+<p>这几天在看在《黑客与画家》，然后看到里面说的互联网软件，这个概念现在应该很普遍，但是我也没有仔细思考过。之后我突然想到了两个东西，ONScripter和emscripten</p>
+<h2 id="ONScripter"><a href="#ONScripter" class="headerlink" title="ONScripter"></a>ONScripter</h2><p>ONScripter是用C++和SDL编写的，能够运行ONS游戏的脚本解释工具，以前高中的时候在树莓派上编译过，有一段时间也用它来玩过Clannad（的ONS移植版）。</p>
+<blockquote>
+<p>虽然我高中的时候也有手机，但是是苹果手机，这样可玩性就低了，而且花钱去买个模拟器来玩盗版游戏，看着属实是冤种（虽然我现在还是当了大冤种）。</p>
+</blockquote>
+<h2 id="emscripten"><a href="#emscripten" class="headerlink" title="emscripten"></a>emscripten</h2><p>这个不太了解，也没用过，只是听说过这个可以把C&#x2F;C++的代码编译成能在web上运行的程序，图形库也是用的SDL。</p>
+<h2 id="em-onscripter"><a href="#em-onscripter" class="headerlink" title="em-onscripter"></a>em-onscripter</h2><p>于是我联想到的第一个互联网软件，不是微软最近推出的云办公，就是那个在浏览器上使用Office然后保存到one drive的那个。而是真正的跨平台玩galgame，emscripten和ONScripter简直就是绝配，当然我这么想了之后，马上一搜索，果然还是有人想到了，github上面早就有<a target="_blank" rel="noopener" href="https://github.com/wcwac/em-onscripter">em-onscripter</a>这种东西了，虽说也省的我再多去折腾一下emscripten，但是高兴的同时还是有点失落。</p>
+<p>顺带再一查，krkr模拟器也有SDL版本，也有em版本……于是我显得更加冤种了，我居然还用树莓派下了这么多平均每个都是1G多的krkr移植版游戏，然后再用平均百来kb的网速（cloudflare的tunnel，虽然慢，但是又不是不能用）传到平板上然后用50块钱巨款（50块钱都能买一个正版打折的galgame了）买的xp3player来玩我免费下载的盗版游戏，真的是大冤种。</p>
+<h2 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h2><ol>
+<li>跨平台，只要有浏览器就能玩。</li>
+<li>游戏文件在服务器上，不需要在每台设备上都下一个1G以上的游戏文件。</li>
+<li>存档保存在服务器上，你在不同设备上玩的时候甚至不需要拷贝存档。</li>
+</ol>
+<h2 id="写在开始之前"><a href="#写在开始之前" class="headerlink" title="写在开始之前"></a>写在开始之前</h2><p>虽然但是，我们还是要考虑一下树莓派的性能，onscripter的话试过是肯定没有问题的（em编译之后的话不知道），但是krkr模拟器看起来比ons的高级多了，不知道树莓派能不能运行。</p>
+<p>然后还有第二个问题，cloudflare的网速过于不稳定，快的时候速度接近1m，慢的时候也是10几kb。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/30/14-36-16/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -726,7 +800,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
