@@ -1,0 +1,15 @@
+.fa_0_g_0 {
+    translate: 0% 50%;
+    rotate: 90deg;
+    scale: 0.707;
+}
+
+.fa_0_g_1 {
+    translate: 0% 50%;
+    rotate: -90deg;
+    scale: 0.707;
+}
+
+.fa_0_g_root_0 {
+  translate: 50% 0%;
+}

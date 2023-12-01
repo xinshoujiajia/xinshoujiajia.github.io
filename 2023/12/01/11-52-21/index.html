@@ -20,17 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="没有描述">
-<meta property="og:type" content="website">
-<meta property="og:title" content="一个博客">
-<meta property="og:url" content="http://example.com/archives/2023/11/index.html">
+  <meta name="description" content="之前偶然了解到了分形，觉得这些图形很有意思，而且含有一些计算机思维，所以我就自己写程序生成了一些图形来玩，之后我突发奇想，觉得可以把这些图形放到博客里当背景，然后就变成了现在这样。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="给博客加了个背景">
+<meta property="og:url" content="http://example.com/2023/12/01/11-52-21/index.html">
 <meta property="og:site_name" content="一个博客">
-<meta property="og:description" content="没有描述">
+<meta property="og:description" content="之前偶然了解到了分形，觉得这些图形很有意思，而且含有一些计算机思维，所以我就自己写程序生成了一些图形来玩，之后我突发奇想，觉得可以把这些图形放到博客里当背景，然后就变成了现在这样。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-01T03:52:21.000Z">
+<meta property="article:modified_time" content="2023-12-01T06:54:26.764Z">
 <meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/archives/2023/11/">
+<link rel="canonical" href="http://example.com/2023/12/01/11-52-21/">
 
 
 <script id="page-configurations">
@@ -38,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | 一个博客</title>
+  <title>给博客加了个背景 | 一个博客</title>
   
 
 
@@ -153,50 +156,91 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 2 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/01/11-52-21/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          给博客加了个背景
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-12-01 11:52:21 / 修改时间：14:54:26" itemprop="dateCreated datePublished" datetime="2023-12-01T11:52:21+08:00">2023-12-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2023</span>
+        <p>之前偶然了解到了分形，觉得这些图形很有意思，而且含有一些计算机思维，所以我就自己写程序生成了一些图形来玩，之后我突发奇想，觉得可以把这些图形放到博客里当背景，然后就变成了现在这样。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>分形就是研究无限复杂具备自相似结构的几何学，是大自然复杂表面下的内在数学秩序。</p>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>怎么做的教程后面看心情写，这里就说一下大概实现，本人也是啥都不会，都是现学现写的，所以可能写得会很不标准，有很多地方写得不好。</p>
+<p>基本知识：去菜鸟教程翻一下html和js和css的基本语法，还有svg矢量图的语法。</p>
+<h2 id="大概实现"><a href="#大概实现" class="headerlink" title="大概实现"></a>大概实现</h2><p>首先是分形的图形生成，不难看出，分形的图形都是由一个简单的图形，经过一个规则一直变换得到的，所以能想到的实现方法就是递归或者迭代，我选择的是用递归来生成，代码就先不贴了。</p>
+<p>大致思路就是通过js在网页上画svg矢量图，来展示图形，为了方便扩展，在不修改函数的情况下能够生成不同的图形，css刚好就能够做到数据和程序分离，用css来控制线条的旋转和缩放，然后用js来选择不同的css。</p>
+<p>在写好js和css之后，再去网上查怎么把js和css加到hexo的页面里面，然后不出意外就完成了。</p>
+<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>其实直接把生成的svg单独保存出来，然后直接放在博客里面当背景就好了，但是我就是想让它每次加载的时候生成，这样每次有人点进来设备都会先卡一下<span class="heimu">（之前还想过用css来做个分形旋转的动画，但是效果不太好，而且会很卡）</span>。</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-11-13T10:54:34+08:00"
-              content="2023-11-13">
-          11-13
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag"># 随笔</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/11/13/10-54-34/" itemprop="url">
-            <span itemprop="name">hello world</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/11/13/10-54-34/" rel="prev" title="hello world">
+      <i class="fa fa-chevron-left"></i> hello world
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
@@ -249,6 +293,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E6%A6%82%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">大概实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E5%B0%BE"><span class="nav-number">3.</span> <span class="nav-text">结尾</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
