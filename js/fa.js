@@ -2,7 +2,8 @@ const arr=[
     {name:"fa_0",len:"50%",index:10,root_count:1,branch_count:2},
     {name:"fa_1",len:"25%",index:6,root_count:1,branch_count:2},
     {name:"fa_2",len:"25%",index:7,root_count:4,branch_count:3},
-    {name:"fa_3",len:"25%",index:10,root_count:1,branch_count:2}
+    {name:"fa_3",len:"25%",index:10,root_count:1,branch_count:2},
+    {name:"fa_4",len:"25%",index:10,root_count:1,branch_count:2}
 ];
 const current=arr[Math.floor(arr.length*Math.random())];
 
