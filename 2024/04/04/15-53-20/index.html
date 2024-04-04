@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="服务器搭好了，就不能让它闲着没有事做，我又想起了我高中时候的童年高中当然也能算童年，那时候我在学校用着树莓派玩ONS移植版的galgame的美好岁月，刚好22年的时候看见GitHub上有个叫onsyuri的项目（作者还是国人），把ons移植到了web端，这次我就用这个项目把ons游戏全部部署到网页上，在校园网下可以点这里去看看。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在服务器上搭建我的ONS游戏站">
+<meta property="og:url" content="http://example.com/2024/04/04/15-53-20/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="服务器搭好了，就不能让它闲着没有事做，我又想起了我高中时候的童年高中当然也能算童年，那时候我在学校用着树莓派玩ONS移植版的galgame的美好岁月，刚好22年的时候看见GitHub上有个叫onsyuri的项目（作者还是国人），把ons移植到了web端，这次我就用这个项目把ons游戏全部部署到网页上，在校园网下可以点这里去看看。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-04T07:53:20.000Z">
+<meta property="article:modified_time" content="2024-04-04T08:00:20.991Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="服务器">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2024/04/04/15-53-20/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>在服务器上搭建我的ONS游戏站 | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <script type="text/javascript" src="/js/fa.js" ></script>
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/04/15-53-20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在服务器上搭建我的ONS游戏站
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-04 15:53:20 / 修改时间：16:00:20" itemprop="dateCreated datePublished" datetime="2024-04-04T15:53:20+08:00">2024-04-04</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>服务器搭好了，就不能让它闲着没有事做，我又想起了我高中时候的童年<span class="heimu">高中当然也能算童年</span>，那时候我在学校用着树莓派玩ONS移植版的galgame的美好岁月，刚好22年的时候看见GitHub上有个叫onsyuri的项目（作者还是国人），把ons移植到了web端，这次我就用这个项目把ons游戏全部部署到网页上，在校园网下可以点<a target="_blank" rel="noopener" href="http://xsjj.eu.org/ons">这里</a>去看看。</p>
+<span id="more"></span>
+
+<h2 id="onsyuri简介"><a href="#onsyuri简介" class="headerlink" title="onsyuri简介"></a>onsyuri简介</h2><p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/YuriSizuku/OnscripterYuri">onsyuri</a></p>
+<h3 id="WebAssembly"><a href="#WebAssembly" class="headerlink" title="WebAssembly"></a>WebAssembly</h3><p>说到这个就不得不说一个很神奇的技术————WebAssembly。WebAssembly简称WASM，按照我的理解就是，将其他语言编写的程序编译成能够在web上调用的二进制程序，效率方面有些文章说编译过的二进制程序比解释型语言的运行效率高，也有文章说js在有了JIT（即时编译）之后运行效率比wasm高（据说是有些参数是在运行时确定的，在那些参数确定之后就把经常调用的函数编译了，也能接近原生的效率）。不过除了效率，wasm最重要的特性还是可移植性，这才是重点，onscripter最初是C语言+SDL（一个图形库）编写的，后面国人优化的能显示中文的版本onscripter-jh是C++和SDL2（可以在编译参数里面选版本）编写。</p>
+<h3 id="emscripten"><a href="#emscripten" class="headerlink" title="emscripten"></a>emscripten</h3><p>emscripten是一个用于将C&#x2F;C++代码编译为Wasm字节码的工具链，onsyuri也是通过这个工具链将onscripter移植到web端的。我最早知道emscripten还是在PainterEngine的教程里面，其实当时我就想过或许可以把onscripter移植到web，当时还是21年，我比onsyuri的作者还早一年有这个想法，但是我能力还是不足，我直接将onscripter-jh的代码通过emscripten编译，好像也是能运行，但是每次进游戏就要下几百MB的数据包，这是我很不能接受的，后面我也在想办法解决，然后知道了懒加载，然后去看emscripten实现懒加载，试图自己修改代码实现懒加载，然后就是神坑。但是onsyuri实现了懒加载，简直是太完美了。</p>
+<h2 id="onsyuri使用"><a href="#onsyuri使用" class="headerlink" title="onsyuri使用"></a>onsyuri使用</h2><p>不会配工具链的就直接去GitHub上下载作者编译好的，以前我配过EMSDK，还是挺麻烦的，既然有现成的最好不要自己折腾了。</p>
+<ol>
+<li>下载一个ons移植版的游戏并解压</li>
+<li>下载onsyuri_web并解压</li>
+<li>将onsyuri_web里的文件全部复制到ons游戏目录内</li>
+<li>运行<code>python onsyuri_index.py</code></li>
+<li>通过浏览器打开游戏目录下的html文件，就可以在浏览器玩galgame了</li>
+</ol>
+<p>如果只是按照上面的步骤，那你一定会跟我以前一样，要在加载界面下个几百MB甚至上G的文件，非常影响体验，使用懒加载就麻烦一<span class="heimu">亿</span>点，我们需要把资源拆包，然后在运行时懒加载。</p>
+<ol>
+<li>去GitHub下载onscripter-jh</li>
+<li>安装各种依赖</li>
+<li>根据自己的平台选择Makefile文件，编译nsadec（用于拆nsa包）</li>
+<li>将编译好的nsadec复制到游戏目录下</li>
+<li>运行nsadec将所有<code>.nsa</code>拆包，这时候游戏目录下应该有很多资源文件，想提取CG和BGM的可以自行复制走。</li>
+<li>删除解压过的nsa包和nsadec</li>
+<li>运行<code>python onsyuri_index.py --lazyload</code></li>
+<li>通过浏览器运行，这时候已经加载速度快很多了，那就是使用了懒加载。</li>
+</ol>
+<p>一些可能出现的问题，如果你运行的游戏名字带有大写字母（空格会不会有问题不清楚，因为Linux下处理空格很麻烦，我先把所有的空格都换成下划线了），有可能会在运行之后出现文件系统错误，解决办法有两种：</p>
+<ol>
+<li>改游戏名，然后重新运行<code>python onsyuri_index.py --lazyload</code></li>
+<li>修改生成的<code>onsyuri_index.json</code>，将<code>gamedir</code>和<code>savedir</code>里面的大写都改成小写</li>
+</ol>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p>我拿出了我很多年前无意中找到的神奇种子，那里面有100多G的ons移植版galgame（不全是ons移植版，有些是ons再打包成了apk的，我不会处理就删了），以前我都不敢全部下载，这次我直接挂服务器上全下了！主打一个暴力。上面的步骤看起来很简单，但是即使删除部分APk的，也有150多个要处理，要是让我一个个处理，人会疯掉的，于是我又翻出我死去的bash记忆，先编写了批量解压脚本。为什么是先呢，因为这些东西的命名太他妈不规范了，到处都是空格还有各种英文标点如<code>[]()!?*</code>，这些东西bash脚本处理起来非常麻烦，我批量解压之后，先把连压缩包名都带着空格的手动解压了，然后看着150多个奇形怪状的目录陷入沉思，至少在我的认知里面，应该没有一种正则表达式能够正确的处理这堆目录了，最后我只能用vim一个个手动改名字（万物皆可vim），然后再编写bash脚本批量处理，然后丢着服务器自己处理就去睡觉了。然后早上<span class="heimu">中午</span>起来检查才发现的上面说的大写字母的问题，然后又是脚本把<code>onsyuri_index.json</code>全改小写了，之后就是手动去重了一下，然后抽样检测了一下应该没有别的问题了。</p>
+<h2 id="最终"><a href="#最终" class="headerlink" title="最终"></a>最终</h2><p>最后，我拿出了我丑丑的域名<code>xsjj.eu.org</code>，把它DNS指向了我服务器校园网IP，同时整了一下nginx，现在在校园网下可以通过我的域名访问我的博客和ons游戏站了。先声明，里面的游戏我也只玩过几个出名的，这个大合集包含但不限于“全年龄，小黄油，拔作，猎奇，神魔器”，点击需谨慎，以免受到无法承受的精神攻击。我玩完的几个觉得比较好的如下：</p>
+<ol>
+<li>CLANNAD（动画比较出名，但是游戏路线就，我不好说）</li>
+<li>Ever17（悬疑类，没有玩过这类型的应该是猜不到结局的）</li>
+<li>eden*（小短篇，故事还是很好的）</li>
+<li>G线上的魔王</li>
+<li>秽翼的尤斯蒂娅</li>
+<li>纯白交响曲</li>
+<li>水仙1+2（超小短篇）</li>
+<li><span class="heimu">美少女万华镜1（拔作警告）</span></li>
+<li><span class="heimu">妹调（神魔器警告，拔作警告，我都不想说我玩过这个）</span></li>
+<li><span class="heimu">沙耶之歌（神魔器警告，画面会造成精神攻击，但是故事挺好）</span></li>
+<li><span class="heimu">美好的每一天（神魔器警告，我他妈吹爆）</span></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"># 服务器</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/04/02/23-30-44/" rel="prev" title="基地电脑复活计划">
+      <i class="fa fa-chevron-left"></i> 基地电脑复活计划
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#onsyuri%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">onsyuri简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#WebAssembly"><span class="nav-number">1.1.</span> <span class="nav-text">WebAssembly</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emscripten"><span class="nav-number">1.2.</span> <span class="nav-text">emscripten</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#onsyuri%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">onsyuri使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%BB%88"><span class="nav-number">4.</span> <span class="nav-text">最终</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
