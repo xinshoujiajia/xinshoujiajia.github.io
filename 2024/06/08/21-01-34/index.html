@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="经过初步测试，通过ipfs索引文件，在浏览器上玩ons游戏貌似是可行的，虽然还存在一些问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过ipfs+onsyuri在浏览器上玩ons游戏">
+<meta property="og:url" content="http://example.com/2024/06/08/21-01-34/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="经过初步测试，通过ipfs索引文件，在浏览器上玩ons游戏貌似是可行的，虽然还存在一些问题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2024/06/08/21-01-34/17177451400370.png">
+<meta property="og:image" content="http://example.com/2024/06/08/21-01-34/17177454826866.png">
+<meta property="og:image" content="http://example.com/2024/06/08/21-01-34/17177457398454.png">
+<meta property="og:image" content="http://example.com/2024/06/08/21-01-34/17177458306879.png">
+<meta property="og:image" content="http://example.com/2024/06/08/21-01-34/17177458822960.png">
+<meta property="og:image" content="http://example.com/2024/06/08/21-01-34/17178508861307.png">
+<meta property="og:image" content="http://example.com/2024/06/08/21-01-34/17178509611405.png">
+<meta property="article:published_time" content="2024-06-08T13:01:34.000Z">
+<meta property="article:modified_time" content="2024-06-08T13:13:52.281Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="ONS">
+<meta property="article:tag" content="IPFS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2024/06/08/21-01-34/17177451400370.png">
+
+<link rel="canonical" href="http://example.com/2024/06/08/21-01-34/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>通过ipfs+onsyuri在浏览器上玩ons游戏 | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <script type="text/javascript" src="/js/fa.js" ></script>
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/08/21-01-34/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          通过ipfs+onsyuri在浏览器上玩ons游戏
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-06-08 21:01:34 / 修改时间：21:13:52" itemprop="dateCreated datePublished" datetime="2024-06-08T21:01:34+08:00">2024-06-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>经过初步测试，通过ipfs索引文件，在浏览器上玩ons游戏貌似是可行的，虽然还存在一些问题。</p>
+<span id="more"></span>
+
+<h2 id="大致原理"><a href="#大致原理" class="headerlink" title="大致原理"></a>大致原理</h2><ol>
+<li>onsyuri的web版本可以通过文件索引和url懒加载游戏资源文件。</li>
+<li>ipfs可以通过网关加文件的cid获取文件</li>
+</ol>
+<p>结合上面两点，能够有一种神奇的效果，将游戏的资源文件上传到ipfs，将每个文件的<code>cid</code>写到<code>onsyuri_index.json</code>内对应的<code>url</code>上，就可以通过ipfs索引游戏文件，并且能够分布式的扩散到其他节点，能够自然的完成游戏的传播与分享。</p>
+<h2 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h2><p>在开始之前先准备好以下东西：</p>
+<ul>
+<li>ipfs desktop</li>
+<li>onsyuri.wasm</li>
+<li>onsyuri.js</li>
+<li>onsyuri.html</li>
+<li>onsyuri_index.py</li>
+<li>一个ons的游戏</li>
+</ul>
+<p>前往ipfs的<a target="_blank" rel="noopener" href="https://github.com/ipfs/ipfs-desktop/releases">github发布页</a>上下载对应系统的安装包并安装，windows的是exe结尾，具体使用可以在网上多搜索，这不是本文的重点，不详细说明。</p>
+<p>onsyuri同理，<a target="_blank" rel="noopener" href="https://github.com/YuriSizuku/OnscripterYuri/releases">发布页</a>下载web版本之后解压，或者自行编译。</p>
+<h2 id="明确目标"><a href="#明确目标" class="headerlink" title="明确目标"></a>明确目标</h2><p>网页运行的流程大概是，先在html文件里面加载了js胶水代码，js胶水代码加载了wasm文件，之后加载json索引文件，在游戏运行的时候通过索引加载游戏的资源文件。</p>
+<p>我们要把这些移植到ipfs上，那就要把所有通过url获取文件的方式全部改成通过cid获取。</p>
+<p>值得注意的是，cid是根据文件内容计算出来的，在生成cid之后就不要修改文件的内容，如果修改了文件那就要重新上传并使用新的cid，以及一定要注意修改的顺序。</p>
+<h2 id="修改html用get方式传入index-json"><a href="#修改html用get方式传入index-json" class="headerlink" title="修改html用get方式传入index.json"></a>修改html用get方式传入index.json</h2><p>首先打开<code>onsyuri.html</code>在文件开头找到</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">onsyuri_js</span>=<span class="string">&quot;onsyuri.js&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">onsyuri_index</span>=<span class="string">&quot;onsyuri_index.json&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这是通过在<code>meta</code>设置文件名之后在这个位置</p>
+<p><img src="/2024/06/08/21-01-34/17177451400370.png"><br>在这里确定的文件url。</p>
+<p>因为每个游戏的index都不一样，如果为每个游戏都上传一个html，我认为是很没有必要的，所以我决定把这个变成一个通用的模拟器页面，通过get传参的方式传入index。我js不太会，以下是网上找的获取get参数的方法，如果有更好的方法也可以更改：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">GetQueryString</span>(<span class="params">name</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> reg=<span class="keyword">new</span> <span class="title class_">RegExp</span>(<span class="string">&quot;(^|&amp;)&quot;</span>+name+<span class="string">&quot;=([^&amp;]*)(&amp;|$)&quot;</span>);</span><br><span class="line">    <span class="keyword">var</span> r=<span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">search</span>.<span class="title function_">substr</span>(<span class="number">1</span>).<span class="title function_">match</span>(reg) ;</span><br><span class="line">    <span class="keyword">if</span>(r!=<span class="literal">null</span>)<span class="keyword">return</span> <span class="built_in">unescape</span>(r[<span class="number">2</span>]);<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之后更改获取index的代码如下：</p>
+<p><img src="/2024/06/08/21-01-34/17177454826866.png"></p>
+<p>之后在进入模拟器页面时加上<code>?index=onsyuri_index.json</code>或者自己的json的url即可。</p>
+<h2 id="修改js"><a href="#修改js" class="headerlink" title="修改js"></a>修改js</h2><p><code>onsyuri.js</code>文件主要是用来加载<code>onsyuri.wasm</code>的，而wasm没有任何依赖，可以直接上传ipfs，然后复制cid</p>
+<p><img src="/2024/06/08/21-01-34/17177457398454.png"></p>
+<p>之后打开js，这个生成的胶水代码完全没有格式化，直接用查找替换将<code>onsyuri.wasm</code>替换成上面的cid</p>
+<p><img src="/2024/06/08/21-01-34/17177458306879.png"></p>
+<p>这时候这个胶水文件就完成了，可以上传了</p>
+<p><img src="/2024/06/08/21-01-34/17177458822960.png"></p>
+<h2 id="最终修改html"><a href="#最终修改html" class="headerlink" title="最终修改html"></a>最终修改html</h2><p>胶水代码的url也是在<code>meta</code>里面设置的，修改为cid</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">onsyuri_js</span>=<span class="string">&quot;QmQq3UxfKDBsD5gGMy3NK7yZFEjSmxPG2KaxPKKH3imHFF&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这时候，html和js和wasm已经完全耦合在一起了，除了html，修改其中任何一个文件，都要按照上面的顺序修改并重新上传这3个文件，如果要修改，请确保自己神志清醒，知道自己在干什么。</p>
+<h2 id="游戏文件上传和生成索引"><a href="#游戏文件上传和生成索引" class="headerlink" title="游戏文件上传和生成索引"></a>游戏文件上传和生成索引</h2><p>建议拆包并开启懒加载，以获取最佳体验。不过应该是我多虑了，游戏资源拆包之后可能会生成上万个文件，大多是语音和序列帧动画等数量极多的文件，不知道ipfs能够索引的最大文件数量是多大，不过这么长的哈希，应该是不会冲突了吧<span class="heimu">即使我上传100G大合集应该也不会吧</span>。</p>
+<p>拆包需要自行编译nsadec或者用其他软件拆包，这里不多介绍。计算cid的方法，我也不太懂哈希，之前调库瞎搞搞了一晚上都没算出跟上传的一样的，所以不要管怎么计算cid了，从调库变成系统调用<code>ipfs</code>，如果是使用的ipfs desktop，在设置勾上“控制台”</p>
+<p>修改<code>onsyuri_index.py</code>，注意，以下并非规范操作，且不知道会有什么其他影响，谨慎使用</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">make_filelist</span>(<span class="params">inpath, urlbase</span>):</span><br><span class="line">    files = []</span><br><span class="line">    <span class="keyword">for</span> _root, _dirs, _files <span class="keyword">in</span> os.walk(inpath):</span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> _files:</span><br><span class="line">            path = os.path.join(_root, file)</span><br><span class="line">            relpath = os.path.relpath(path, inpath).replace(<span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">            <span class="comment">#url = urlbase + relpath if urlbase!=&quot;&quot; else &quot;&quot;</span></span><br><span class="line">            url=os.popen(<span class="string">f&quot;ipfs add -nq \’<span class="subst">&#123;path&#125;</span>\’&quot;</span>).read()[:-<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">if</span> url==<span class="string">&quot;&quot;</span>: files.append(&#123;<span class="string">&quot;path&quot;</span>: relpath&#125;)</span><br><span class="line">            <span class="keyword">else</span> :files.append(&#123;<span class="string">&quot;path&quot;</span>: relpath, <span class="string">&quot;url&quot;</span>: url&#125;)</span><br><span class="line">    <span class="keyword">return</span> files</span><br></pre></td></tr></table></figure>
+<p>path的必须要用引号包围，有一些文件命名不规范，名字里面带有空格。</p>
+<p><code>-n</code>的参数是不上传只计算哈希，如果要顺便上传就去掉<code>-n</code>，只保留<code>-q</code>。</p>
+<p><code>[:-1]</code>是去掉行末换行。</p>
+<p>最后使用<code>ipfs add </code>上传游戏文件和<code>onsyuri_index.json</code>就完成了，记得记下<code>onsyuri_index.json</code>的cid。</p>
+<h2 id="测试使用"><a href="#测试使用" class="headerlink" title="测试使用"></a>测试使用</h2><p>ipfs公共网关（如<code>https://ipfs.io</code>）都位于国外，因为一些网络原因，我们的节点一般是不能和公共网关连接的，所以我们的游戏资源可能无法同步到公共网关（其实也可以，但是需要很久），所以最好使用自己节点的网关来访问。使用方法为：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(ipfs网关)<span class="regexp">/ipfs/</span>(onsyuri.html的cid)?index=(对应游戏的onsyuri_index.json的cid)</span><br></pre></td></tr></table></figure>
+<p>用我自己的举个例子：</p>
+<ul>
+<li>本地ipfs网关为<code>127.0.0.1:8080</code></li>
+<li>onsyuri.html的cid为<code>QmX6UfTaWxiKfaPh9PQ59ExACboGr9TUvCs3pVtMcExsJj</code></li>
+<li>游戏的onsyuri_index.json的cid为<code>Qmf9rq18AMbgsBiCwmrCNxxsnbsk3BLBwT47i3h1UfC6UR</code></li>
+</ul>
+<p>那这个使用的链接应为</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8080</span><span class="regexp">/ipfs/</span>QmX6UfTaWxiKfaPh9PQ59ExACboGr9TUvCs3pVtMcExsJj?index=Qmf9rq18AMbgsBiCwmrCNxxsnbsk3BLBwT47i3h1UfC6UR</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="/2024/06/08/21-01-34/17178508861307.png"></p>
+<p>用公共网关也可以<span class="heimu">但是卡得几乎不能玩</span></p>
+<p><img src="/2024/06/08/21-01-34/17178509611405.png"></p>
+<p>如果要分享给别人玩，目前没有什么好的方法，只能让对方也装上ipfs desktop，使用自己的节点来访问，国内节点之间连接的速度还是可以接受的。</p>
+<p>如果将来使用这种方式的人多了，资源终于缓存到公共网关了，那全世界的人就都能够通过公共网关流畅的运行了。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ONS/" rel="tag"># ONS</a>
+              <a href="/tags/IPFS/" rel="tag"># IPFS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/06/06/10-17-50/" rel="prev" title="伟大设想">
+      <i class="fa fa-chevron-left"></i> 伟大设想
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E8%87%B4%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">大致原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">前置条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%8E%E7%A1%AE%E7%9B%AE%E6%A0%87"><span class="nav-number">3.</span> <span class="nav-text">明确目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9html%E7%94%A8get%E6%96%B9%E5%BC%8F%E4%BC%A0%E5%85%A5index-json"><span class="nav-number">4.</span> <span class="nav-text">修改html用get方式传入index.json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9js"><span class="nav-number">5.</span> <span class="nav-text">修改js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E4%BF%AE%E6%94%B9html"><span class="nav-number">6.</span> <span class="nav-text">最终修改html</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%B8%E6%88%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%92%8C%E7%94%9F%E6%88%90%E7%B4%A2%E5%BC%95"><span class="nav-number">7.</span> <span class="nav-text">游戏文件上传和生成索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E4%BD%BF%E7%94%A8"><span class="nav-number">8.</span> <span class="nav-text">测试使用</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
