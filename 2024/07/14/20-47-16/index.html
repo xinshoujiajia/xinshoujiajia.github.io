@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="最近刚认识了函数式编程，觉得这个东西很神奇，我对于编程的思想之类的东西还是很感兴趣的，刚好找到了一本合适的书就叫《C++函数式编程》，作者是[塞尔维亚]伊凡·库奇。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用C++学习函数式编程（一）">
+<meta property="og:url" content="http://example.com/2024/07/14/20-47-16/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="最近刚认识了函数式编程，觉得这个东西很神奇，我对于编程的思想之类的东西还是很感兴趣的，刚好找到了一本合适的书就叫《C++函数式编程》，作者是[塞尔维亚]伊凡·库奇。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2024/07/14/20-47-16/17208943079976.jpg">
+<meta property="og:image" content="http://example.com/2024/07/14/20-47-16/17209613295923.jpg">
+<meta property="article:published_time" content="2024-07-14T12:47:16.000Z">
+<meta property="article:modified_time" content="2024-07-14T12:57:51.830Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="函数式编程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2024/07/14/20-47-16/17208943079976.jpg">
+
+<link rel="canonical" href="http://example.com/2024/07/14/20-47-16/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>用C++学习函数式编程（一） | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <script type="text/javascript" src="/js/fa.js" ></script>
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/07/14/20-47-16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          用C++学习函数式编程（一）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-07-14 20:47:16 / 修改时间：20:57:51" itemprop="dateCreated datePublished" datetime="2024-07-14T20:47:16+08:00">2024-07-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近刚认识了函数式编程，觉得这个东西很神奇，我对于编程的思想之类的东西还是很感兴趣的，刚好找到了一本合适的书就叫《C++函数式编程》，作者是[塞尔维亚]伊凡·库奇。</p>
+<span id="more"></span>
+
+<h2 id="为什么要学习函数式编程"><a href="#为什么要学习函数式编程" class="headerlink" title="为什么要学习函数式编程"></a>为什么要学习函数式编程</h2><p>很认同作者第一页的一句话，</p>
+<blockquote>
+<p>假如只有一把锤子，那么很可能把所有的问题都看作钉子。反过来也是一样，如果碰到一个钉子，就会把手头的任何工具当作锤子。</p>
+</blockquote>
+<p>我也认为学习编程的乐趣就是学到更多的解决问题的方法，或者说是巧妙的，优雅的解决方法。而且学习不同的编程方法，也是一种思维方式上的改变，能够让我们用不同的方式来思考问题，甚至是用不同的方式来认识世界和描述世界。</p>
+<h2 id="什么是函数式编程"><a href="#什么是函数式编程" class="headerlink" title="什么是函数式编程"></a>什么是函数式编程</h2><p>函数式编程的主要思想是：不应该关注某些东⻄应该如何工作，而应该关注它应该做什么。</p>
+<p>我的理解就是我们需要关注的是它的目的，一个函数是把什么输入变成了什么输出，而不是关注它如何实现的。</p>
+<p>函数式编程的核心思想是纯函数，纯函数满足两个特点</p>
+<ol>
+<li>只使用而不修改传递给它的实参。</li>
+<li>相同实参多次调用将得到相同的结果，无副作用。</li>
+</ol>
+<p>不过这在计算机上是不可能实现的，所以书上放宽了定义，只要没有可见副作用，看不到执行痕迹，就叫纯函数。</p>
+<h2 id="函数式编程的优势"><a href="#函数式编程的优势" class="headerlink" title="函数式编程的优势"></a>函数式编程的优势</h2><ol>
+<li>没有副作用，可以并行化</li>
+<li>代码简洁易读</li>
+</ol>
+<p>其实按照一般文章，优势应该是放在为什么里面的，而且按照是为怎的顺序，应该先说是什么再说为什么，但是这是我的文章，我是先有了想学的理由，才了解是什么。学想东西可以有很多种理由，并不一定是因为知道它有什么优势所以才学，而且我也没有过多关注它的优势，我学习它只是想写出更加优美而巧妙的代码。</p>
+<h2 id="如何进行函数式编程"><a href="#如何进行函数式编程" class="headerlink" title="如何进行函数式编程"></a>如何进行函数式编程</h2><p>首先，我也认为我们应该尽量使用STL提供的算法，毕竟是经过标准委员会的审核的，无副作用且高效的，且未来标准库继续优化也能够给使用标准库编写的程序带来优化。</p>
+<p>先来认识几个常用的高阶函数。</p>
+<h3 id="变换函数，transform"><a href="#变换函数，transform" class="headerlink" title="变换函数，transform"></a>变换函数，transform</h3><p><code>transform</code>，接受四个参数，两个输入迭代器、一个输出迭代器和一个变换函数，将一对迭代器限定的范围上的每个元素应用变换函数的结果复制到输出迭代器上。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">str_len</span><span class="params">(string a)</span></span>&#123;<span class="keyword">return</span> a.<span class="built_in">size</span>();&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">transform</span>(<span class="built_in">istream_iterator</span>&lt;string&gt;(cin)</span><br><span class="line">    ,<span class="built_in">istream_iterator</span>&lt;string&gt;()</span><br><span class="line">    ,<span class="built_in">ostream_iterator</span>&lt;<span class="type">int</span>&gt;(cout,<span class="string">&quot; &quot;</span>)</span><br><span class="line">    ,str_len);</span><br></pre></td></tr></table></figure>
+<p>懒得想数据还有分配空间了，所以直接用了标准输入输出来举例子，顺便给没见过这种写法的人扩展一下见识，输入输出迭代器还可以这样用。</p>
+<p>上面这个函数的意思就是，对于标准输入流读取的每个字符串获取长度，然后输出。</p>
+<h3 id="折叠函数，accumulate"><a href="#折叠函数，accumulate" class="headerlink" title="折叠函数，accumulate"></a>折叠函数，accumulate</h3><p><code>accumulate</code>接受4个参数，两个输入迭代器，一个初始值和一个二元谓词函数。这个函数非常有意思，可以实现很多有意思的事情。</p>
+<p>它的流程大概是，将初始值作为二元谓词的第一个参数，第一个元素作为第二个参数，进行第一次谓词操作，之后将返回值作为下一次操作的第一个参数，元素作为第二个参数，以此类推，书上有个很好理解的图，</p>
+<p><img src="/2024/07/14/20-47-16/17208943079976.jpg"></p>
+<p>正向迭代器是左结合，如果想要实现右结合就使用反向迭代器。这个东西的使用方法取决于想象力，我看见这个东西的时候顿时就想通了如何用函数式编程来写动态规划了。</p>
+<h3 id="过滤函数，filter"><a href="#过滤函数，filter" class="headerlink" title="过滤函数，filter"></a>过滤函数，filter</h3><p>一个好消息和一个坏消息，C++没有叫<code>filter</code>的函数，跟它功能相似的叫<code>copy_if</code>，但是好消息是，C++20的标准大多已经完善了，可以用<code>range</code>了，可以用管道来组合，比之前的用函数组合的方便很多，而且节省了中间变量。</p>
+<p><code>copy_if</code>接受四个参数，两个输入迭代器、一个输出迭代器和一个一元谓词，将一对迭代器限定的范围上的每个元素应用一元谓词，满足的元素复制到输出迭代器上。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">copy_if</span>(<span class="built_in">istream_iterator</span>&lt;<span class="type">int</span>&gt;(cin)</span><br><span class="line">    ,<span class="built_in">istream_iterator</span>&lt;<span class="type">int</span>&gt;()</span><br><span class="line">    ,<span class="built_in">ostream_iterator</span>&lt;<span class="type">int</span>&gt;(cout,<span class="string">&quot; &quot;</span>)</span><br><span class="line">    ,[](<span class="type">int</span> x)&#123;<span class="keyword">return</span> x&gt;<span class="number">5</span>;&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="组合使用"><a href="#组合使用" class="headerlink" title="组合使用"></a>组合使用</h3><p>函数式编程有意思的地方就是，你可以通过组合高阶函数来实现算法，就像搭积木一样，接下来就是实战使用了。</p>
+<h2 id="作业实战"><a href="#作业实战" class="headerlink" title="作业实战"></a>作业实战</h2><p>书上第二章的课后习题，写一个函数式的插入排序。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">order_insert</span><span class="params">(vector&lt;<span class="type">int</span>&gt;A,<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    A.<span class="built_in">insert</span>(<span class="built_in">lower_bound</span>(A.<span class="built_in">begin</span>(),A.<span class="built_in">end</span>(),x),x);</span><br><span class="line">    <span class="keyword">return</span> A;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">insert_sort</span><span class="params">(vector&lt;<span class="type">int</span>&gt;A)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">accumulate</span>(A.<span class="built_in">begin</span>(),A.<span class="built_in">end</span>(),<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(),order_insert);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个的大致流程就是，将每一个元素，在有序表中找到它应该在的位置然后进行有序插入。这里我还无意中实现了一个时间复杂度$O(n\ln n)$的插入排序（如果任意位置插入的时间复杂度是$O(1)$的话），这里关键就是<code>lower_bound</code>是二分查找实现的在有序容器中查找小于x的边界，时间复杂度是$O(\ln n)$。</p>
+<p>扩展一下我之前说的动态规划的写法，来整点有意思的花活，一行流。</p>
+<p>leetcode第64题，最短路径和，经典二维动规，不过我写的不够纯粹，有一个lambda里面不是直接return的。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minPathSum</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">accumulate</span>(grid.<span class="built_in">begin</span>(),grid.<span class="built_in">end</span>(),[&amp;grid]&#123;vector <span class="built_in">A</span>(grid[<span class="number">0</span>].<span class="built_in">size</span>(),numeric_limits&lt;<span class="type">int</span>&gt;::<span class="built_in">max</span>());A[<span class="number">0</span>]=<span class="number">0</span>;<span class="keyword">return</span> <span class="built_in">move</span>(A);&#125;(),[](vector&lt;<span class="type">int</span>&gt;&amp;&amp;p,vector&lt;<span class="type">int</span>&gt;&amp;c)&#123;<span class="keyword">return</span> <span class="built_in">move</span>(<span class="built_in">accumulate</span>(c.<span class="built_in">cbegin</span>(),c.<span class="built_in">cend</span>(),pair&#123;pair&#123;p[<span class="number">0</span>],p.<span class="built_in">cbegin</span>()&#125;,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;()&#125;,[](<span class="keyword">auto</span>&amp;&amp;P,<span class="keyword">auto</span>&amp;x)&#123;<span class="keyword">return</span> pair&#123;pair&#123;P.second.<span class="built_in">emplace_back</span>(x+<span class="built_in">min</span>(P.first.first,*P.first.second)),P.first.second+<span class="number">1</span>&#125;,<span class="built_in">move</span>(P.second)&#125;;&#125;).second);&#125;).<span class="built_in">back</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>提交结果，</p>
+<p><img src="/2024/07/14/20-47-16/17209613295923.jpg"></p>
+<p>原本的时间和内存过于惨不忍睹了，我只好手动使用move还有引用来优化了一下，让它看起来不会太难看。</p>
+<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>折叠函数的管道版本在C++23也进入标准库了，不过我还没能用上，之后去找新版本的编译器来试一下。下一篇文章会介绍一些算法库里面的函数。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" rel="tag"># 函数式编程</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/07/11/11-20-27/" rel="prev" title="记录RAX30-V1.0.7.78固件的逆向（一）">
+      <i class="fa fa-chevron-left"></i> 记录RAX30-V1.0.7.78固件的逆向（一）
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">为什么要学习函数式编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">什么是函数式编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-number">3.</span> <span class="nav-text">函数式编程的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">如何进行函数式编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E6%8D%A2%E5%87%BD%E6%95%B0%EF%BC%8Ctransform"><span class="nav-number">4.1.</span> <span class="nav-text">变换函数，transform</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%98%E5%8F%A0%E5%87%BD%E6%95%B0%EF%BC%8Caccumulate"><span class="nav-number">4.2.</span> <span class="nav-text">折叠函数，accumulate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E5%87%BD%E6%95%B0%EF%BC%8Cfilter"><span class="nav-number">4.3.</span> <span class="nav-text">过滤函数，filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E4%BD%BF%E7%94%A8"><span class="nav-number">4.4.</span> <span class="nav-text">组合使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E4%B8%9A%E5%AE%9E%E6%88%98"><span class="nav-number">5.</span> <span class="nav-text">作业实战</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E5%B0%BE"><span class="nav-number">6.</span> <span class="nav-text">结尾</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
