@@ -10,44 +10,21 @@ function intersection(A,B) {
   return A&&B;
 }
 
+let varMap = {
+  A: 0,
+  B: 0,
+  C: 0,
+  D: 0
+};
+
 let selectList = [];
-let strMap = new Map();
 let varName = [];
 let funcList = [];
-let varMap = {
-  A:0,
-  B:0,
-  C:0,
-  D:0
-};
 
 selectList.push(document.getElementById('A'));
 selectList.push(document.getElementById('B'));
 selectList.push(document.getElementById('C'));
 selectList.push(document.getElementById('D'));
-
-strMap.set("补","complement");
-strMap.set("并","union");
-strMap.set("交","intersection");
-strMap.set("A","varMap.A");
-strMap.set("B","varMap.B");
-strMap.set("C","varMap.C");
-strMap.set("D","varMap.D");
-
-// 定义一个函数，用于根据Map替换字符串
-function replaceWithMap(inputString) {
-  // 将输入字符串克隆一下，避免直接修改原始字符串
-  let resultString = inputString;
-
-  // 遍历Map对象
-  for (let [key, value] of strMap.entries()) {
-    // 使用正则表达式确保全局替换所有出现的key
-    const regex = new RegExp(key, 'g');
-    resultString = resultString.replace(regex, value);
-  }
-
-  return resultString;
-}
 
 function recursion(index = 0) {
   if(index == varName.length){
@@ -89,11 +66,6 @@ createTextBoxBtn.addEventListener('click', () => {
   const inputContainer = document.createElement('div');
   inputContainer.className = 'input-container';
 
-  // 创建一个新的文本框元素
-  const textBox = document.createElement('input');
-  textBox.type = 'text'; // 设置类型为文本
-  textBox.placeholder = '输入表达式...'; // 设置占位符
-
   // 创建一个新的删除按钮元素
   const deleteBtn = document.createElement('button');
   deleteBtn.textContent = '删除';
@@ -106,8 +78,8 @@ createTextBoxBtn.addEventListener('click', () => {
   });
 
   // 将文本框和删除按钮添加到容器中
-  inputContainer.appendChild(textBox);
   inputContainer.appendChild(deleteBtn);
+  createSelect(inputContainer);
 
   // 将整个容器添加到主容器中
   textBoxContainer.appendChild(inputContainer);
@@ -120,8 +92,6 @@ let table;
 
 // 添加按钮点击事件监听器
 updateBtn.addEventListener('click', () => {
-  const inputBoxes = textBoxContainer.querySelectorAll('input[type="text"]');
-  
   varName = [];
   selectList.forEach(select => {
     if (select.value == 'x') {
@@ -141,15 +111,12 @@ updateBtn.addEventListener('click', () => {
   th.appendChild(document.createTextNode(varName.join('\t')));
   headerRow.appendChild(th);
   
-  
+  const inputBoxes = textBoxContainer.childNodes;
   funcList = [];
-  
   inputBoxes.forEach(box => {
-    const rawString = box.value;
-    const funString = replaceWithMap(rawString);
-    const func = new Function(`return ${funString};`);
+    const func = analysis(box);
     const th = document.createElement('th');
-    th.appendChild(document.createTextNode(rawString));
+    th.appendChild(document.createTextNode(getText(box)));
     headerRow.appendChild(th);
     funcList.push(func);
   });
@@ -159,3 +126,140 @@ updateBtn.addEventListener('click', () => {
   tableContainer.appendChild(table);
   recursion();
 });
+
+function createSelect(parent) {
+  const elem = document.createElement('select');
+  const options = [
+  { value: 'A', text: 'A' },
+  { value: 'B', text: 'B' },
+  { value: 'C', text: 'C' },
+  { value: 'D', text: 'D' },
+  { value: 'bu', text: '补' },
+  { value: 'bin', text: '并' },
+  { value: 'jiao', text: '交' }
+  ];
+  
+  options.forEach(option => {
+    const opt = document.createElement('option');
+    opt.value = option.value;
+    opt.textContent = option.text;
+    elem.appendChild(opt);
+  });
+  
+  elem.addEventListener('change',function() {
+    const parentElement = elem.parentElement;
+    //console.log(parentElement.querySelector('> .para1'));
+    let para1 = null;//parentElement.querySelector('> .para1');
+    let para2 = null;//parentElement.querySelector('> .para2');
+    parentElement.childNodes.forEach(child =>{
+      if(child.className=='para1')para1=child;
+      if(child.className=='para2')para2=child;
+    });
+    switch (elem.value) {
+      case 'bu':
+        if(!para1){
+          para1 = document.createElement('span');
+          para1.className = 'para1';
+          createSelect(para1);
+          parentElement.appendChild(document.createTextNode('('));
+          parentElement.appendChild(para1);
+          parentElement.appendChild(document.createTextNode(')'));
+        }
+        if(para2){
+          parentElement.removeChild(para2);
+        }
+        break;
+      case 'bin':  
+      case 'jiao':
+        if (!para1) {
+          para1 = document.createElement('span');
+          para1.className = 'para1';
+          createSelect(para1);
+          parentElement.appendChild(document.createTextNode('('));
+          parentElement.appendChild(para1);
+          parentElement.appendChild(document.createTextNode(','));
+        }
+        if (!para2) {
+          para2 = document.createElement('span');
+          para2.className = 'para2';
+          createSelect(para2);
+          parentElement.appendChild(para2);
+          parentElement.appendChild(document.createTextNode(')'));
+        }
+        break;
+      
+      default:
+        if(para1){
+          parentElement.removeChild(para1);
+        }
+        if(para2){
+          parentElement.removeChild(para2);
+        }
+    }
+  });
+  
+  parent.appendChild(elem);
+}
+
+function analysis(parent){
+  let select = parent.querySelector('select');
+  let str = select.value;
+  
+  let para1 = null;
+  let para2 = null;
+  let v1 = null;
+  let v2 = null;
+  
+  parent.childNodes.forEach(child => {
+    if (child.className == 'para1') para1 = child;
+    if (child.className == 'para2') para2 = child;
+  });
+  
+  if(para1){
+    v1 = analysis(para1);
+  }
+  if(para2){
+    v2 = analysis(para2);
+  }
+  switch(str){
+    case 'bu':
+      return ()=>complement(v1());
+    case 'bin':
+      return ()=>union(v1(),v2());
+    case 'jiao':
+      return ()=>intersection(v1(),v2());
+    default:
+      return ()=>varMap[str];
+  }
+}
+function getText(parent) {
+  let select = parent.querySelector('select');
+  let str = select.value;
+
+  let para1 = null;
+  let para2 = null;
+  let v1 = null;
+  let v2 = null;
+
+  parent.childNodes.forEach(child => {
+    if (child.className == 'para1') para1 = child;
+    if (child.className == 'para2') para2 = child;
+  });
+
+  if (para1) {
+    v1 = getText(para1);
+  }
+  if (para2) {
+    v2 = getText(para2);
+  }
+  switch (str) {
+    case 'bu':
+      return `补(${v1})`;
+    case 'bin':
+      return `并(${v1},${v2})`;
+    case 'jiao':
+      return `交(${v1},${v2})`;
+    default:
+      return str;
+  }
+}
