@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="输入输出首先算法竞赛肯定会涉及到数据的输入和答案的输出，在C++中，一个简单的输入输出的程序就像这样12345678#include&lt;iostream&gt;using namespace std;int main()&amp;#123;    int a;    cin&gt;&gt;a;    cout&lt;&lt;a&lt;&lt;endl;    return 0;&amp;#125;一行行解释一">
+  <meta name="description" content="从C到C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从C到C++">
 <meta property="og:url" content="http://example.com/2024/12/07/20-19-42/index.html">
 <meta property="og:site_name" content="一个博客">
-<meta property="og:description" content="输入输出首先算法竞赛肯定会涉及到数据的输入和答案的输出，在C++中，一个简单的输入输出的程序就像这样12345678#include&lt;iostream&gt;using namespace std;int main()&amp;#123;    int a;    cin&gt;&gt;a;    cout&lt;&lt;a&lt;&lt;endl;    return 0;&amp;#125;一行行解释一">
+<meta property="og:description" content="从C到C++">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-12-07T12:19:42.000Z">
-<meta property="article:modified_time" content="2024-12-07T12:45:26.536Z">
+<meta property="article:modified_time" content="2024-12-07T12:47:10.227Z">
 <meta property="article:author" content="新手佳佳">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="C++">
@@ -190,7 +190,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-12-07 20:19:42 / 修改时间：20:45:26" itemprop="dateCreated datePublished" datetime="2024-12-07T20:19:42+08:00">2024-12-07</time>
+              <time title="创建时间：2024-12-07 20:19:42 / 修改时间：20:47:10" itemprop="dateCreated datePublished" datetime="2024-12-07T20:19:42+08:00">2024-12-07</time>
             </span>
 
           
@@ -204,7 +204,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h2><p>首先算法竞赛肯定会涉及到数据的输入和答案的输出，在C++中，一个简单的输入输出的程序就像这样<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    cin&gt;&gt;a;</span><br><span class="line">    cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>一行行解释一下，第一行和C语言一样是引入头文件，io stream就是输入输出流的意思，C++的标准库的头文件一般不写.h后缀。</p>
+        <p>从C到C++<br><span id="more"></span></p>
+<h2 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h2><p>首先算法竞赛肯定会涉及到数据的输入和答案的输出，在C++中，一个简单的输入输出的程序就像这样<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    cin&gt;&gt;a;</span><br><span class="line">    cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>一行行解释一下，第一行和C语言一样是引入头文件，io stream就是输入输出流的意思，C++的标准库的头文件一般不写.h后缀。</p>
 <p>第二行是使用命名空间std，使用C++标准库中的代码（这段代码中的cin,cout,endl都是标准库的代码）都需要指定std命名空间。如果不使用using namespace也可以在函数或者类型前加上std::（如std::cin,std::cout,std::endl）。</p>
 <p>cin是标准输入流，对于基本数据类型重载了&gt;&gt;运算符，这个运算符看着也是很形象，就像数据从cin流向了a，以及这个运算符可以连用，比如<code>cin&gt;&gt;a&gt;&gt;b&gt;&gt;c;</code>读出来的数据会依次赋给变量a、b、c，且默认会以空白字符分割（即读取不到空白字符）。</p>
 <p>cout是标准输出流，跟cin相似，<code>cout&lt;&lt;a&lt;&lt;b&lt;&lt;endl</code>会依次输出a和b的值（中间没有分隔）。endl是end line的缩写，就是结束一行，它同时做了清空输出缓冲区和换行的工作。</p>
