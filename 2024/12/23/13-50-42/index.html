@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="同样是matlab实验课上的一个问题，用matlab分类讨论并求线性方程组的基础解系和特解，当时上课我写得不好其实我高代51分，连基础解系是什么都不知道，所以用C++重新写一遍，顺便学习一下高代">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性方程组求解（C++版）">
+<meta property="og:url" content="http://example.com/2024/12/23/13-50-42/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="同样是matlab实验课上的一个问题，用matlab分类讨论并求线性方程组的基础解系和特解，当时上课我写得不好其实我高代51分，连基础解系是什么都不知道，所以用C++重新写一遍，顺便学习一下高代">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2024/12/23/13-50-42/17348774996684.png">
+<meta property="article:published_time" content="2024-12-23T05:50:42.000Z">
+<meta property="article:modified_time" content="2024-12-23T06:22:27.873Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2024/12/23/13-50-42/17348774996684.png">
+
+<link rel="canonical" href="http://example.com/2024/12/23/13-50-42/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>线性方程组求解（C++版） | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <script type="text/javascript" src="/js/fa.js" ></script>
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/23/13-50-42/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          线性方程组求解（C++版）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-12-23 13:50:42 / 修改时间：14:22:27" itemprop="dateCreated datePublished" datetime="2024-12-23T13:50:42+08:00">2024-12-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>同样是matlab实验课上的一个问题，用matlab分类讨论并求线性方程组的基础解系和特解，当时上课我写得不好<span class="heimu">其实我高代51分，连基础解系是什么都不知道</span>，所以用C++重新写一遍，顺便学习一下高代</p>
+<span id="more"></span>
+<h2 id="线性方程组的一些知识"><a href="#线性方程组的一些知识" class="headerlink" title="线性方程组的一些知识"></a>线性方程组的一些知识</h2><p>首先我们先来了解线性方程组的一些知识，我认为需要用到的就是下面这些。</p>
+<ol>
+<li>线性方程组的一般形式</li>
+<li>线性方程组的矩阵形式</li>
+<li>消元法化为行阶梯矩阵</li>
+<li>求矩阵的秩</li>
+<li>线性方程组有解判别定理</li>
+<li>线性方程组解的结构</li>
+</ol>
+<p>这里只说怎么样求解，至于为什么这样能够求解，我也不知道。<span class="heimu">我不配说我是学数学的</span></p>
+<h3 id="线性方程组的一般形式"><a href="#线性方程组的一般形式" class="headerlink" title="线性方程组的一般形式"></a>线性方程组的一般形式</h3><p>以下是一个包含 $m$ 个方程、$n$ 个未知变量的线性方程组的一般形式：</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1 \\
+a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n = b_2 \\
+\vdots \\
+a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n = b_m
+\end{cases}</script><p>其中，$a_{ij}$（$i = 1, 2, \ldots, m$；$j = 1, 2, \ldots, n$）是方程组的系数，$b_i$（$i = 1, 2, \ldots, m$）是方程组的常数项，$x_j$（$j = 1, 2, \ldots, n$）是未知变量。</p>
+<h3 id="线性方程组的矩阵形式"><a href="#线性方程组的矩阵形式" class="headerlink" title="线性方程组的矩阵形式"></a>线性方程组的矩阵形式</h3><p>线性方程组也可以写成矩阵和向量相乘的形式</p>
+<script type="math/tex; mode=display">
+\begin{pmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1} & a_{m2} & \cdots & a_{mn}
+\end{pmatrix}
+\begin{pmatrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{pmatrix}
+=
+\begin{pmatrix}
+b_1 \\
+b_2 \\
+\vdots \\
+b_m
+\end{pmatrix}</script><p>$A$为系数矩阵，是一个$m\times n$的矩阵：</p>
+<script type="math/tex; mode=display">
+A = \begin{pmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1} & a_{m2} & \cdots & a_{mn}
+\end{pmatrix}</script><p>$x$为包含n个未知变量的列向量：</p>
+<script type="math/tex; mode=display">
+x = \begin{pmatrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{pmatrix}</script><p>$b$为包含n个常数项的列向量：</p>
+<script type="math/tex; mode=display">
+b = \begin{pmatrix}
+b_1 \\
+b_2 \\
+\vdots \\
+b_n
+\end{pmatrix}</script><p>也可以写成这样：</p>
+<script type="math/tex; mode=display">
+Ax=b</script><h3 id="消元法化为行阶梯矩阵"><a href="#消元法化为行阶梯矩阵" class="headerlink" title="消元法化为行阶梯矩阵"></a>消元法化为行阶梯矩阵</h3><p>消元法主要就是利用初等行变换，将矩阵化简为行阶梯矩阵，主要就是下面三种变换</p>
+<ol>
+<li>用一非零的数乘某一行</li>
+<li>把一行的倍数加到另一行</li>
+<li>互换两行的位置</li>
+</ol>
+<p>目的就是尽量把对角线上的元素全部化为1，便于计算，因为写起来太麻烦了，这里不演示过程了，大家可以随便找本高代教材看看例题。</p>
+<h3 id="求矩阵的秩"><a href="#求矩阵的秩" class="headerlink" title="求矩阵的秩"></a>求矩阵的秩</h3><p>矩阵的秩是矩阵中行向量或列向量的极大线性无关组中的向量个数。</p>
+<p>行阶梯形矩阵的秩很容易判断，就是非0行的数量。</p>
+<h3 id="线性方程组有解判别定理"><a href="#线性方程组有解判别定理" class="headerlink" title="线性方程组有解判别定理"></a>线性方程组有解判别定理</h3><p>线性方程组有解的充要条件是它的系数矩阵和增广矩阵的秩相等。</p>
+<p>如果秩等于未知数的个数则有唯一解，否则有无穷解。</p>
+<h3 id="线性方程组解的结构"><a href="#线性方程组解的结构" class="headerlink" title="线性方程组解的结构"></a>线性方程组解的结构</h3><p>在解不唯一的情况下，</p>
+<p>齐次线性方程组的任一解可以由基础解系线性表出。</p>
+<p>非齐次线性方程组的解由基础解系和一个特解构成。</p>
+<p>这里我偷个懒，贴个我在知乎看见的，<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/622196298">文章</a>，按照这篇文章说的方法求基础解系。</p>
+<p>特解的话，增广矩阵化为行最简矩阵，提取非零行和主元列，构成新的增广矩阵，可以发现系数矩阵变成了一个单位矩阵，常数项列向量就为主元变量的一个特解，自由变量为0。</p>
+<h2 id="C-的一些准备工作"><a href="#C-的一些准备工作" class="headerlink" title="C++的一些准备工作"></a>C++的一些准备工作</h2><p>首先确定一下我们求解的过程，</p>
+<ol>
+<li>求出系数矩阵和增广矩阵的秩，判断是无解还是唯一解还是无穷解。</li>
+<li>唯一解的话增广矩阵化为行最简矩阵，右边常数项的列向量就是解向量。</li>
+<li>求基础解系的话，系数矩阵化为行最简矩阵，然后扩成方阵，用单位阵减去这个方阵，然后提取自由变量所在的列向量，构成基础解系。</li>
+<li>求无穷解的一个特解，增广矩阵化为行最简矩阵，按系数矩阵补成方阵，提取常数项列向量就是一个特解</li>
+</ol>
+<p>这里面需要用到的并且需要我们自己实现的操作有：</p>
+<ol>
+<li>矩阵操作（C++不自带矩阵，所以要自己实现）</li>
+<li>矩阵拼接（用于求增广矩阵）</li>
+<li>化为行最简矩阵并且求秩（用处很多不解释）</li>
+<li>矩阵按列提取（用于提取解向量和基础解系）</li>
+</ol>
+<p>所以接下来先实现上面的这些功能</p>
+<h3 id="矩阵类"><a href="#矩阵类" class="headerlink" title="矩阵类"></a>矩阵类</h3><p>C++主要不是用于数学计算的，标准库里面没有矩阵相关的类和函数，我也不会找库，所以先花一点点时间搓个矩阵类。为了通用使用了模板，容器方面权衡了一下还是选择了<code>vector</code>而不是<code>valarray</code>，虽然<code>valarray</code>对计算有优化，但是更多的涉及数组和内存的操作，这方面不如<code>vector</code>，而且矩阵叉乘并不能使用<code>valarray</code>自带的乘法计算，也是要自己实现，所以不如使用更加通用的<code>vector</code>。</p>
+<p>先写个简单的矩阵类<code>mat</code>，只重载输入输出和下标运算，还有获取行和列，其他功能后面再补充<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">mat</span>&#123;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        <span class="type">int</span> n,m;</span><br><span class="line">        std::vector&lt;std::vector&lt;T&gt;&gt;data;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">mat</span>():<span class="built_in">n</span>(<span class="number">0</span>),<span class="built_in">m</span>(<span class="number">0</span>)&#123;&#125;</span><br><span class="line">        <span class="built_in">mat</span>(<span class="type">const</span> <span class="type">int</span> n,<span class="type">const</span> <span class="type">int</span> m):<span class="built_in">n</span>(n),<span class="built_in">m</span>(m)&#123;</span><br><span class="line">            data=std::vector&lt;std::vector&lt;T&gt;&gt;(n,std::<span class="built_in">vector</span>&lt;T&gt;(m));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="type">int</span> <span class="title">row</span><span class="params">()</span><span class="type">const</span></span>&#123;<span class="keyword">return</span> n;&#125;</span><br><span class="line">        <span class="function"><span class="type">int</span> <span class="title">col</span><span class="params">()</span><span class="type">const</span></span>&#123;<span class="keyword">return</span> m;&#125;</span><br><span class="line">        std::vector&lt;T&gt;&amp; <span class="keyword">operator</span>[](<span class="type">int</span> i)&#123;</span><br><span class="line">            <span class="keyword">return</span> data[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">const</span> std::vector&lt;T&gt;&amp; <span class="keyword">operator</span>[](<span class="type">int</span> i)<span class="type">const</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> data[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">friend</span> std::istream&amp; <span class="keyword">operator</span>&gt;&gt;(std::istream&amp; in,mat&amp;A)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span>&amp;row:A.data)&#123;</span><br><span class="line">                std::<span class="built_in">copy_n</span>(std::<span class="built_in">istream_iterator</span>&lt;T&gt;(in),row.<span class="built_in">size</span>(),row.<span class="built_in">begin</span>());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> in;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">friend</span> std::ostream&amp; <span class="keyword">operator</span>&lt;&lt;(std::ostream&amp; out,<span class="type">const</span> mat&amp;A)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span>&amp;row:A.data)&#123;</span><br><span class="line">                std::<span class="built_in">copy</span>(row.<span class="built_in">begin</span>(),row.<span class="built_in">end</span>(),std::<span class="built_in">ostream_iterator</span>&lt;T&gt;(out,<span class="string">&quot; &quot;</span>));</span><br><span class="line">                out&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> out;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="矩阵拼接"><a href="#矩阵拼接" class="headerlink" title="矩阵拼接"></a>矩阵拼接</h3><p>这里单独实现一个函数<code>combine</code>，用于将两个行数相等的矩阵拼接为一个新的矩阵，参数为两个矩阵，返回一个矩阵。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">mat&lt;T&gt; <span class="title">combine</span><span class="params">(<span class="type">const</span> mat&lt;T&gt;&amp;A,<span class="type">const</span> mat&lt;T&gt;&amp;B)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n=A.<span class="built_in">row</span>();</span><br><span class="line">    <span class="type">int</span> m=A.<span class="built_in">col</span>()+B.<span class="built_in">col</span>();</span><br><span class="line">    mat&lt;T&gt;<span class="built_in">C</span>(n,m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=n;++i)&#123;</span><br><span class="line">        <span class="built_in">copy</span>(B[i].<span class="built_in">begin</span>(),B[i].<span class="built_in">end</span>(),</span><br><span class="line">        <span class="built_in">copy</span>(A[i].<span class="built_in">begin</span>(),A[i].<span class="built_in">end</span>(),C[i].<span class="built_in">begin</span>()));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> C;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="化为行最简矩阵和求秩"><a href="#化为行最简矩阵和求秩" class="headerlink" title="化为行最简矩阵和求秩"></a>化为行最简矩阵和求秩</h3><p>这里需要实现初等行变换，因为行向量使用的是<code>vector</code>，所以需要我们手动重载<code>vector</code>的加减乘除：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">std::vector&lt;T&gt; <span class="keyword">operator</span>-(<span class="type">const</span> std::vector&lt;T&gt;&amp;a)&#123;</span><br><span class="line">    std::vector&lt;T&gt;<span class="built_in">c</span>(a.<span class="built_in">size</span>());</span><br><span class="line">    std::<span class="built_in">transform</span>(a.<span class="built_in">begin</span>(),a.<span class="built_in">end</span>(),c.<span class="built_in">begin</span>(),std::<span class="built_in">negate</span>&lt;T&gt;());</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">std::vector&lt;T&gt; <span class="keyword">operator</span>+(<span class="type">const</span> std::vector&lt;T&gt;&amp;a,<span class="type">const</span> std::vector&lt;T&gt;&amp;b)&#123;</span><br><span class="line">    std::vector&lt;T&gt;<span class="built_in">c</span>(a.<span class="built_in">size</span>());</span><br><span class="line">    std::<span class="built_in">transform</span>(a.<span class="built_in">begin</span>(),a.<span class="built_in">end</span>(),b.<span class="built_in">begin</span>(),c.<span class="built_in">begin</span>(),std::<span class="built_in">plus</span>&lt;T&gt;());</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">std::vector&lt;T&gt; <span class="keyword">operator</span>-(<span class="type">const</span> std::vector&lt;T&gt;&amp;a,<span class="type">const</span> std::vector&lt;T&gt;&amp;b)&#123;</span><br><span class="line">    std::vector&lt;T&gt;<span class="built_in">c</span>(a.<span class="built_in">size</span>());</span><br><span class="line">    std::<span class="built_in">transform</span>(a.<span class="built_in">begin</span>(),a.<span class="built_in">end</span>(),b.<span class="built_in">begin</span>(),c.<span class="built_in">begin</span>(),std::<span class="built_in">minus</span>&lt;T&gt;());</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">std::vector&lt;T&gt; <span class="keyword">operator</span>*(<span class="type">const</span> T&amp;k,<span class="type">const</span> std::vector&lt;T&gt;&amp;a)&#123;</span><br><span class="line">    std::vector&lt;T&gt;<span class="built_in">c</span>(a.<span class="built_in">size</span>());</span><br><span class="line">    std::<span class="built_in">transform</span>(a.<span class="built_in">begin</span>(),a.<span class="built_in">end</span>(),c.<span class="built_in">begin</span>(),[&amp;k](<span class="type">const</span> T&amp;a)&#123;<span class="keyword">return</span> k*a;&#125;);</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">std::vector&lt;T&gt; <span class="keyword">operator</span>/(<span class="type">const</span> T&amp;k,<span class="type">const</span> std::vector&lt;T&gt;&amp;a)&#123;</span><br><span class="line">    std::vector&lt;T&gt;<span class="built_in">c</span>(a.<span class="built_in">size</span>());</span><br><span class="line">    std::<span class="built_in">transform</span>(a.<span class="built_in">begin</span>(),a.<span class="built_in">end</span>(),c.<span class="built_in">begin</span>(),[&amp;k](<span class="type">const</span> T&amp;a)&#123;<span class="keyword">return</span> k/a;&#125;);</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">std::vector&lt;T&gt; <span class="keyword">operator</span>*(<span class="type">const</span> std::vector&lt;T&gt;&amp;a,<span class="type">const</span> T&amp;k)&#123;</span><br><span class="line">    std::vector&lt;T&gt;<span class="built_in">c</span>(a.<span class="built_in">size</span>());</span><br><span class="line">    std::<span class="built_in">transform</span>(a.<span class="built_in">begin</span>(),a.<span class="built_in">end</span>(),c.<span class="built_in">begin</span>(),[&amp;k](<span class="type">const</span> T&amp;a)&#123;<span class="keyword">return</span> a*k;&#125;);</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">std::vector&lt;T&gt; <span class="keyword">operator</span>/(<span class="type">const</span> std::vector&lt;T&gt;&amp;a,<span class="type">const</span> T&amp;k)&#123;</span><br><span class="line">    std::vector&lt;T&gt;<span class="built_in">c</span>(a.<span class="built_in">size</span>());</span><br><span class="line">    std::<span class="built_in">transform</span>(a.<span class="built_in">begin</span>(),a.<span class="built_in">end</span>(),c.<span class="built_in">begin</span>(),[&amp;k](<span class="type">const</span> T&amp;a)&#123;<span class="keyword">return</span> a/k;&#125;);</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">std::vector&lt;T&gt;&amp;<span class="keyword">operator</span>+=(std::vector&lt;T&gt;&amp;a,<span class="type">const</span> std::vector&lt;T&gt;&amp;b)&#123;</span><br><span class="line">    <span class="keyword">return</span> a=a+b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">std::vector&lt;T&gt;&amp;<span class="keyword">operator</span>-=(std::vector&lt;T&gt;&amp;a,<span class="type">const</span> std::vector&lt;T&gt;&amp;b)&#123;</span><br><span class="line">    <span class="keyword">return</span> a=a-b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">std::vector&lt;T&gt;&amp;<span class="keyword">operator</span>/=(std::vector&lt;T&gt;&amp;A,<span class="type">const</span> T&amp;k)&#123;</span><br><span class="line">    std::for_each(A.<span class="built_in">begin</span>(),A.<span class="built_in">end</span>(),[&amp;k](T&amp;a)&#123;a/=k;&#125;);</span><br><span class="line">    <span class="keyword">return</span> A;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后就是用初等行变换化为行最简矩阵<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">mat&lt;T&gt; <span class="title">rref</span><span class="params">(<span class="type">const</span> mat&lt;T&gt;&amp;A)</span></span>&#123;</span><br><span class="line">	<span class="function">mat&lt;T&gt; <span class="title">B</span><span class="params">(A)</span></span>;</span><br><span class="line">	<span class="type">int</span> i=<span class="number">0</span>,n=B.<span class="built_in">col</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> it=B.data.<span class="built_in">begin</span>();it!=B.data.<span class="built_in">end</span>()&amp;&amp;i!=n;it++,i++)&#123;</span><br><span class="line">		<span class="keyword">auto</span> p=<span class="built_in">find_if</span>(it,B.data.<span class="built_in">end</span>(),[i](<span class="keyword">auto</span>&amp;x)&#123;<span class="keyword">return</span> x[i]!=T&#123;&#125;;&#125;);;</span><br><span class="line">		<span class="keyword">while</span>(p==B.data.<span class="built_in">end</span>())&#123;</span><br><span class="line">			<span class="keyword">if</span>(++i==n)<span class="keyword">break</span>;</span><br><span class="line">			p=<span class="built_in">find_if</span>(it,B.data.<span class="built_in">end</span>(),[i](<span class="keyword">auto</span>&amp;x)&#123;<span class="keyword">return</span> x[i]!=T&#123;&#125;;&#125;);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(p==B.data.<span class="built_in">end</span>())<span class="keyword">break</span>;</span><br><span class="line">		<span class="built_in">iter_swap</span>(it,p);</span><br><span class="line">		<span class="keyword">auto</span>&amp;a=*it;</span><br><span class="line">		a/=a[i];</span><br><span class="line">		for_each(B.data.<span class="built_in">begin</span>(),it,[i,&amp;a](<span class="keyword">auto</span>&amp;b)&#123;<span class="keyword">if</span>(b[i]==T&#123;&#125;)<span class="keyword">return</span>;b-=(b[i]*a);&#125;);</span><br><span class="line">		for_each(it+<span class="number">1</span>,B.data.<span class="built_in">end</span>(),[i,&amp;a](<span class="keyword">auto</span>&amp;b)&#123;<span class="keyword">if</span>(b[i]==T&#123;&#125;)<span class="keyword">return</span>;b-=(b[i]*a);&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> B;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>求秩的话，我只会数向量，不会计算方法，目前实现就用化为行最简矩阵，数不全为零的向量。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">rank</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> n-std::<span class="built_in">count</span>(data.<span class="built_in">begin</span>(),data.<span class="built_in">end</span>(),std::<span class="built_in">vector</span>&lt;T&gt;(m));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="矩阵按列提取"><a href="#矩阵按列提取" class="headerlink" title="矩阵按列提取"></a>矩阵按列提取</h3><p>可以提取单列或者多列，多列用vector传入，这两个函数作为成员函数实现。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">mat&lt;T&gt; <span class="title">getCols</span><span class="params">(<span class="type">int</span> col)</span></span>&#123;</span><br><span class="line">	<span class="function">mat&lt;T&gt; <span class="title">A</span><span class="params">(n,<span class="number">1</span>)</span></span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=n;++i)</span><br><span class="line">		A[i][<span class="number">0</span>]=data[i][col];</span><br><span class="line">	<span class="keyword">return</span> A;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">mat&lt;T&gt; <span class="title">getCols</span><span class="params">(std::vector&lt;<span class="type">int</span>&gt; cols)</span></span>&#123;</span><br><span class="line">	<span class="function">mat&lt;T&gt; <span class="title">A</span><span class="params">(n,cols.size())</span></span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=n;++i)</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j!=cols.<span class="built_in">size</span>();++j)</span><br><span class="line">			A[i][j]=data[i][cols[j]];</span><br><span class="line">	<span class="keyword">return</span> A;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="其他函数"><a href="#其他函数" class="headerlink" title="其他函数"></a>其他函数</h3><p>这些因为我最开始设计的时候不规范，不好归类，所以算作其他函数了。</p>
+<p>将行最简矩阵补成方阵，同时主元的行列位置保持一致，这个函数不规范的原因是不知道叫什么名字，以及只能对行最简矩阵使用，其实我最早在设计的时候应该把行最简矩阵作为继承自<code>mat</code>的子类的，总之这个函数暂时只能对行最简矩阵发挥预想的效果。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">mat&lt;T&gt; <span class="title">toSquare</span><span class="params">(<span class="type">const</span> mat&lt;T&gt;&amp;A)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> n=A.<span class="built_in">col</span>();</span><br><span class="line">	<span class="function">mat&lt;T&gt; <span class="title">B</span><span class="params">(n,n)</span></span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span>&amp;a:A.data)&#123;</span><br><span class="line">		<span class="keyword">auto</span> it=std::<span class="built_in">find_if</span>(a.<span class="built_in">begin</span>(),a.<span class="built_in">end</span>(),[](<span class="type">const</span> T&amp;a)&#123;<span class="keyword">return</span> a!=T&#123;&#125;;&#125;);</span><br><span class="line">		<span class="keyword">if</span>(it==a.<span class="built_in">end</span>())<span class="keyword">break</span>;</span><br><span class="line">		<span class="type">int</span> i=it-a.<span class="built_in">begin</span>();</span><br><span class="line">		std::<span class="built_in">copy</span>(a.<span class="built_in">begin</span>(),a.<span class="built_in">end</span>(),B[i].<span class="built_in">begin</span>());</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> B;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>还有一个简单的生成<del>单位矩阵的函数</del>对角矩阵的函数，本来是想做单位矩阵的，但是使用了模板，没办法确定每个类型的乘法单位元，所以改为对角矩阵，手动设置对角线上的元素。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">mat&lt;T&gt; <span class="title">diag</span><span class="params">(<span class="type">int</span> n,T k)</span></span>&#123;</span><br><span class="line">    <span class="function">mat&lt;T&gt; <span class="title">A</span><span class="params">(n,n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=n;++i)</span><br><span class="line">        A[i][i]=k;</span><br><span class="line">    <span class="keyword">return</span> A;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>还有重载了矩阵减法，偷个懒不判断行列数相等了：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">mat&lt;T&gt; <span class="keyword">operator</span>-(<span class="type">const</span> mat&lt;T&gt;&amp;A,<span class="type">const</span> mat&lt;T&gt;&amp;B)&#123;</span><br><span class="line">    mat&lt;T&gt;<span class="built_in">C</span>(A.<span class="built_in">row</span>(),A.<span class="built_in">col</span>());</span><br><span class="line">    std::<span class="built_in">transform</span>(A.data.<span class="built_in">begin</span>(),A.data.<span class="built_in">end</span>(),B.data.<span class="built_in">begin</span>(),C.data.<span class="built_in">begin</span>(),std::<span class="built_in">minus</span>());</span><br><span class="line">    <span class="keyword">return</span> C;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>还有删除矩阵的最后一行，会用到这个是因为我之前对增广矩阵化为方阵的处理不好最后会多出一行，所以在化为方阵之后要删掉一行。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">pop_back</span><span class="params">()</span></span>&#123;</span><br><span class="line">    data.<span class="built_in">pop_back</span>();</span><br><span class="line">    --n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="C-求解过程"><a href="#C-求解过程" class="headerlink" title="C++求解过程"></a>C++求解过程</h2><p>这种方法其实就是我们手动求解线性方程组的通解和特解的方法，只是用编程来模拟手动求解的过程，所以我称之为朴素方法<span class="heimu">可能它有其他的名字但是我也不知道</span>。</p>
+<p>首先把上面那些代码全部塞到一个头文件里面，然后引入<code>#include&quot;mat.h&quot;</code>，因为上面的代码写的太乱了，所以我就不整合出来丢人现眼了，如果我之后把它整得好看了我会再写篇文章。</p>
+<p>然后编写求解过程，以下就是主函数的内容，输入输出加入了一点提示，也可以去掉输入输出把它改为一个求解的函数：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n,m;</span><br><span class="line">    </span><br><span class="line">mat&lt;<span class="type">double</span>&gt;A;</span><br><span class="line">mat&lt;<span class="type">double</span>&gt;b;</span><br><span class="line">mat&lt;<span class="type">double</span>&gt;B;</span><br><span class="line">mat&lt;<span class="type">double</span>&gt;SS;</span><br><span class="line">cout&lt;&lt;<span class="string">&quot;n=&quot;</span>;cin&gt;&gt;n;</span><br><span class="line">cout&lt;&lt;<span class="string">&quot;m=&quot;</span>;cin&gt;&gt;m;</span><br><span class="line">A=<span class="built_in">mat</span>&lt;<span class="type">double</span>&gt;(n,m);</span><br><span class="line">b=<span class="built_in">mat</span>&lt;<span class="type">double</span>&gt;(n,<span class="number">1</span>);</span><br><span class="line">cout&lt;&lt;<span class="string">&quot;A=&quot;</span>&lt;&lt;endl;cin&gt;&gt;A;</span><br><span class="line">cout&lt;&lt;<span class="string">&quot;b=&quot;</span>&lt;&lt;endl;cin&gt;&gt;b;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> Ab=<span class="built_in">combine</span>(A,b);</span><br><span class="line"><span class="keyword">auto</span> rref_A=<span class="built_in">rref</span>(A);</span><br><span class="line"><span class="keyword">auto</span> rref_Ab=<span class="built_in">rref</span>(Ab);</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> rank_A=rref_A.<span class="built_in">rank</span>();</span><br><span class="line"><span class="type">int</span> rank_Ab=rref_Ab.<span class="built_in">rank</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(rank_A==rank_Ab)&#123;</span><br><span class="line">    <span class="keyword">if</span>(rank_A==m)&#123;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;有唯一解&quot;</span>&lt;&lt;endl;</span><br><span class="line">        <span class="keyword">auto</span> SS=rref_Ab.<span class="built_in">getCols</span>(m);</span><br><span class="line">        <span class="keyword">auto</span> B=SS;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;有无穷解&quot;</span>&lt;&lt;endl;</span><br><span class="line">        <span class="keyword">auto</span> Sq=<span class="built_in">toSquare</span>(rref_Ab);</span><br><span class="line">        Sq.<span class="built_in">pop_back</span>();</span><br><span class="line">        SS=Sq.<span class="built_in">getCols</span>(m);</span><br><span class="line">        Sq=<span class="built_in">diag</span>(m,<span class="number">1.0</span>)-<span class="built_in">toSquare</span>(rref_A);</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; freeCols;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=m;++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">abs</span>(Sq[i][i]<span class="number">-1.0</span>)&lt;=<span class="number">1e-6</span>)</span><br><span class="line">                freeCols.<span class="built_in">emplace_back</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line">        B=Sq.<span class="built_in">getCols</span>(freeCols);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;无解&quot;</span>&lt;&lt;endl;</span><br><span class="line">    B=<span class="built_in">mat</span>&lt;<span class="type">double</span>&gt;();</span><br><span class="line">    SS=<span class="built_in">mat</span>&lt;<span class="type">double</span>&gt;();</span><br><span class="line">&#125;</span><br><span class="line">cout&lt;&lt;<span class="string">&quot;B=\n&quot;</span>&lt;&lt;B&lt;&lt;endl;</span><br><span class="line">cout&lt;&lt;<span class="string">&quot;SS=\n&quot;</span>&lt;&lt;SS&lt;&lt;endl;</span><br></pre></td></tr></table></figure></p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>之后就是测试了，已知matlab上用<code>A\b</code>，即A的伪逆乘b的话，在某些奇异矩阵的情况下会有问题，例如对于</p>
+<script type="math/tex; mode=display">
+A = \begin{pmatrix}
+1 & 1 \\
+2 & 2
+\end{pmatrix}
+,
+b=\begin{pmatrix}
+3 \\
+6
+\end{pmatrix}</script><p>以下分别是我在matlab和我自己写的程序上的测试结果，</p>
+<p><img src="/2024/12/23/13-50-42/17348774996684.png" alt></p>
+<p>显然对于这组数据matlab并不能求出正确结果，根据上网搜索这是因为matlab使用最小二乘法求的，具体我也不懂。朴素方法求出的特解带入验证显然正确。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/12/15/19-42-12/" rel="prev" title="容器和迭代器">
+      <i class="fa fa-chevron-left"></i> 容器和迭代器
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">线性方程组的一些知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%E7%9A%84%E4%B8%80%E8%88%AC%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">线性方程组的一般形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%E7%9A%84%E7%9F%A9%E9%98%B5%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">线性方程组的矩阵形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E5%85%83%E6%B3%95%E5%8C%96%E4%B8%BA%E8%A1%8C%E9%98%B6%E6%A2%AF%E7%9F%A9%E9%98%B5"><span class="nav-number">1.3.</span> <span class="nav-text">消元法化为行阶梯矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%82%E7%9F%A9%E9%98%B5%E7%9A%84%E7%A7%A9"><span class="nav-number">1.4.</span> <span class="nav-text">求矩阵的秩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%E6%9C%89%E8%A7%A3%E5%88%A4%E5%88%AB%E5%AE%9A%E7%90%86"><span class="nav-number">1.5.</span> <span class="nav-text">线性方程组有解判别定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%E8%A7%A3%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.6.</span> <span class="nav-text">线性方程组解的结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-%E7%9A%84%E4%B8%80%E4%BA%9B%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">C++的一些准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E7%B1%BB"><span class="nav-number">2.1.</span> <span class="nav-text">矩阵类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E6%8B%BC%E6%8E%A5"><span class="nav-number">2.2.</span> <span class="nav-text">矩阵拼接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%96%E4%B8%BA%E8%A1%8C%E6%9C%80%E7%AE%80%E7%9F%A9%E9%98%B5%E5%92%8C%E6%B1%82%E7%A7%A9"><span class="nav-number">2.3.</span> <span class="nav-text">化为行最简矩阵和求秩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E6%8C%89%E5%88%97%E6%8F%90%E5%8F%96"><span class="nav-number">2.4.</span> <span class="nav-text">矩阵按列提取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%87%BD%E6%95%B0"><span class="nav-number">2.5.</span> <span class="nav-text">其他函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-%E6%B1%82%E8%A7%A3%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">C++求解过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">4.</span> <span class="nav-text">测试</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
