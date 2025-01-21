@@ -20,25 +20,25 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="最近看了一下树状数组，想到之前头歌作业上的二分查找，然后就有了用lowbit实现二分查找的想法。">
+  <meta name="description" content="最近看了一下《具体数学（第二版）》，汉诺塔问题是个非常经典又有趣的问题，写了一些课后习题中的汉诺塔问题的部分，记录一下。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于lowbit的二分查找">
-<meta property="og:url" content="http://example.com/2023/12/06/16-54-34/index.html">
+<meta property="og:title" content="汉诺塔问题（1）">
+<meta property="og:url" content="http://example.com/2025/01/22/01-42-12/index.html">
 <meta property="og:site_name" content="一个博客">
-<meta property="og:description" content="最近看了一下树状数组，想到之前头歌作业上的二分查找，然后就有了用lowbit实现二分查找的想法。">
+<meta property="og:description" content="最近看了一下《具体数学（第二版）》，汉诺塔问题是个非常经典又有趣的问题，写了一些课后习题中的汉诺塔问题的部分，记录一下。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2023/12/06/16-54-34/img0.png">
-<meta property="og:image" content="http://example.com/2023/12/06/16-54-34/img1.png">
-<meta property="og:image" content="http://example.com/2023/12/06/16-54-34/img2.png">
-<meta property="og:image" content="http://example.com/2023/12/06/16-54-34/img3.png">
-<meta property="article:published_time" content="2023-12-06T08:54:34.000Z">
-<meta property="article:modified_time" content="2023-12-30T13:08:49.000Z">
+<meta property="og:image" content="http://example.com/2025/01/22/01-42-12/17372239280600.png">
+<meta property="og:image" content="http://example.com/2025/01/22/01-42-12/17372201103535.png">
+<meta property="og:image" content="http://example.com/2025/01/22/01-42-12/17372201225346.png">
+<meta property="article:published_time" content="2025-01-21T17:42:12.000Z">
+<meta property="article:modified_time" content="2025-01-21T17:58:46.152Z">
 <meta property="article:author" content="新手佳佳">
 <meta property="article:tag" content="算法">
+<meta property="article:tag" content="数学">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/12/06/16-54-34/img0.png">
+<meta name="twitter:image" content="http://example.com/2025/01/22/01-42-12/17372239280600.png">
 
-<link rel="canonical" href="http://example.com/2023/12/06/16-54-34/">
+<link rel="canonical" href="http://example.com/2025/01/22/01-42-12/">
 
 
 <script id="page-configurations">
@@ -51,7 +51,7 @@
   };
 </script>
 
-  <title>基于lowbit的二分查找 | 一个博客</title>
+  <title>汉诺塔问题（1） | 一个博客</title>
   
 
 
@@ -174,7 +174,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/06/16-54-34/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/01/22/01-42-12/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -187,7 +187,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          基于lowbit的二分查找
+          汉诺塔问题（1）
         </h1>
 
         <div class="post-meta">
@@ -196,16 +196,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2023-12-06 16:54:34" itemprop="dateCreated datePublished" datetime="2023-12-06T16:54:34+08:00">2023-12-06</time>
+              <time title="创建时间：2025-01-22 01:42:12 / 修改时间：01:58:46" itemprop="dateCreated datePublished" datetime="2025-01-22T01:42:12+08:00">2025-01-22</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-30 21:08:49" itemprop="dateModified" datetime="2023-12-30T21:08:49+08:00">2023-12-30</time>
-              </span>
 
           
 
@@ -218,26 +212,78 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>最近看了一下树状数组，想到之前头歌作业上的二分查找，然后就有了用lowbit实现二分查找的想法。</p>
+        <p>最近看了一下《具体数学（第二版）》，汉诺塔问题是个非常经典又有趣的问题，写了一些课后习题中的汉诺塔问题的部分，记录一下。</p>
 <span id="more"></span>
-
-<h2 id="树状数组"><a href="#树状数组" class="headerlink" title="树状数组"></a>树状数组</h2><p>树状数组的基本作用是单点修改和区间求和，它的核心就是一个lowbit函数。不过这次的重点不是树状数组，而是lowbit，它的作用是获取一个二进制数的最低位1。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> lowbit(x) ((x)&amp;(-x))</span></span><br></pre></td></tr></table></figure>
-<p>树状数组大概就是这个样子</p>
-<p><img src="/2023/12/06/16-54-34/img0.png"></p>
-<p>如果要爬树那就是加上当前节点的lowbit</p>
-<p><img src="/2023/12/06/16-54-34/img1.png"></p>
-<p>然后有一个我也不知道叫什么的操作，或许叫左跳和右跳吧<br><img src="/2023/12/06/16-54-34/img2.png"></p>
-<p>这个左右跳就是我想要用来实现二分查找的。</p>
-<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p>普通的二分查找就不多说了，适用的条件是线性存储并且有序，这里也需要满足这些条件。</p>
-<p>假设要在有n个数的有序数组A中找m，首先如果m大于A[n-1]，那就直接可以返回不存在。之后就是找到树顶和中间位置，如图</p>
-<p><img src="/2023/12/06/16-54-34/img3.png"></p>
-<p>之后就和常规的二分查找一样了，大于就左跳，小于就右跳， 如果跳到底都没找到那就是不存在。</p>
-<p>代码如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> lowbit(x) ((x)&amp;(-x))</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">lowbit_search</span><span class="params">(<span class="type">int</span> *A,<span class="type">int</span> n,<span class="type">int</span> m)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(m&gt;A[n<span class="number">-1</span>])<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="type">int</span> mid,top=n;</span><br><span class="line">    <span class="keyword">while</span>(top!=lowbit(top))top+=lowbit(top);</span><br><span class="line">    mid=top&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(lowbit(mid)!=<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(A[mid]==m)<span class="keyword">return</span> mid;</span><br><span class="line">        <span class="keyword">if</span>(A[mid]&gt;m)mid-=lowbit(mid)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> mid+=lowbit(mid)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(A[mid]==m)<span class="keyword">return</span> mid;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>时间复杂度和普通二分查找一样都是$O(log_2n)$，可能常数还比二分查找大，写起来也比普通二分查找麻烦，理解上也比较复杂，所以我又写了个没用的算法。</p>
-<p>如果对树状数组感兴趣的可以看看这个：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/93795692">算法学习笔记(2) : 树状数组</a></p>
+<h2 id="经典汉诺塔问题"><a href="#经典汉诺塔问题" class="headerlink" title="经典汉诺塔问题"></a>经典汉诺塔问题</h2><p>先简单说一下什么是汉诺塔问题，有三根柱子和n个大小不一的圆盘，圆盘不能放在比它小的圆盘上。一开始所有的圆盘都在第一根柱子上，我们需要将圆盘移动到第三根柱子上，每次只能从一根柱子移动一个圆盘到另一根柱子上，求最小移动次数。</p>
+<p>设三根柱子分别为ABC，以及定义$f(n)$为将n个圆盘从A移动到C需要的步数。现在$f(n)$还是一个抽象的函数，之后来给出它的具体实现。</p>
+<p>首先移动0个圆盘肯定是0步，$f(0)=0$。移动一个圆盘需要1步，$f(1)=1$。对于2个圆盘，我们需要先把第一个圆盘移动到B柱上，然后才能把最大的圆盘移动到C柱上，最后再把第一个圆盘放到C柱上。</p>
+<p>其实不难发现，要把n个圆盘从一根柱子移到另一根柱子上，需要保证另外两根柱子的最顶上的圆盘都大于要移动的n个圆盘中最大的，因为移动n个圆盘需要用到两根柱子来过渡，如果n=1则没有这个条件。所以记住这个条件，只要满足这个条件我们就可以将n个圆盘移动到任意柱子上</p>
+<p>接下来考虑更多圆盘的情况，我们需要把除了最大圆盘以外的n-1个圆盘全部移动到B柱上，解放出最大圆盘并移动到C柱上，之后再把n-1个圆盘移动到C上。汉诺塔是一个很形象的问题，所以我还画了个简单的图片，可以更加直观的看步骤</p>
+<p><img src="/2025/01/22/01-42-12/17372239280600.png" alt></p>
+<p>即</p>
+<script type="math/tex; mode=display">
+f(n)=2f(n-1)+1</script><p>所以我认为汉诺塔问题很重要的一个思想就是部分与整体，还有通过定义函数来让步骤更加清晰。</p>
+<p>如果是计算机问题，其实到上面就可以结束了，我们已经得到了一个递归的函数来计算步数了，但是这个递归式可以求出通项公式，通过观察</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+    f(n)&=2f(n-1)+1 \\
+    f(n)+1&=2(f(n-1)+1) \\
+    f(n)+1&=2^n \\
+    f(n)&=2^n-1 
+\end{align*}</script><p>代入先前的n=0和n=1也成立，这样这个问题就算结束了。</p>
+<h2 id="相邻移动的汉诺塔问题"><a href="#相邻移动的汉诺塔问题" class="headerlink" title="相邻移动的汉诺塔问题"></a>相邻移动的汉诺塔问题</h2><p>课后习题在原问题的基础上加上了一个限制条件。在原问题中圆盘能够在三个柱子之间任意移动，现在圆盘只能在相邻柱子上移动，重新分析一下这个问题。</p>
+<p>设$f(n)$为将n个圆盘从A移动到C的步数，显然$f(0)=0$。根据对称性可以知道将n个圆盘从C移动到A也需要$f(n)$步。</p>
+<p>所以对于n&gt;0，移动步骤可以描述为</p>
+<ol>
+<li>将n-1个圆盘从A移动到C</li>
+<li>将第n个圆盘从A移动到B</li>
+<li>将n-1个圆盘从C移动到A</li>
+<li>将第n个圆盘从B移动到C</li>
+<li>将n-1个圆盘从A移动到C</li>
+</ol>
+<p><img src="/2025/01/22/01-42-12/17372201103535.png" alt></p>
+<p>将上述步骤加起来得到$f(n)=3f(n-1)+2$。经过观察得到</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+    f(n)&=3f(n-1)+2 \\
+    f(n)+1&=3(f(n-1)+1) \\
+    f(n)+1&=3^n \\
+    f(n)&=3^n-1 
+\end{align*}</script><p>对于n=0的情况也成立，所以通项公式为$f(n)=3^n-1$</p>
+<p>注意，这里我也不确定是不是最小步数，只能说最小步数一定小于等于这个。</p>
+<h2 id="证明每根柱子上都出现过n个圆盘的正确形式"><a href="#证明每根柱子上都出现过n个圆盘的正确形式" class="headerlink" title="证明每根柱子上都出现过n个圆盘的正确形式"></a>证明每根柱子上都出现过n个圆盘的正确形式</h2><p>这题的题目其实我不太懂，按照我的理解应该是让我们证明在上题的移动中间过程中A、B、C上都会出现过高度为n的塔。A和C分别在开始和结束的状态为n层塔，所以就是要证明需要先把A上的塔全部移到B上，再把B上的塔全部移到C上。</p>
+<p>设$f(n)=f<em>{AB}(n)+f</em>{BC}(n)$，$f<em>{AB}(n)$和$f</em>{BC}(n)$分别为将n个圆盘从A移动到B的步数和从B移到C的步数。显然根据定义，$f<em>{AB}(0)=0,f</em>{BC}(0)=0,f<em>{AB}(1)=1,f</em>{BC}(1)=1$。同样根据对称性，$f<em>{AB}(n)=f</em>{CB}(n),f<em>{BC}(n)=f</em>{BA}(n)$</p>
+<p>现在将从A移动n个圆盘（n&gt;0）到C，用经过B的步骤表示</p>
+<ol>
+<li>将n-1个圆盘从A移动到B</li>
+<li>将n-1个圆盘从B移动到C</li>
+<li>将第n个圆盘从A移动到B</li>
+<li>将n-1个圆盘从C移动到B</li>
+<li>将n-1个圆盘从B移动到A</li>
+<li>将第n个圆盘从B移动到C</li>
+<li>将n-1个圆盘从A移动到B</li>
+<li>将n-1个圆盘从B移动到C</li>
+</ol>
+<p><img src="/2025/01/22/01-42-12/17372201225346.png" alt></p>
+<p>将上面的步骤整理一下得到</p>
+<script type="math/tex; mode=display">
+f_{AB}(n)=2f_{AB}(n-1)+f_{BC}(n-1)+1</script><script type="math/tex; mode=display">
+f_{BC}(n)=2f_{BC}(n-1)+f_{AB}(n-1)+1</script><script type="math/tex; mode=display">
+\begin{align*}
+f(n)&=f_{AB}(n)+f_{BC}(n) \\
+&=3(f_{AB}(n-1)+f_{BC}(n-1))+2
+\end{align*}</script><p>代入之前的$f(n)=3f(n-1)+2$，稍微变形一下</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+3f(n-1)+2&=3(f_{AB}(n-1)+f_{BC}(n-1))+2 \\
+3f(n-1)&=3(f_{AB}(n-1)+f_{BC}(n-1)) \\
+f(n-1)&=f_{AB}(n-1)+f_{BC}(n-1)
+\end{align*}</script><p>还需要讨论一下n=0和n=1的情况。</p>
+<p>对于n=0，$f(0)=f<em>{AB}(0)+f</em>{BC}(0)=0$成立</p>
+<p>对于n=1，$f(1)=f<em>{AB}(1)+f</em>{BC}(1)=2$成立</p>
+<p>所以$\forall n \in N,f(n)=f<em>{AB}(n)+f</em>{BC}(n)$，即从A移动n个圆盘到C，一定会先将n个圆盘移动到B上。</p>
+<h2 id="是否存在步数大于-2-n-1-次的合理初始状态"><a href="#是否存在步数大于-2-n-1-次的合理初始状态" class="headerlink" title="是否存在步数大于$2^n-1$次的合理初始状态"></a>是否存在步数大于$2^n-1$次的合理初始状态</h2><p>这个也是经典汉诺塔问题的变种，即初始状态不是n个圆盘都在A塔上，看能否找出一种摆放使得将圆盘全部移动到C需要的步数大于$2^n-1$次。</p>
+<p>对于这题我还不能够像前面的题一样写出巧妙的数学证明，但是在学数学之前我还是个写代码的，所以我决定先用程序暴搜出结论，再想办法证明，详见下篇文章。</p>
 
     </div>
 
@@ -248,6 +294,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
           </div>
 
         
@@ -256,13 +303,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/12/01/11-52-21/" rel="prev" title="给博客加了个背景">
-      <i class="fa fa-chevron-left"></i> 给博客加了个背景
+    <a href="/2025/01/14/01-22-11/" rel="prev" title="动态规划">
+      <i class="fa fa-chevron-left"></i> 动态规划
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2023/12/30/20-04-15/" rel="next" title="仿射密码算法记录">
-      仿射密码算法记录 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -321,7 +365,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">树状数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE"><span class="nav-number">2.</span> <span class="nav-text">二分查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E5%B0%BE"><span class="nav-number">3.</span> <span class="nav-text">结尾</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">经典汉诺塔问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E9%82%BB%E7%A7%BB%E5%8A%A8%E7%9A%84%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">相邻移动的汉诺塔问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%E6%AF%8F%E6%A0%B9%E6%9F%B1%E5%AD%90%E4%B8%8A%E9%83%BD%E5%87%BA%E7%8E%B0%E8%BF%87n%E4%B8%AA%E5%9C%86%E7%9B%98%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%BD%A2%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">证明每根柱子上都出现过n个圆盘的正确形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E6%AD%A5%E6%95%B0%E5%A4%A7%E4%BA%8E-2-n-1-%E6%AC%A1%E7%9A%84%E5%90%88%E7%90%86%E5%88%9D%E5%A7%8B%E7%8A%B6%E6%80%81"><span class="nav-number">4.</span> <span class="nav-text">是否存在步数大于$2^n-1$次的合理初始状态</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
