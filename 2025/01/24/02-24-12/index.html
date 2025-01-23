@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="接上篇文章最后的汉诺塔问题变种，是否存在一种合理状态使得将所有圆盘移动到右边柱子需要的步数大于$2^n-1$。直觉上我觉得不存在，但是不好说明，所以这篇文章就写一个程序来暴搜验证一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汉诺塔问题（2）">
+<meta property="og:url" content="http://example.com/2025/01/24/02-24-12/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="接上篇文章最后的汉诺塔问题变种，是否存在一种合理状态使得将所有圆盘移动到右边柱子需要的步数大于$2^n-1$。直觉上我觉得不存在，但是不好说明，所以这篇文章就写一个程序来暴搜验证一下。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2025/01/24/02-24-12/17376566808861.png">
+<meta property="article:published_time" content="2025-01-23T18:24:12.000Z">
+<meta property="article:modified_time" content="2025-01-23T18:30:37.665Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2025/01/24/02-24-12/17376566808861.png">
+
+<link rel="canonical" href="http://example.com/2025/01/24/02-24-12/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>汉诺塔问题（2） | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/01/24/02-24-12/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          汉诺塔问题（2）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-01-24 02:24:12 / 修改时间：02:30:37" itemprop="dateCreated datePublished" datetime="2025-01-24T02:24:12+08:00">2025-01-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>接上篇文章最后的汉诺塔问题变种，是否存在一种合理状态使得将所有圆盘移动到右边柱子需要的步数大于$2^n-1$。直觉上我觉得不存在，但是不好说明，所以这篇文章就写一个程序来暴搜验证一下。<br><span id="more"></span></p>
+<h2 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h2><p>先来大概说一下我的想法，</p>
+<p>首先枚举出n个圆盘的所有合理状态，每个状态就是一个节点。</p>
+<p>如果可以通过移动圆盘，从一个状态变成另一个状态，那么就在这两个节点之间连一条边。</p>
+<p>对于每一个节点都找到能够与它建立连接的节点并连接，最后应该能够得到一个图。</p>
+<p>对于这个图，从终止状态（即所有圆盘都在右边柱子的状态）进行广搜遍历整个图就能得到每个状态需要的移动步数了。</p>
+<h2 id="状态的表示"><a href="#状态的表示" class="headerlink" title="状态的表示"></a>状态的表示</h2><p>其实从汉诺塔的操作来看，最适合用来描述的结构应该是栈，用三个栈表示三根柱子，将圆盘从一根柱子移动到另一根柱子就是，从一根柱子出栈，然后将数据压入另一个栈这样就变成了另一个状态，非常的合理。</p>
+<p>但是在编写程序的时候，我们需要用状态来作为索引，所以它需要尽可能简单并且可以在<code>map</code>或者<code>unordered_map</code>中作为key使用，当然不使用这两个结构我们自己实现索引和映射也行，但是这样会更加麻烦。</p>
+<p>我的想法是，使用一个<code>int</code>来保存一根柱子上的圆盘，保存三根柱子的信息就是一个三元组<code>tuple&lt;int,int,int&gt;</code>。因为每根柱子上的圆盘都是有序的，即下面的圆盘一定大于上面的，所以可以用int的每个位来表示柱子上是否有这个圆盘，int是32位的，所以最大可以保存32个圆盘，我们测试应该够用了。</p>
+<p>接下来说一下使用<code>int</code>的，移动操作的表示方法。每次移动圆盘移动的都是柱子上最小的圆盘，所以我们需要获取int的最低位，<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">lowbit</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x&amp;(-x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>假设要将A柱上的圆盘移动到C柱上只需要这样<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> la=<span class="built_in">lowbit</span>(a);</span><br><span class="line">a-=la;</span><br><span class="line">c+=la;</span><br></pre></td></tr></table></figure></p>
+<p>为了看起来更加直观我直接用了加减，没有使用位操作。</p>
+<h2 id="枚举状态"><a href="#枚举状态" class="headerlink" title="枚举状态"></a>枚举状态</h2><p>一种显然的枚举的方法，因为圆盘下面大上面小，即将n个圆盘从大到小依次放置在柱子上，所以枚举的过程也是仿照这个过程，递归的从大到小枚举每个圆盘分别在ABC柱上的状态。</p>
+<p>为了防止污染全局空间，以及看起来美观，我把这些操作封装在了一个<code>struct</code>里面<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">HNT</span>&#123;</span><br><span class="line">    map&lt;tuple&lt;<span class="type">int</span>,<span class="type">int</span>,<span class="type">int</span>&gt;,<span class="type">int</span>&gt;</span><br><span class="line">    <span class="built_in">operator</span>()(<span class="type">int</span> n)&#123;</span><br><span class="line">        depth.<span class="built_in">clear</span>();</span><br><span class="line">        <span class="built_in">dfs</span>(&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125;,<span class="number">1</span>&lt;&lt;(n<span class="number">-1</span>));</span><br><span class="line">        <span class="keyword">return</span> depth;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    map&lt;tuple&lt;<span class="type">int</span>,<span class="type">int</span>,<span class="type">int</span>&gt;,<span class="type">int</span>&gt;depth;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(tuple&lt;<span class="type">int</span>,<span class="type">int</span>,<span class="type">int</span>&gt; stat,<span class="type">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(i==<span class="number">0</span>)&#123;</span><br><span class="line">            depth.<span class="built_in">emplace</span>(stat,<span class="number">-1</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">auto</span> [a,b,c]=stat;</span><br><span class="line">        <span class="built_in">dfs</span>(&#123;a|i,b,c&#125;,i&gt;&gt;<span class="number">1</span>);</span><br><span class="line">        <span class="built_in">dfs</span>(&#123;a,b|i,c&#125;,i&gt;&gt;<span class="number">1</span>);</span><br><span class="line">        <span class="built_in">dfs</span>(&#123;a,b,c|i&#125;,i&gt;&gt;<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><br>深度初始化为-1，即不可达。现在先不考虑深度，可以写个主函数验证一下<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> H=HNT&#123;&#125;(<span class="number">5</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> e:H)&#123;</span><br><span class="line">        <span class="keyword">auto</span> [t,h]=e;</span><br><span class="line">        <span class="keyword">auto</span> [a,b,c]=t;</span><br><span class="line">        cout&lt;&lt;a&lt;&lt;<span class="string">&quot; &quot;</span></span><br><span class="line">            &lt;&lt;b&lt;&lt;<span class="string">&quot; &quot;</span></span><br><span class="line">            &lt;&lt;c&lt;&lt;<span class="string">&quot; &quot;</span></span><br><span class="line">            &lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="广搜遍历"><a href="#广搜遍历" class="headerlink" title="广搜遍历"></a>广搜遍历</h2><p>这里其实就是普通的广搜，值得注意的一点就是我在计算过程中把三元组转为数组，这样方便使用下标计算（用于移动圆盘），在计算完之后再把数组转为三元组。下面就不多解释了，直接贴完整的代码<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;array&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">lowbit</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x&amp;(-x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">array&lt;<span class="type">int</span>,3&gt;<span class="built_in">t3toa3</span>(tuple&lt;<span class="type">int</span>,<span class="type">int</span>,<span class="type">int</span>&gt;t)&#123;</span><br><span class="line">    array&lt;<span class="type">int</span>,3&gt;a;</span><br><span class="line">    <span class="built_in">tie</span>(a[<span class="number">0</span>],a[<span class="number">1</span>],a[<span class="number">2</span>])=t;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">tuple&lt;<span class="type">int</span>,<span class="type">int</span>,<span class="type">int</span>&gt;<span class="built_in">a3tot3</span>(array&lt;<span class="type">int</span>,<span class="number">3</span>&gt;a)&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;a[<span class="number">0</span>],a[<span class="number">1</span>],a[<span class="number">2</span>]&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">HNT</span>&#123;</span><br><span class="line">    map&lt;tuple&lt;<span class="type">int</span>,<span class="type">int</span>,<span class="type">int</span>&gt;,<span class="type">int</span>&gt;</span><br><span class="line">    <span class="built_in">operator</span>()(<span class="type">int</span> n)&#123;</span><br><span class="line">        depth.<span class="built_in">clear</span>();</span><br><span class="line">        <span class="built_in">dfs</span>(&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125;,<span class="number">1</span>&lt;&lt;(n<span class="number">-1</span>));</span><br><span class="line">        queue&lt;tuple&lt;<span class="type">int</span>,<span class="type">int</span>,<span class="type">int</span>&gt;&gt;Q;</span><br><span class="line">        Q.<span class="built_in">push</span>(depth.<span class="built_in">begin</span>()-&gt;first);</span><br><span class="line">        depth.<span class="built_in">begin</span>()-&gt;second=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(!Q.<span class="built_in">empty</span>())&#123;</span><br><span class="line">            <span class="keyword">auto</span> state=Q.<span class="built_in">front</span>();Q.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="type">int</span> d=depth[state];</span><br><span class="line">            array&lt;<span class="type">int</span>,3&gt;h,l;</span><br><span class="line">            h=<span class="built_in">t3toa3</span>(state);</span><br><span class="line">            <span class="built_in">transform</span>(h.<span class="built_in">begin</span>(),h.<span class="built_in">end</span>(),l.<span class="built_in">begin</span>(),lowbit);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i!=<span class="number">3</span>;++i)&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j!=<span class="number">3</span>;++j)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(l[i]==<span class="number">0</span>||i==j)<span class="keyword">continue</span>;</span><br><span class="line">                    <span class="keyword">if</span>(l[j]==<span class="number">0</span>||l[i]&lt;l[j])&#123;</span><br><span class="line">                        <span class="keyword">auto</span> a=h;</span><br><span class="line">                        a[i]-=l[i];</span><br><span class="line">                        a[j]+=l[i];</span><br><span class="line">                        <span class="keyword">auto</span> t=<span class="built_in">a3tot3</span>(a);</span><br><span class="line">                        <span class="keyword">if</span>(depth[t]==<span class="number">-1</span>)&#123;</span><br><span class="line">                            depth[t]=d+<span class="number">1</span>;</span><br><span class="line">                            Q.<span class="built_in">push</span>(t);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> depth;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    map&lt;tuple&lt;<span class="type">int</span>,<span class="type">int</span>,<span class="type">int</span>&gt;,<span class="type">int</span>&gt;depth;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(tuple&lt;<span class="type">int</span>,<span class="type">int</span>,<span class="type">int</span>&gt; stat,<span class="type">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(i==<span class="number">0</span>)&#123;</span><br><span class="line">            depth.<span class="built_in">emplace</span>(stat,<span class="number">-1</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">auto</span> [a,b,c]=stat;</span><br><span class="line">        <span class="built_in">dfs</span>(&#123;a|i,b,c&#125;,i&gt;&gt;<span class="number">1</span>);</span><br><span class="line">        <span class="built_in">dfs</span>(&#123;a,b|i,c&#125;,i&gt;&gt;<span class="number">1</span>);</span><br><span class="line">        <span class="built_in">dfs</span>(&#123;a,b,c|i&#125;,i&gt;&gt;<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> H=HNT&#123;&#125;(<span class="number">5</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> e:H)&#123;</span><br><span class="line">        <span class="keyword">auto</span> [t,count]=e;</span><br><span class="line">        <span class="keyword">auto</span> [a,b,c]=t;</span><br><span class="line">        cout&lt;&lt;a&lt;&lt;<span class="string">&quot; &quot;</span></span><br><span class="line">            &lt;&lt;b&lt;&lt;<span class="string">&quot; &quot;</span></span><br><span class="line">            &lt;&lt;c&lt;&lt;<span class="string">&quot; &quot;</span></span><br><span class="line">            &lt;&lt;count&lt;&lt;<span class="string">&quot; &quot;</span></span><br><span class="line">            &lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>运行这段代码会输出5个圆盘的所有状态和它们到终止状态的最小步数。从结果来看，每种状态的步数都小于<code>2^n-1</code>次，而且没有不可达（即深度为-1）的节点。</p>
+<h2 id="数学证明"><a href="#数学证明" class="headerlink" title="数学证明"></a>数学证明</h2><p>现在从答案推过程，已经知道从任意状态将n个圆盘移动到第三根柱子上最多需要$2^n-1$步。因为没有移动限制，所以可以说从任意状态将n个圆盘移动到任意一根柱子上最多需要$2^n-1$步。</p>
+<p>考虑复原n+1个圆盘的情况，增加一个圆盘允许的最大步数从$2^n-1$变成了$2^{n+1}-1$，即我们可以多移动$2^n$步。</p>
+<p>现在来考虑一下在n个圆盘的状态下多加第n+1个圆盘的情况，这个圆盘肯定是在任意柱子的最底层。</p>
+<p>如果第n+1个圆盘在第三根柱子的最底层，那复原n+1个圆盘需要的步数和复原n个一样，即最多$2^n-1$步</p>
+<p>如果第n+1个圆盘不在第三根柱子上，那我我们就需要把前面的n个圆盘复原到除了第三根和第n+1个圆盘所在的柱子以外的另一根柱子上，然后将第n+1个圆盘移动到第三根柱子上，最后将n个圆盘整塔移动到第三根柱子上。记将任意状态的n个圆盘移动到一根柱子上需要的步数为$g(n)$，设$g(n)&lt;=2^n-1$，根据上面可以得到，</p>
+<script type="math/tex; mode=display">
+g(n+1)=g(n)+f(n)+1=g(n)+2^n<=2^{n+1}-1</script><p>这样应该算是数学证明了。</p>
+<h2 id="小番外"><a href="#小番外" class="headerlink" title="小番外"></a>小番外</h2><p>之前说把状态作为节点，移动变换为边，构成一个图，然后我还想看看这个图长什么样，说不定还能看出什么关系，于是用Mathematica重新写了一遍并且画了图。嗯，虽然什么都没看出来，但是Mathematica写起来即简短又优雅，就是有点烧脑。</p>
+<p><img src="/2025/01/24/02-24-12/17376566808861.png" alt></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/01/22/01-42-12/" rel="prev" title="汉诺塔问题（1）">
+      <i class="fa fa-chevron-left"></i> 汉诺塔问题（1）
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="nav-number">2.</span> <span class="nav-text">状态的表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%8A%B6%E6%80%81"><span class="nav-number">3.</span> <span class="nav-text">枚举状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%BF%E6%90%9C%E9%81%8D%E5%8E%86"><span class="nav-number">4.</span> <span class="nav-text">广搜遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E8%AF%81%E6%98%8E"><span class="nav-number">5.</span> <span class="nav-text">数学证明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%95%AA%E5%A4%96"><span class="nav-number">6.</span> <span class="nav-text">小番外</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
