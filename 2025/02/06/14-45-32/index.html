@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="最近看到了一个很好玩的项目，谁不希望在电脑里面养个电子宠物、桌面精灵、虚拟女友、赛博猫娘呢，虽然这个项目也还没有达到这个程度，或者说在一般个人电脑上还达不到理想的效果，所以也只是玩玩。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建并运行Open-LLM-VTuber">
+<meta property="og:url" content="http://example.com/2025/02/06/14-45-32/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="最近看到了一个很好玩的项目，谁不希望在电脑里面养个电子宠物、桌面精灵、虚拟女友、赛博猫娘呢，虽然这个项目也还没有达到这个程度，或者说在一般个人电脑上还达不到理想的效果，所以也只是玩玩。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2025/02/06/14-45-32/17387841782079.png">
+<meta property="og:image" content="http://example.com/2025/02/06/14-45-32/17387843012215.png">
+<meta property="og:image" content="http://example.com/2025/02/06/14-45-32/17387843912609.png">
+<meta property="og:image" content="http://example.com/2025/02/06/14-45-32/17387845464830.png">
+<meta property="og:image" content="http://example.com/2025/02/06/14-45-32/17387843715158.png">
+<meta property="og:image" content="http://example.com/2025/02/06/14-45-32/17387849148591.png">
+<meta property="article:published_time" content="2025-02-06T06:45:32.000Z">
+<meta property="article:modified_time" content="2025-02-06T08:11:33.336Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2025/02/06/14-45-32/17387841782079.png">
+
+<link rel="canonical" href="http://example.com/2025/02/06/14-45-32/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>搭建并运行Open-LLM-VTuber | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/02/06/14-45-32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          搭建并运行Open-LLM-VTuber
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-02-06 14:45:32 / 修改时间：16:11:33" itemprop="dateCreated datePublished" datetime="2025-02-06T14:45:32+08:00">2025-02-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近看到了一个很好玩的项目，谁不希望在电脑里面养个电子宠物、桌面精灵、虚拟女友、赛博猫娘呢，虽然这个项目也还没有达到这个程度，或者说在一般个人电脑上还达不到理想的效果，所以也只是玩玩。</p>
+<span id="more"></span>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>先放上项目地址：<a target="_blank" rel="noopener" href="https://github.com/Open-LLM-VTuber/Open-LLM-VTuber">https://github.com/Open-LLM-VTuber/Open-LLM-VTuber</a></p>
+<p>官方文档（中文的）：<a target="_blank" rel="noopener" href="https://open-llm-vtuber.github.io/docs/quick-start">https://open-llm-vtuber.github.io/docs/quick-start</a></p>
+<p>这个项目大概就是结合了，大语言模型、文字转语音、语音识别、图像识别、Live2D，以及一堆我不知道的东西做成的项目。</p>
+<p>其实核心就是大语言模型，其他的都是交互方式上的东西，不过也不是说这些不重要，我为什么不直接使用网页或者App上的大语言模型的文字问答，而是费劲使用这个，就是因为这些外在的交互方式。毕竟人也是先看外表的，所以一个美丽的外表也是相当重要的。</p>
+<p>相同类型的项目还有<code>VirtualWife</code>，这个是3D的，说实话我其实对这个更感兴趣，而且我也有现成的<code>.vrm</code>模型可以换着玩，甚至幻想着如果这个能够做得跟鹿鸣桌面一样就好了。</p>
+<p>其实官方文档写的很好了，主要问题就是网络环境，所以这篇文章主要就是写几个需要魔法上网的地方，其他的按照官方文档来。</p>
+<p>注意，本文不提供魔法下载的方法，只是告知哪些地方需要魔法下载。</p>
+<h2 id="安装-FFmpeg"><a href="#安装-FFmpeg" class="headerlink" title="安装 FFmpeg"></a>安装 FFmpeg</h2><p>官方文档使用<code>winget install ffmpeg</code>来安装。这里先不说<code>winget</code>换源，这个下载的ffmpeg是从GitHub上下载的，正常下载可能会很慢，所以这里建议复制下载的链接自行使用魔法下载。</p>
+<p>下载下来是一个压缩包，自行找到一个地方解压，之后进入解压出来的<code>ffmpeg</code>目录，可以看到有一个<code>bin</code>目录，将<code>bin</code>目录的地址添加到系统环境变量<code>PATH</code>中，之后打开cmd输入<code>ffmpeg</code>看是否安装好。</p>
+<h2 id="获取项目代码"><a href="#获取项目代码" class="headerlink" title="获取项目代码"></a>获取项目代码</h2><p>第一个需要魔法的地方就是从GitHub上下载项目源代码。从GitHub上面下载东西大部分人应该都会，要么用ghproxy镜像，要么浏览器挂梯子用浏览器下载。</p>
+<p>然后在<code>git submodule update --init --recursive</code>这里停一下。正常情况下这样会从GitHub下载，小概率会下不下来。打开<code>.gitmodules</code>，可以看到是要把<code>https://github.com/Open-LLM-VTuber/Open-LLM-VTuber-Web</code>克隆到<code>frontend</code>。大家可以将url改为从ghproxy下载，也可以手动下载之后放到<code>frontend</code></p>
+<h2 id="安装项目依赖"><a href="#安装项目依赖" class="headerlink" title="安装项目依赖"></a>安装项目依赖</h2><p>官方文档使用<code>uv</code>来管理依赖，这个我没有用过，而且安装和使用<code>uv</code>会碰到更多需要魔法上网的问题，所以这里我用<code>conda</code>创建环境，手动安装依赖。</p>
+<p>打开<code>pyproject.toml</code>，可以看到这个需求的python版本是<code>&gt;=3.10</code>，我们就创建个3.10的环境</p>
+<p><img src="/2025/02/06/14-45-32/17387841782079.png" alt></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">conda</span> create -n VTuber python=<span class="number">3</span>.<span class="number">10</span></span><br></pre></td></tr></table></figure>
+<p>不要忘记激活环境<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="built_in">activate</span> VTuber</span><br></pre></td></tr></table></figure></p>
+<p>下面就是骚操作了，复制<code>pyproject.toml</code>为<code>requirements.txt</code>，然后将包名前后的东西全部删掉，</p>
+<p><img src="/2025/02/06/14-45-32/17387843012215.png" alt></p>
+<p>然后用正则替换，把每行首尾的空格双引号逗号全删掉，变成这样</p>
+<p><img src="/2025/02/06/14-45-32/17387843912609.png" alt></p>
+<p>保存，然后安装依赖<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> -r .\requirements.txt</span><br></pre></td></tr></table></figure></p>
+<p>安装完包之后，再手动运行一下。<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">python</span> .\run_server.<span class="keyword">py</span></span><br></pre></td></tr></table></figure><br>这时候应该是能运行，但是会下载一个压缩包，很大，1G多，从GitHub下载，如果下载很慢或者下载失败，我们可以复制链接手动使用魔法下载，之后把它放到<code>models</code>目录下，再次运行它会自动解压</p>
+<p><img src="/2025/02/06/14-45-32/17387845464830.png" alt></p>
+<p>再次运行应该就没有问题了，Ctrl点击下面的链接就可以打开了</p>
+<p><img src="/2025/02/06/14-45-32/17387843715158.png" alt></p>
+<p>运行效果：<br><img src="/2025/02/06/14-45-32/17387849148591.png" alt></p>
+<p>然后再在命令行用<code>Ctrl+C</code>停掉程序，然后修改配置文件。</p>
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>看我的文章的应该都是看中文的，默认的配置文件<code>conf.yaml</code>是英文注释，所以我们直接把配置文件删掉，然后复制一份<code>conf.CN.yaml</code>改为<code>conf.yaml</code>，原来的<code>conf.CN.yaml</code>留作默认配置的备份，其他的按照官方文档进行配置。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>实际使用起来，其实效果并没有达到我的预期，主要是本地部署的大模型的问题，或者说这是小模型的问题，小模型感觉都不太聪明，很多方面很难让人满意，如果我有一台能够运行671b的大模型的电脑，说不定就能够达到令人满意的效果了。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"># AI</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/02/06/02-43-32/" rel="prev" title="Windows安装配置Miniconda3">
+      <i class="fa fa-chevron-left"></i> Windows安装配置Miniconda3
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-FFmpeg"><span class="nav-number">2.</span> <span class="nav-text">安装 FFmpeg</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">获取项目代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96"><span class="nav-number">4.</span> <span class="nav-text">安装项目依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
