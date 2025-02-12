@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="这几天在折腾emote，想要尝试魔改出一个能够能够显示emote的桌面精灵然后把巧克力和香草放桌面上当桌宠，但是最后显然这个不是我能够在完全不了解emote的原理，并且不会使用emote的api能够做到的事情。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="折腾emote失败记录">
+<meta property="og:url" content="http://example.com/2025/02/12/02-43-32/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="这几天在折腾emote，想要尝试魔改出一个能够能够显示emote的桌面精灵然后把巧克力和香草放桌面上当桌宠，但是最后显然这个不是我能够在完全不了解emote的原理，并且不会使用emote的api能够做到的事情。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-02-11T18:43:32.000Z">
+<meta property="article:modified_time" content="2025-02-12T16:37:59.076Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="随笔">
+<meta property="article:tag" content="emote">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2025/02/12/02-43-32/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>折腾emote失败记录 | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/02/12/02-43-32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          折腾emote失败记录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-02-12 02:43:32" itemprop="dateCreated datePublished" datetime="2025-02-12T02:43:32+08:00">2025-02-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-02-13 00:37:59" itemprop="dateModified" datetime="2025-02-13T00:37:59+08:00">2025-02-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这几天在折腾emote，想要尝试魔改出一个能够能够显示emote的桌面精灵<span class="heimu">然后把巧克力和香草放桌面上当桌宠</span>，但是最后显然这个不是我能够在完全不了解emote的原理，并且不会使用emote的api能够做到的事情。</p>
+<span id="more"></span>
+<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>一切的一切还得从很久很久之前说起，那时候我应该还是初中，因为一些偶然，我在steam上看到了nekopara-vol1，的试玩版，然后又在试玩版的评论区里发现了包含本体的补丁，然后……</p>
+<p>总之就是，猫娘画得非常可爱，而且还会动，觉得非常神奇。之后我也有研究过拆包想要弄出这个会动的立绘，一开始我还以为这也是live2d，后来拆出一堆<code>.psb</code>文件，我才认识了emote，然后很不幸，我最后发现，这些立绘被加密了，然后就不了了之了。</p>
+<p>直到最近，因为各种原因，我无意中又搜索了一下，居然看到了这篇文章：<a target="_blank" rel="noopener" href="https://bilibili.com/opus/1029800559060713479">[全网最详细]猫娘乐园nekoparaextra，vol0，1，2，4xp3解包</a></p>
+<p>这里面给出了解密立绘的密码，终于这个困扰了我多年的问题终于解决了，我成功的用FreeMote打开了香草的立绘。</p>
+<p>之后我又萌生出了一个念头，只要把背景和边框隐藏掉，不就可以当桌面精灵了吗，正如我以前魔改PainterEngine的Windows平台的框架代码的时候一样，于是就踏进了神坑。</p>
+<h2 id="FreeMote编译失败"><a href="#FreeMote编译失败" class="headerlink" title="FreeMote编译失败"></a>FreeMote编译失败</h2><p>因为FreeMote带有个viewer，所以我最开始的想法就是，直接拉FreeMote下来魔改viewer部分的窗口属性部分的代码，然后就完成了。</p>
+<p>实际上，拉取代码，然后先点“生成解决方案”看看，果然不出意外的出意外了，报了一堆错，都是些Nuget包之类的错。因为我没写过C#，也没用VS编译过项目，这个东西我还真不会了，按照网上说的给Nuget添加源也没解决，而且翻了项目的issues和wiki也没有说怎么构建或者说构建的时候出现的问题。</p>
+<p>最后在我到处乱弄的时候，无意间发现，我硬盘里居然还留有emote官网的emote Windows SDK，一个非常简单的用C++语言写的示例，打开编译，然后复制一下库文件过去，居然真的能运行，于是又开始了第二个神坑。</p>
+<h2 id="emote-SDK的一堆问题"><a href="#emote-SDK的一堆问题" class="headerlink" title="emote SDK的一堆问题"></a>emote SDK的一堆问题</h2><p>这个的坑最多，虽然很多问题都是语言造成的。</p>
+<h3 id="VS的编码问题"><a href="#VS的编码问题" class="headerlink" title="VS的编码问题"></a>VS的编码问题</h3><p>一开始，我打开的时候虽然显示的是乱码，但是我无视了乱码，直接编译运行，它没有任何问题，但是我不可能一直看着乱码编写，所以我又打开了vs code，把编码从日文的<code>Shift_JIS‌</code>转为<code>UTF-8</code>，然后我也看不懂日文，于是我一边用翻译软件把注释翻译成中文，一边大致了解一下每个函数的功能。</p>
+<p>翻译完注释之后，还好我又点了一遍运行，不然等我改了代码之后，我可能永远不会知道，改了编码会影响VS的编译，非常的逆天，而且我还是用的<code>UTF-8</code>编码，居然会因为编码问题导致编译错误。</p>
+<p>然后我又一直按撤回，撤回也没用最后又把项目删了去emote官网重新下回来，最后才发现，这是改了编码的问题。最后上网得到的解决方案有两种，一种是装插件强制使用<code>UTF-8 no bom</code>，一种是使用<code>UTF-8 bom</code>。很好又无意中了解到了没有用的知识。</p>
+<p>BOM（Byte Order Mark），字节顺序标记，很不幸VS用的是<code>UTF-8 bom</code>编码，这样在windows之外的平台会有一些兼容性问题，所以才会有强制使用<code>UTF-8 no bom</code>的插件，但是我现在只想省事，所以编码转成<code>UTF-8 bom</code>问题解决，然后又重新写一遍中文注释。</p>
+<h3 id="打开香草的psb闪退"><a href="#打开香草的psb闪退" class="headerlink" title="打开香草的psb闪退"></a>打开香草的psb闪退</h3><p>然后很显然的发现了psb文件名是硬编码到代码中的，于是我直接把香草的psb文件改成了<code>emote_test.psb</code>然后放到同一目录下然后运行，果然不出我所料，窗口一闪而过，报运行时错误了。</p>
+<p>打开VS调试，然后发现并没有什么用，因为调用了<code>emotedevice.dll</code>之后出错的，这个是官方给的动态库，emote的实现没有开源，这调试了跟没调试一样，我也不知道是什么问题，官方的psb和导出的psb都能通过FreeMoteViewer打开。</p>
+<p>然后我猜测，会不会是动作名和口型名的问题，但是应该也不是，虽然代码里面确实硬编码有动作名，但是那个是通过触摸切换的，刚开始打开会是默认待机动作，不会直接导致不能打开。然后果然改了动作名也没用。</p>
+<h3 id="导出格式不对"><a href="#导出格式不对" class="headerlink" title="导出格式不对"></a>导出格式不对</h3><p>之后我又试了WebGL SDK，同样也是把psb换成香草的，一样是打不开，然后我把webgl的psb拖到FreeMoteViewer的时候出现了突破点，颜色显示不正确，然后我就猜到了，好像是说这个可以导出多个平台使用的文件，也就是说可能每个平台的psb都是不同的，于是我又下了krkr平台的SDK，一样的替换文件，一样的闪退了。</p>
+<p>之后用不同平台的官方案例的psb相互测试，发现确实不同平台之间不能兼容，但是FreeMoteViewer都能显示，只是webgl平台的颜色会不正常，真是想不通为什么同样的数据文件要区分平台，同样的立绘应该在每个平台都能显示同样的效果，这还为了每个平台单独开发了接口以及格式，然后制作软件能导出后缀名相同但是格式不同的数据文件。</p>
+<p>最后发现，FreeMote有把psb拆成json和图片的工具，把这几个psb全都拆了对比之后发现，确实是分平台的，而且webgl（ems平台）用的颜色编码是ARGB8，krkr的颜色编码是ARGB4444，不过换个角度，如果是krkr平台的，那对我来说就没用，我需要的是windows平台使用的。</p>
+<p>于是我继续看发现FreeMote还有把psb转成mmo的命令，我想着转完之后我自己再转导出成windows平台就行了，于是下一个神坑。</p>
+<h2 id="emotefuri"><a href="#emotefuri" class="headerlink" title="emotefuri"></a>emotefuri</h2><p>这个软件也是全日文，而且连软件名和安装目录都是日文，虽然网上说可以用apploc来安装解决乱码问题，但是我见硬装也能打开，就不折腾了，然后一打开，嗯软件界面没有乱码，只是，满屏幕片假名鬼才看得懂啊。</p>
+<p>而且这个免费版不能导出psb，我也是没有注意看，虽然我就算注意看了也看不懂，官网其实就已经说了免费版不能导出psb，总之这个也是白忙活了，不过还好我不会画画，我也没有想过我能够用这个画出会动的美少女。所以这个坑也到此为止。</p>
+<h2 id="emotewin"><a href="#emotewin" class="headerlink" title="emotewin"></a>emotewin</h2><p>有时候，人如果长眼睛，可以减少很多麻烦，就比如，如果我一开始就看到，krkr导出的文件里面，有一个是emotewin，可能我就可以少走一个坑。我在重新打开nekopara-vol1的时候发现有个emotewin，文件和emote里面的差不多，然后也是解了个psb来看，发现是windows平台的，嗯很好看来前面也是白弄了这么久。继续试验，FreeMoteViewer能打开，用windows SDK打开闪退，跟之前一样。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总结一下折腾的这几天学到了什么。</p>
+<ol>
+<li>emote导出的psb文件虽然后缀都一样，但是是分平台的，不同平台之间不通用。</li>
+<li>一个好用的json可视化网页版工具：<a target="_blank" rel="noopener" href="http://jsonhero.io">jsonhero</a></li>
+<li>解决VS乱码问题，最简单的方法就是源码全部保存为<code>UTF-8 bom</code>编码，不要管什么兼容性。如果有什么东西让你不得不使用VS来开发，那它大部分情况下都是运行在Windows平台，而不是跨平台的。</li>
+</ol>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>暂时先不折腾了，过两天就回学校了，还得准备补考，而且服创的项目也鸽了好久了，本来是说寒假做完的，结果拖到寒假结束都没动。等什么时候有时间了再从emote的api开始研究，这里就先挖下一个神坑。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag"># 随笔</a>
+              <a href="/tags/emote/" rel="tag"># emote</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/02/06/14-45-32/" rel="prev" title="搭建并运行Open-LLM-VTuber">
+      <i class="fa fa-chevron-left"></i> 搭建并运行Open-LLM-VTuber
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FreeMote%E7%BC%96%E8%AF%91%E5%A4%B1%E8%B4%A5"><span class="nav-number">2.</span> <span class="nav-text">FreeMote编译失败</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#emote-SDK%E7%9A%84%E4%B8%80%E5%A0%86%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">emote SDK的一堆问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VS%E7%9A%84%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98"><span class="nav-number">3.1.</span> <span class="nav-text">VS的编码问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E9%A6%99%E8%8D%89%E7%9A%84psb%E9%97%AA%E9%80%80"><span class="nav-number">3.2.</span> <span class="nav-text">打开香草的psb闪退</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E6%A0%BC%E5%BC%8F%E4%B8%8D%E5%AF%B9"><span class="nav-number">3.3.</span> <span class="nav-text">导出格式不对</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#emotefuri"><span class="nav-number">4.</span> <span class="nav-text">emotefuri</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#emotewin"><span class="nav-number">5.</span> <span class="nav-text">emotewin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">7.</span> <span class="nav-text">最后</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
