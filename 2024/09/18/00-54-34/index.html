@@ -215,10 +215,10 @@
       
         <p>之前离散数学课上，老师教了一种列真值表的方式来判断两个集合是否相等，这种方法很机械，非常适合写程序来打表。</p>
 <span id="more"></span>
-
 <h2 id="集合的部分运算的表示"><a href="#集合的部分运算的表示" class="headerlink" title="集合的部分运算的表示"></a>集合的部分运算的表示</h2><p>首先我们需要用计算机能理解的方式表示集合的运算。按照老师上课说的，0和1表示的就是元素是否属于集合，0不属于，1属于，然后接下来看看每个运算的表示方法。</p>
 <p>注意，下面计算中任何看起来是集合的东西，表示的都是元素是否在集合中，并不是集合。运算的结果看起来也是集合，但是表示的也是这个元素是否在结果集合中。</p>
 <h3 id="补集"><a href="#补集" class="headerlink" title="补集"></a>补集</h3><p>首先从最简单的补集开始，根据定义，显然如果x属于A，那么x不属于A的补集，相反x不属于A，那么x一定属于A的补集，画成表应该是下面这样</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -226,7 +226,8 @@
 <th>$\overline{A}$</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>1</td>
 <td>0</td>
 </tr>
@@ -234,12 +235,13 @@
 <td>0</td>
 <td>1</td>
 </tr>
-</tbody></table>
-<p>可以很明显的看出来，这个就是逻辑运算或者布尔运算里面的“非”运算，用代码来写大概就是这样</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//补集运算</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">complement</span><span class="params">(<span class="type">bool</span> A)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> !A;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+</tbody>
+</table>
+</div>
+<p>可以很明显的看出来，这个就是逻辑运算或者布尔运算里面的“非”运算，用代码来写大概就是这样<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//补集运算</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">complement</span><span class="params">(<span class="type">bool</span> A)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> !A;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="并集"><a href="#并集" class="headerlink" title="并集"></a>并集</h3><p>并集就是把两个集合拼起来，新集合包含两个集合的所有的元素，或者说原本两个集合中的元素都能够在新的集合中找到。</p>
 <p>所以显然，如果一个元素属于任意一个集合，那就必定属于这两个集合的交集，这就跟逻辑运算的“或”是一样的</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -247,7 +249,8 @@
 <th>$A \cup B$</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>1 1</td>
 <td>1</td>
 </tr>
@@ -263,11 +266,13 @@
 <td>0 0</td>
 <td>0</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>代码如下</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//并集运算</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">union</span><span class="params">(<span class="type">bool</span> A,<span class="type">bool</span> B)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> A||B;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h3 id="交集"><a href="#交集" class="headerlink" title="交集"></a>交集</h3><p>看了上面两个例子之后应该可以很容易的推出，交集相当于逻辑运算中的“且”，元素要同时属于两个集合，才会属于两个集合的交集。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -275,7 +280,8 @@
 <th>$A \cup B$</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>1 1</td>
 <td>1</td>
 </tr>
@@ -291,10 +297,11 @@
 <td>0 0</td>
 <td>0</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>代码如下</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//交集运算</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">intersection</span><span class="params">(<span class="type">bool</span> A,<span class="type">bool</span> B)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> A||B;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h2 id="打表实现"><a href="#打表实现" class="headerlink" title="打表实现"></a>打表实现</h2><p>打表主要就两件事，</p>
 <ol>
 <li>根据变量的数量枚举所有可能情况</li>
@@ -302,7 +309,6 @@
 </ol>
 <p>枚举所有可能可以用递归实现，在递归的最后一层的时候代入求值，代码大致应该是这样：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">bool</span>&gt;S;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">g</span>(S);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    S.<span class="built_in">push_back</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">f</span>(n<span class="number">-1</span>);</span><br><span class="line">    S.<span class="built_in">pop_back</span>();</span><br><span class="line">    </span><br><span class="line">    S.<span class="built_in">push_back</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">f</span>(n<span class="number">-1</span>);</span><br><span class="line">    S.<span class="built_in">pop_back</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>S是一个全局列表，保存表达式用到的每一个变量，g是表达式求值函数。</p>
 <p>其实最好还是写一个将字符串解析为表达式的函数，用户的输入就是字符串，例如“补(交(A,B))”然后构造一个函数对象。</p>
 <h2 id="最终实现"><a href="#最终实现" class="headerlink" title="最终实现"></a>最终实现</h2><p>综合考虑，我最后决定用js写，一来有现成的Function可以将字符串解析为函数，二来可以用html来打表，比C++控制台显示的好看点，三来web端的程序使用都比较方便</p>

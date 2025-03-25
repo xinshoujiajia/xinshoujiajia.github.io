@@ -25,11 +25,60 @@ document.getElementById('m-input').addEventListener('change', () => {
     const m = parseInt(document.getElementById('m-input').value);
     const nSelect = document.getElementById('n-input');
     nSelect.innerHTML = '';
-    for (let i = 1; i <= m; i++) { const option="document.createElement('option');" option.value="i;" option.textcontent="i;" nselect.appendchild(option); } }); function generatematrix(row, m, n) if(n="==0){" for (let i="0;" < row.push(0); matrixdata.push(row); return; if(m="=n){" row.push(1); generatematrix(row.concat(0), m-1, n); generatematrix(row.concat(1), n-1); document.getelementbyid('m-input').addeventlistener('change', updatematrix); document.getelementbyid('n-input').addeventlistener('change', ()> {
+    for (let i = 1; i <= m; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i;
+        nSelect.appendChild(option);
+    }
+});
+
+function generateMatrix(row, m, n) {
+    if(n===0){
+        for (let i = 0; i < m; i++) {
+            row.push(0);
+        }
+        matrixData.push(row);
+        return;
+    }
+    if(m==n){
+        for (let i = 0; i < m; i++) {
+            row.push(1);
+        }
+        matrixData.push(row);
+        return;
+    }
+    generateMatrix(row.concat(0), m-1, n);
+    generateMatrix(row.concat(1), m-1, n-1);
+}
+
+
+
+document.getElementById('m-input').addEventListener('change', updateMatrix);
+document.getElementById('n-input').addEventListener('change', updateMatrix);
+
+document.getElementById('m-input').addEventListener('change', () => {
     const m = parseInt(document.getElementById('m-input').value);
     const colSelect = document.getElementById('col-select');
     colSelect.innerHTML = '';
-    for (let i = 1; i <= m; i++) { const checkbox="document.createElement('input');" checkbox.type="checkbox" ; checkbox.value="i;" checkbox.id="col-" + i; label="document.createElement('label');" label.htmlfor="col-" label.textcontent="i;" colselect.appendchild(checkbox); colselect.appendchild(label); } updatematrix(); }); function getselectedcolumns() checkboxes="document.querySelectorAll('#col-select" input[type="checkbox" ]'); selectedcols="[];" checkboxes.foreach(checkbox> {
+    for (let i = 1; i <= m; i++) {
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox'; 
+        checkbox.value = i;
+        checkbox.id = 'col-' + i;
+        const label = document.createElement('label');
+        label.htmlFor = 'col-' + i;
+        label.textContent = i;
+        colSelect.appendChild(checkbox);
+        colSelect.appendChild(label);
+    }
+    updateMatrix();
+});
+
+function getSelectedColumns() {
+    const checkboxes = document.querySelectorAll('#col-select input[type="checkbox"]');
+    const selectedCols = [];
+    checkboxes.forEach(checkbox => {
         if (checkbox.checked) {
             selectedCols.push(parseInt(checkbox.value));
         }
@@ -57,4 +106,26 @@ function updateMatrix() {
                 const tr = document.createElement('tr');
                 let orResult = 0;
                 selectedCols.forEach(col => {
-                    if (col > 0 && col </=></=>
+                    if (col > 0 && col <= row.length) {
+                        const td = document.createElement('td');
+                        td.textContent = row[col - 1];
+                        td.className = 'matrix-cell ' + (row[col - 1] === 0 ? 'cell-zero' : 'cell-one');
+                        tr.appendChild(td);
+                        orResult |= row[col - 1];
+                    }
+                });
+                const emptyTd = document.createElement('td');
+                emptyTd.className = 'matrix-cell empty-cell';
+                tr.appendChild(emptyTd);
+                const resultTd = document.createElement('td');
+                resultTd.textContent = orResult;
+                resultTd.className = 'matrix-cell ' + (orResult === 0 ? 'cell-zero' : 'cell-one');
+                tr.appendChild(resultTd);
+                table.appendChild(tr);
+            });
+            container.appendChild(table);
+        }
+    }
+}
+
+document.getElementById('col-select').addEventListener('change', updateMatrix);

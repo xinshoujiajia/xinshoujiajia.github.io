@@ -215,29 +215,19 @@
       
         <p>这篇文章主要是说如何用qemu+gdb在本机上调试arm架构的程序，主要参考这篇文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_60209620/article/details/137163917">ARM pwn 环境搭建和使用</a>，以及介绍gdb的一些使用。</p>
 <span id="more"></span>
-
-
 <h2 id="需要用到的工具"><a href="#需要用到的工具" class="headerlink" title="需要用到的工具"></a>需要用到的工具</h2><ul>
 <li>qemu-user</li>
 <li>gdb-multiarch</li>
 </ul>
-<h2 id="qemu-gdb调试"><a href="#qemu-gdb调试" class="headerlink" title="qemu+gdb调试"></a>qemu+gdb调试</h2><p>第一步，使用qemu启动需要调试的程序，</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-arm -L /usr/arm-linux-gnueabi -g1234 a.out</span><br></pre></td></tr></table></figure>
-<p>我这里假设是arm架构的程序，用<code>qemu-arm</code>启动，<code>-L</code>跟的是对应架构的动态链接库所处的根目录，<code>-g</code>后面跟的是gdb调试用的端口号，<code>a.out</code>就是要调试的程序。</p>
-<p>第二步，运行gdb-multiarch</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb-multiarch -q a.out</span><br></pre></td></tr></table></figure>
-<p><code>-q</code>参数是可选的，安静模式不显示gdb版本信息，<code>a.out</code>就是要调试的程序，用于读取符号信息。</p>
-<p>第三步，在gdb控制台设置架构</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> architecture arm</span><br></pre></td></tr></table></figure>
-<p>我这里是用于调试arm架构的程序，可以根据需要修改</p>
-<p>第四步，连接qemu远程调试</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">target remote localhost:1234</span><br></pre></td></tr></table></figure>
-<p>由于我qemu和gdb都运行在本机上，所以ip使用localhost，1234是之前qemu指定的端口号，可以根据情况自己修改</p>
+<h2 id="qemu-gdb调试"><a href="#qemu-gdb调试" class="headerlink" title="qemu+gdb调试"></a>qemu+gdb调试</h2><p>第一步，使用qemu启动需要调试的程序，<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-arm -L /usr/arm-linux-gnueabi -g1234 a.out</span><br></pre></td></tr></table></figure><br>我这里假设是arm架构的程序，用<code>qemu-arm</code>启动，<code>-L</code>跟的是对应架构的动态链接库所处的根目录，<code>-g</code>后面跟的是gdb调试用的端口号，<code>a.out</code>就是要调试的程序。</p>
+<p>第二步，运行gdb-multiarch<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb-multiarch -q a.out</span><br></pre></td></tr></table></figure><br><code>-q</code>参数是可选的，安静模式不显示gdb版本信息，<code>a.out</code>就是要调试的程序，用于读取符号信息。</p>
+<p>第三步，在gdb控制台设置架构<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> architecture arm</span><br></pre></td></tr></table></figure><br>我这里是用于调试arm架构的程序，可以根据需要修改</p>
+<p>第四步，连接qemu远程调试<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">target remote localhost:1234</span><br></pre></td></tr></table></figure><br>由于我qemu和gdb都运行在本机上，所以ip使用localhost，1234是之前qemu指定的端口号，可以根据情况自己修改</p>
 <p>至此已经可以进行调试了</p>
 <h2 id="gdb常用命令"><a href="#gdb常用命令" class="headerlink" title="gdb常用命令"></a>gdb常用命令</h2><p>我主要参考了这篇文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/474736535">GDB常用命令</a>，也可以自行在gdb内输入<code>help all</code>查看全部命令。</p>
 <p>一些小提示，按tab键可以补全命令，部分常用命令都有缩写，以及补充一些汇编相关的命令和文章中没有提到但是我用到的</p>
 <ul>
-<li>si&#x2F;ni，单汇编指令调试，si是会进入跳转到函数内部，ni不会进入指令内部</li>
+<li>si/ni，单汇编指令调试，si是会进入跳转到函数内部，ni不会进入指令内部</li>
 <li>p $寄存器名称，可以查看寄存器以及给寄存器赋值</li>
 <li>b *汇编地址，可以在指定地址打断点</li>
 <li>有时候gdb不会自动加载动态库的符号表，可以用<code>file xxx.so</code>手动加载动态库的符号表</li>

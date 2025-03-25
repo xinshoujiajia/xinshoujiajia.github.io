@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://example.com/2023/12/06/16-54-34/img2.png">
 <meta property="og:image" content="http://example.com/2023/12/06/16-54-34/img3.png">
 <meta property="article:published_time" content="2023-12-06T08:54:34.000Z">
-<meta property="article:modified_time" content="2023-12-30T13:08:49.000Z">
+<meta property="article:modified_time" content="2024-07-31T07:42:51.978Z">
 <meta property="article:author" content="新手佳佳">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
@@ -204,7 +204,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-30 21:08:49" itemprop="dateModified" datetime="2023-12-30T21:08:49+08:00">2023-12-30</time>
+                <time title="修改时间：2024-07-31 15:42:51" itemprop="dateModified" datetime="2024-07-31T15:42:51+08:00">2024-07-31</time>
               </span>
 
           
@@ -218,24 +218,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>最近看了一下树状数组，想到之前头歌作业上的二分查找，然后就有了用lowbit实现二分查找的想法。</p>
-<span id="more"></span>
-
-<h2 id="树状数组"><a href="#树状数组" class="headerlink" title="树状数组"></a>树状数组</h2><p>树状数组的基本作用是单点修改和区间求和，它的核心就是一个lowbit函数。不过这次的重点不是树状数组，而是lowbit，它的作用是获取一个二进制数的最低位1。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> lowbit(x) ((x)&amp;(-x))</span></span><br></pre></td></tr></table></figure>
-<p>树状数组大概就是这个样子</p>
-<p><img src="/2023/12/06/16-54-34/img0.png"></p>
+        <p>最近看了一下树状数组，想到之前头歌作业上的二分查找，然后就有了用lowbit实现二分查找的想法。<br><span id="more"></span></p>
+<h2 id="树状数组"><a href="#树状数组" class="headerlink" title="树状数组"></a>树状数组</h2><p>树状数组的基本作用是单点修改和区间求和，它的核心就是一个lowbit函数。不过这次的重点不是树状数组，而是lowbit，它的作用是获取一个二进制数的最低位1。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> lowbit(x) ((x)&amp;(-x))</span></span><br></pre></td></tr></table></figure><br>树状数组大概就是这个样子</p>
+<p><img src="/2023/12/06/16-54-34/img0.png" alt></p>
 <p>如果要爬树那就是加上当前节点的lowbit</p>
-<p><img src="/2023/12/06/16-54-34/img1.png"></p>
-<p>然后有一个我也不知道叫什么的操作，或许叫左跳和右跳吧<br><img src="/2023/12/06/16-54-34/img2.png"></p>
+<p><img src="/2023/12/06/16-54-34/img1.png" alt></p>
+<p>然后有一个我也不知道叫什么的操作，或许叫左跳和右跳吧<br><img src="/2023/12/06/16-54-34/img2.png" alt></p>
 <p>这个左右跳就是我想要用来实现二分查找的。</p>
 <h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p>普通的二分查找就不多说了，适用的条件是线性存储并且有序，这里也需要满足这些条件。</p>
 <p>假设要在有n个数的有序数组A中找m，首先如果m大于A[n-1]，那就直接可以返回不存在。之后就是找到树顶和中间位置，如图</p>
-<p><img src="/2023/12/06/16-54-34/img3.png"></p>
+<p><img src="/2023/12/06/16-54-34/img3.png" alt></p>
 <p>之后就和常规的二分查找一样了，大于就左跳，小于就右跳， 如果跳到底都没找到那就是不存在。</p>
-<p>代码如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> lowbit(x) ((x)&amp;(-x))</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">lowbit_search</span><span class="params">(<span class="type">int</span> *A,<span class="type">int</span> n,<span class="type">int</span> m)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(m&gt;A[n<span class="number">-1</span>])<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="type">int</span> mid,top=n;</span><br><span class="line">    <span class="keyword">while</span>(top!=lowbit(top))top+=lowbit(top);</span><br><span class="line">    mid=top&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(lowbit(mid)!=<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(A[mid]==m)<span class="keyword">return</span> mid;</span><br><span class="line">        <span class="keyword">if</span>(A[mid]&gt;m)mid-=lowbit(mid)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> mid+=lowbit(mid)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(A[mid]==m)<span class="keyword">return</span> mid;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> lowbit(x) ((x)&amp;(-x))</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">lowbit_search</span><span class="params">(<span class="type">int</span> *A,<span class="type">int</span> n,<span class="type">int</span> m)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(m&gt;A[n<span class="number">-1</span>])<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="type">int</span> mid,top=n;</span><br><span class="line">    <span class="keyword">while</span>(top!=lowbit(top))top+=lowbit(top);</span><br><span class="line">    mid=top&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(lowbit(mid)!=<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(A[mid]==m)<span class="keyword">return</span> mid;</span><br><span class="line">        <span class="keyword">if</span>(A[mid]&gt;m)mid-=lowbit(mid)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> mid+=lowbit(mid)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(A[mid]==m)<span class="keyword">return</span> mid;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>时间复杂度和普通二分查找一样都是$O(log_2n)$，可能常数还比二分查找大，写起来也比普通二分查找麻烦，理解上也比较复杂，所以我又写了个没用的算法。</p>
 <p>如果对树状数组感兴趣的可以看看这个：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/93795692">算法学习笔记(2) : 树状数组</a></p>
 
