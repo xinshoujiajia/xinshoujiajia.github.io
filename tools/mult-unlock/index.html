@@ -2,11 +2,8 @@
 <html>
 
 <head>
-    <div style="margin-bottom: 20px; padding: 10px; background-color: #f0f0f0; border-radius: 5px;">
-        <p>本程序演示m人中任意至少n人才能打开所有锁的原理。通过选择m和n的值，程序会生成所有可能的组合矩阵，其中1表示有钥匙，0表示没有钥匙。只有当你选择n列时，这些列的按位或操作结果才会全部为1，表示成功打开所有锁。</p>
-    </div>
     <meta charset="utf-8">
-    <title>矩阵</title>
+    <title>多人开锁问题</title>
     <style>
         .matrix-table {
             border-collapse: collapse;
@@ -30,6 +27,9 @@
 </head>
 
 <body>
+    <div style="margin-bottom: 20px; padding: 10px; background-color: #f0f0f0; border-radius: 5px;">
+        <p>本程序演示m人中任意至少n人才能打开所有锁的原理。通过选择m和n的值，程序会生成所有可能的组合矩阵，其中1表示有钥匙，0表示没有钥匙。只有当你选择n列时，这些列的按位或操作结果才会全部为1，表示成功打开所有锁。</p>
+    </div>
     <div style="display: flex;">
     <div style="flex: 1;">
         <label for="m-input">m:</label>
