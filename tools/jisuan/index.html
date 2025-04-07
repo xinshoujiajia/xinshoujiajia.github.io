@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>信安计算器</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+    <style>
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+                margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .notebook {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .cell {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px;
+        }
+        .cell-header {
+            margin-bottom: 15px;
+        }
+        .input-container {
+            gap: 10px;
+        }
+        select, input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        input {
+            width: 100px;
+        }
+        td {
+            width: 50px;
+            padding: 5px;
+        }
+        .calculate-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: auto;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .add-cell-btn {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .math-table, .math-table th, .math-table td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="notebook">
+            <!-- 动态生成的单元格将插入到这里 -->
+        </div>
+        <button class="add-cell-btn">+ 添加单元格</button>
+
+    </div>
+    <script src="mathUtils.js", type="text/javascript"></script>
+    <script src="renderMath.js", type="text/javascript"></script>
+    <script src="inputComponent.js", type="text/javascript"></script>
+    <script src="functionInfo.js", type="text/javascript"></script>
+    <script src="cell.js", type="text/javascript"></script>
+    <script src="main.js", type="text/javascript"></script>
+</body>
+</html>
