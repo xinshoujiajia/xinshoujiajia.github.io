@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="最近太忙了都没有写博客，但是这篇觉得还是可以记录一下，所以简单的记录一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学院服务器使用记录">
+<meta property="og:url" content="http://example.com/2025/04/30/23-16-16/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="最近太忙了都没有写博客，但是这篇觉得还是可以记录一下，所以简单的记录一下。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-04-30T15:16:16.000Z">
+<meta property="article:modified_time" content="2025-05-01T15:28:36.717Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="折腾">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2025/04/30/23-16-16/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>学院服务器使用记录 | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/30/23-16-16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          学院服务器使用记录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-04-30 23:16:16" itemprop="dateCreated datePublished" datetime="2025-04-30T23:16:16+08:00">2025-04-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-05-01 23:28:36" itemprop="dateModified" datetime="2025-05-01T23:28:36+08:00">2025-05-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近太忙了都没有写博客，但是这篇觉得还是可以记录一下，所以简单的记录一下。</p>
+<span id="more"></span>
+<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>最近在帮老师做项目跑代码，有幸得以使用学院的服务器，虽然听说这台服务器算是比较老的了，所以使用上也比较随意（所以我也得使用）但是也比我之前从基地拿的垃圾主机好多了，48核256G内存，两张1080Ti。</p>
+<p>虽然配置高了，但是限制也比较多，我没有密码（ssh密钥连接的）也没有sudo权限，而且最主要的是，连不了外网，所以这篇文章用来记录一些我使用上的问题。</p>
+<h2 id="ssh相关"><a href="#ssh相关" class="headerlink" title="ssh相关"></a>ssh相关</h2><p>ssh远程连接，相当常见的方式，但是跟我平常使用有一些不同。我平时都是懒得生成密钥的，都是密码登录。但是这边老师没有给我创建账号，让我给公钥加到服务器上，然后我使用老师的账号（当然我也不知道密码）大概操作如下，</p>
+<p>在自己电脑上生成RSA密钥对：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure><br>之后会有3个东西要我们输入，第一个是保存位置，默认是在用户目录下的<code>.ssh</code>生成私钥<code>id_rsa</code>和公钥<code>id_rsa.pub</code>。私钥不能外传，公钥的话可以外传。</p>
+<p>然后找一个能够连上远程服务器的人，将你的公钥加到远程服务器的<code>~/.ssh/authorized_keys</code>，这个方法很多，可以用记事本打开自己的<code>id_rsa.pub</code>，然后复制内容，让人粘贴到远程服务器的<code>~/.ssh/authorized_keys</code>里，每个一行，总之这个本质上就是个文本编辑。</p>
+<h2 id="系统代理"><a href="#系统代理" class="headerlink" title="系统代理"></a>系统代理</h2><p>之后来解决一系列的联网问题，前提条件，远程服务器连不了外网，我们自己的电脑能够连接远程服务器，我们的电脑能够连接外网，我们要让远程服务器通过我们的电脑来访问外网。</p>
+<p>注这篇文章讲的所有代理方法均为http代理，只代理http，并不能解决所有的网络问题，我使用这个方法只是因为我台式机只有一个网卡，不能搞共享网关，http代理也勉强够用。</p>
+<p>首先我们自己的电脑需要能够当http代理服务器，这类软件大家可以自己找，我是刚好clash也可以本机开代理服务器，所以我直接用的clash开局域网访问。</p>
+<p>然后连接远程服务器，在远程服务器上设置环境变量<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> http_proxy=http://你的电脑ip:端口</span><br><span class="line"><span class="built_in">export</span> https_proxy=http://你的电脑ip:端口</span><br></pre></td></tr></table></figure><br>设置完之后测试一下网络，懂一点的人肯定是<code>ping baidu.com</code>测试，然后发现ping不通。正常现象，ping这个不走http协议，所以可以用curl或者wget试一下百度<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://www.baidu.com</span><br></pre></td></tr></table></figure><br>如果显示了一串html代码并且能够用人脑解析出百度的主页那就能连上外网了。</p>
+<p>能够连上外网之后可以使用wget下载东西，就不需要在自己电脑上下了之后传到服务器上了。</p>
+<p>上面的操作只有在当前会话有用，也就是说你exit之后重新连又要重新设置一次，所以可以把设置环境变量那两行写在一个sh脚本里面，每次需要代理的时候运行一下，更懒一点如果这个用户只有你自己使用，可以把这两行加到<code>~/.profile</code>里，这样每次登录自动设置代理。</p>
+<p>不需要使用代理的时候可以用下面两行命令清除代理的环境变量<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unset</span> http_proxy</span><br><span class="line"><span class="built_in">unset</span> https_proxy</span><br></pre></td></tr></table></figure></p>
+<h2 id="conda设置代理"><a href="#conda设置代理" class="headerlink" title="conda设置代理"></a>conda设置代理</h2><p>conda创建环境和装包都需要网络（如果没有缓存的话），系统环境变量会不会影响conda我不记得了，反正我使用conda的时候都是每次手动设置代理<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda --proxy http://你的电脑ip:端口 create -n 环境名 python=x.xx</span><br><span class="line">conda --proxy http://你的电脑ip:端口 install 包名</span><br></pre></td></tr></table></figure></p>
+<p>同理，如果这个用户只有你自己使用的话可以设置永久代理<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda config --<span class="built_in">set</span> proxy_servers.http http://你的电脑ip:端口</span><br><span class="line">conda config --<span class="built_in">set</span> proxy_servers.https http://你的电脑ip:端口</span><br></pre></td></tr></table></figure><br>这种方法本质上也是修改配置文件，所以也能通过修改<code>~/.condarc</code>来设置。</p>
+<h2 id="pip设置代理"><a href="#pip设置代理" class="headerlink" title="pip设置代理"></a>pip设置代理</h2><p>pip安装包大概也和conda一样，每次手动代理<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip --proxy http://你的电脑ip:端口 install 包名</span><br></pre></td></tr></table></figure></p>
+<p>永久设置<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip config <span class="built_in">set</span> global.proxy http://你的电脑ip:端口</span><br></pre></td></tr></table></figure><br>这种方法本质上也是修改配置文件，所以也能通过修改<code>~/.pip/pip.conf</code>来设置。</p>
+<h2 id="cuda相关"><a href="#cuda相关" class="headerlink" title="cuda相关"></a>cuda相关</h2><p>同样是配环境时的问题，服务器上只装了nvidia驱动（装了驱动就可以使用nvidia-smi查看驱动和最高支持的cuda版本，以及显卡信息）但是没装cudatoolkit，在我询问老师之后老师说cuda用python的。</p>
+<p>网上搜到的是用conda装的，而且确实装了能用，如果没装cudatoolkit，同时又装了cuda版本的包（直接装whl的话能够装上）但是运行时会报错缺个什么动态链接库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install cudatoolkit=xx.x</span><br></pre></td></tr></table></figure>
+<p>这样就算装好了，注意指定版本，而且最好不要等到运行报错之后再装，应该提前装好。</p>
+<h2 id="vscode历史版本下载"><a href="#vscode历史版本下载" class="headerlink" title="vscode历史版本下载"></a>vscode历史版本下载</h2><p>前情提要，我能用的这台学院服务器有点老了，主要是系统版本和glibc的版本低了，而且这种服务器肯定是只要能跑，还在跑就肯定不会更新的，所以肯定只能我们去适配它。</p>
+<p>我们老师是说用vscode的remote ssh到服务器上写代码的，但是有一个小小的坑，vscode远程的时候需要在服务器上下载服务端，并且高版本的vscode客户端不一定兼容低版本的服务端，所以需要给vscode客户端降级。</p>
+<p>据我目前知道的25年4月的版本高了，24年11月的版本还能用，vscode客户端的历史版本在<a target="_blank" rel="noopener" href="https://code.visualstudio.com/updates">这里下载</a>，在左边可以选版本，在页面上边有各版本下载地址，下面有版本介绍。</p>
+<p>远程连接之后会自动下载服务端，这里需要注意，如果服务器不能联网，那就要像前面说的系统代理那样，在<code>~/.profile</code>里添加代理的环境变量，这样才能自动下载服务端。</p>
+<p>或者也可以像网上说的自己手动下载并解压指定版本的服务端，但是这样会非常麻烦。</p>
+<h2 id="tmux挂后台"><a href="#tmux挂后台" class="headerlink" title="tmux挂后台"></a>tmux挂后台</h2><p>不得不说装这个的人真是跟我一样紧跟潮流（虽然也是很多年前的潮流了）本来我还以为服务器上会没有tmux，只能用screen，但是没想到居然有tmux。</p>
+<p>正常ssh连接的时候跑的程序在ssh断开的时候就终止了，但是能用上服务器来跑的程序一般耗时都不短，而且我们肯定不可能让一个耗时多的程序一直占着我们的终端，所以不管是从哪个角度，我们都应该把长时间跑的程序丢到后台。使用也很简单，直接输<code>tmux</code>就可以开一个后台窗口出来，然后正常运行程序，关闭后台窗口（不退出）按快捷键<code>ctrl+d松开再按下b</code>，再打开的话用<code>tmux a -t窗口号</code>，窗口号从0开始，在后台左下角可以看，如果不记得了也可以<code>tmux ls</code>来查看，或者一一试。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%98%E8%85%BE/" rel="tag"># 折腾</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/04/13/22-01-16/" rel="prev" title="用嘉立创免费打印苏丹卡">
+      <i class="fa fa-chevron-left"></i> 用嘉立创免费打印苏丹卡
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  <script type="text/javascript" src="/js/fa.js"></script>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ssh%E7%9B%B8%E5%85%B3"><span class="nav-number">2.</span> <span class="nav-text">ssh相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">系统代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conda%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">conda设置代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pip%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">pip设置代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cuda%E7%9B%B8%E5%85%B3"><span class="nav-number">6.</span> <span class="nav-text">cuda相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vscode%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC%E4%B8%8B%E8%BD%BD"><span class="nav-number">7.</span> <span class="nav-text">vscode历史版本下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux%E6%8C%82%E5%90%8E%E5%8F%B0"><span class="nav-number">8.</span> <span class="nav-text">tmux挂后台</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
