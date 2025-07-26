@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前段时间马斯克的Grok的AI女友火了，虽然我也很想试试但是毕竟国内，不方便使用，而且还要每月30美元，我这种喜欢白嫖的肯定就不抢先体验了（而且主要是感觉Ani长得不太符合我XP）。但是我这个人还是比较喜欢表面，或许我不需要它会说话能帮我解决问题，我想要的可能只是一个会动的二次元模型，于是几经辗转之下我找到了一个VRM桌宠，MateEngine。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="将Unity3D的模型转为VRM模型">
+<meta property="og:url" content="http://example.com/2025/07/27/04-30-33/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="前段时间马斯克的Grok的AI女友火了，虽然我也很想试试但是毕竟国内，不方便使用，而且还要每月30美元，我这种喜欢白嫖的肯定就不抢先体验了（而且主要是感觉Ani长得不太符合我XP）。但是我这个人还是比较喜欢表面，或许我不需要它会说话能帮我解决问题，我想要的可能只是一个会动的二次元模型，于是几经辗转之下我找到了一个VRM桌宠，MateEngine。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2025/07/27/04-30-33/image.png">
+<meta property="og:image" content="http://example.com/2025/07/27/04-30-33/image-1.png">
+<meta property="og:image" content="http://example.com/2025/07/27/04-30-33/image-2.png">
+<meta property="og:image" content="http://example.com/2025/07/27/04-30-33/image-3.png">
+<meta property="og:image" content="http://example.com/2025/07/27/04-30-33/image-4.png">
+<meta property="og:image" content="http://example.com/2025/07/27/04-30-33/image-5.png">
+<meta property="og:image" content="http://example.com/2025/07/27/04-30-33/image-6.png">
+<meta property="og:image" content="http://example.com/2025/07/27/04-30-33/image-7.png">
+<meta property="og:image" content="http://example.com/2025/07/27/04-30-33/image-8.png">
+<meta property="og:image" content="http://example.com/2025/07/27/04-30-33/image-9.png">
+<meta property="og:image" content="http://example.com/2025/07/27/04-30-33/image-10.png">
+<meta property="og:image" content="http://example.com/2025/07/27/04-30-33/image-11.png">
+<meta property="og:image" content="http://example.com/2025/07/27/04-30-33/image-12.png">
+<meta property="og:image" content="http://example.com/2025/07/27/04-30-33/image-13.png">
+<meta property="og:image" content="http://example.com/2025/07/27/04-30-33/image-14.png">
+<meta property="og:image" content="http://example.com/2025/07/27/04-30-33/image-15.png">
+<meta property="og:image" content="http://example.com/2025/07/27/04-30-33/image-16.png">
+<meta property="article:published_time" content="2025-07-26T20:30:33.000Z">
+<meta property="article:modified_time" content="2025-07-26T20:23:41.582Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="VRM">
+<meta property="article:tag" content="Unity3D">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2025/07/27/04-30-33/image.png">
+
+<link rel="canonical" href="http://example.com/2025/07/27/04-30-33/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>将Unity3D的模型转为VRM模型 | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/07/27/04-30-33/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          将Unity3D的模型转为VRM模型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-07-27 04:30:33 / 修改时间：04:23:41" itemprop="dateCreated datePublished" datetime="2025-07-27T04:30:33+08:00">2025-07-27</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>前段时间马斯克的Grok的AI女友火了，虽然我也很想试试但是毕竟国内，不方便使用，而且还要每月30美元，我这种喜欢白嫖的肯定就不抢先体验了（而且主要是感觉Ani长得不太符合我XP）。但是我这个人还是比较喜欢表面，或许我不需要它会说话能帮我解决问题，我想要的可能只是一个会动的二次元模型，于是几经辗转之下我找到了一个VRM桌宠，MateEngine。</p>
+<span id="more"></span>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>我这个人也不怎么会介绍东西，总之这是个VRM桌宠，还能互动，Steam上有卖，可以花钱去支持一下作者，或者也可以去GitHub上下载，项目地址：<a target="_blank" rel="noopener" href="https://github.com/shinyflvre/Mate-Engine">MateEngine</a></p>
+<h2 id="需要用到的软件"><a href="#需要用到的软件" class="headerlink" title="需要用到的软件"></a>需要用到的软件</h2><p>基本都是免费软件（如果Unity算免费的话）</p>
+<ul>
+<li>AssetStudio，可选，用于从Unity引擎的游戏中解包模型，GitHub下载<a target="_blank" rel="noopener" href="https://github.com/Perfare/AssetStudio/releases">链接</a></li>
+<li>Unity引擎，自己去官网下载安装，版本选2022.3那个，其他版本不保证能运行</li>
+<li>Mate-Engine，链接已经发在上面了，这里就不发了。</li>
+</ul>
+<p>Unity引擎还需要两个插件，这个放在Unity引擎操作那一节里面，就不单独在这里提了，保证上面3个都安装好之后（其实只有Unity是要安装的，其他都是解压运行）就开始教程</p>
+<h2 id="AssetStudio解包模型"><a href="#AssetStudio解包模型" class="headerlink" title="AssetStudio解包模型"></a>AssetStudio解包模型</h2><p>如果自己已经有想要的角色的fbx格式的模型或者Unity支持的模型，不需要从游戏里解包的可以跳过这节。</p>
+<p>首先，因为AssetStudio只是Unity游戏的解包工具，所以先识别游戏是不是Unity的，方法很多，上网查、进游戏看logo、翻游戏文件夹有没有unity开头的文件或者.resource文件都行。</p>
+<p>然后打开你下载好的AssetStudio，点这个运行<br><img src="/2025/07/27/04-30-33/image.png" alt></p>
+<p>然后点击左上角的<code>File-&gt;Load folder</code>，然后选到游戏的资源文件夹，就是有<code>.resource</code>文件的那个<br><img src="/2025/07/27/04-30-33/image-1.png" alt></p>
+<p>然后可能要稍微等一下，等下面绿条走完，左边界面出现东西的时候就加载完了。</p>
+<p>这个软件的功能挺多的，可以查看游戏内的图片、音频、视频等各种资源文件，不过我们现在只需要模型，不需要其他东西，所以点<code>Model-&gt;Export all objects(split)</code><br><img src="/2025/07/27/04-30-33/image-2.png" alt></p>
+<p>之后选择一个位置保存导出的模型，然后静静等待完成，然后打开之前选择的文件夹，里面应该有一堆以模型的名字命名的文件夹，里面可能包含了贴图和<code>.fbx</code>文件，这个fbx就是我们需要的模型文件，先通过名字或者贴图（通过看人皮贴图找角色还是有点掉san）在这堆模型里面找到你可能想要的角色模型。</p>
+<h2 id="Unity"><a href="#Unity" class="headerlink" title="Unity"></a>Unity</h2><p>这个教程不需要你会用Unity，我也不会用Unity，不过这只是充当了一个模型转换器的作用而已，几乎没有用到Unity的功能。这部分内容来源于这个<a target="_blank" rel="noopener" href="https://vrm.dev/en/vrm/how_to_make_vrm/setup_unity/">文档</a>，大家可以去参考一下，我也只做了文档前面的部分内容，后面我觉得太高级了应该用不到，就没管。</p>
+<p>首先，来下载插件，<a target="_blank" rel="noopener" href="https://github.com/vrm-c/UniVRM/releases">下载链接</a>，我选的是1.0版本的。</p>
+<p>然后打开Unity新建一个空白的项目，安装插件，点<code>Assets-&gt;Import Package-&gt;Custom Package</code>选择刚刚下载的包。<br><img src="/2025/07/27/04-30-33/image-3.png" alt></p>
+<p>然后点<code>Import</code><br><img src="/2025/07/27/04-30-33/image-4.png" alt></p>
+<p>然后养成良好习惯，先新建文件夹，右键下面资源管理器的空白位置新建个文件夹来放模型，然后把之前的<code>.fbx</code>拖进来就可以了。</p>
+<p>这样导入的模型材质是有问题的，点击刚刚导入的模型，在右边点到<code>Materials</code>（这中间我切了语言，没有记录，可以先切语言再往下看）<br><img src="/2025/07/27/04-30-33/image-5.png" alt></p>
+<p>然后把下面<code>位置</code>的<code>使用嵌入材质</code>改成<code>使用外部材质（旧版）</code>，然后点应用，然后下面资源管理器应该会多出来一个<code>Materials</code>文件夹，里面有几个材质，有部分情况下，这时候模型仍然是白模，有材质但是没贴图，这个后面再说怎么处理。</p>
+<p>现在可以先把模型拖到中间场景上看看样子（虽然可能是白模），如果拖到场景中看不到模型，可能是单位问题，在资源管理器点击模型，然后在右边点<code>Model</code>，缩放系数改成100，然后滚到下面点<code>应用</code>，应该就正常了（虽然还是白模）。<br><img src="/2025/07/27/04-30-33/image-6.png" alt></p>
+<p>接下来解决材质问题，如果材质没有问题就跳过这一节。先回到之前导出的模型的文件夹，把里面的贴图全部拖到<code>Materials</code>里。<br><img src="/2025/07/27/04-30-33/image-7.png" alt></p>
+<p>然后依次点击空白的材质球，根据名字猜测它缺的贴图，将缺的贴图拖到材质球的反射率前面的那个框里。<br><img src="/2025/07/27/04-30-33/image-8.png" alt></p>
+<p>然后大概就正常了，进行下一步。</p>
+<p>将材质转为VRM的材质，先选中这几个材质球，在右边面板将<code>Shader</code>的<code>Standard</code>改成<code>VRM10-&gt;MToon10</code><br><img src="/2025/07/27/04-30-33/image-9.png" alt></p>
+<p>然后暂时不要在意这个奇怪的光影，以及看一眼右边<code>Shade Color</code>是不是白色，如果不是就改成白色。<br><img src="/2025/07/27/04-30-33/image-10.png" alt></p>
+<p>接下来匹配骨骼，回到之前的文件夹，点击模型，在右边选择<code>Rig</code>，将<code>动画类型</code>的<code>泛型</code>改为<code>人形</code>，然后点<code>应用</code>，之后点击多出来的那个<code>配置</code>按钮，然后会出来个这样的界面。<br><img src="/2025/07/27/04-30-33/image-11.png" alt></p>
+<p>这里就是要把没有匹配上的骨骼手动点一下匹配上，一般都是缺胸部，我也不知道为什么，看右边绿框缺了两个分别是<code>Chest</code>和<code>Upper Chest</code>，在框框右边有个定位图标，点那个图标可以选择骨骼，我也不懂什么人体，只能按照名字来手动匹配，然后可以检查一下其他的骨骼看有没有匹配错的，以及上面有个标签切换<code>Head</code>、<code>Body</code>和手之类的，可以都点开大致看一下。改完之后翻到下面点<code>Apply</code>，没问题之后点<code>Done</code>退出。</p>
+<p>最后点击上面菜单栏的<code>VRM1-&gt;Export VRM 1.0</code>打开导出界面<br><img src="/2025/07/27/04-30-33/image-12.png" alt></p>
+<p>然后按照红字填一下下面的信息，如果红字信息说需要<code>T-Pos</code>，则先叉掉导出界面，然后随便点击场景的一个物体，看右边的<code>旋转</code>如果为0，0，0的，就右键<code>旋转</code>，点<code>复制欧拉角</code>，然后在左边右键角色，点<code>选择子对象</code>，然后在右边右键<code>选择-&gt;粘贴</code>，角色就变成<code>T-Pos</code>了。<br><img src="/2025/07/27/04-30-33/image-13.png" alt></p>
+<p>然后继续填信息，填完点右下角<code>Export</code>导出就行了。<br><img src="/2025/07/27/04-30-33/image-14.png" alt></p>
+<h2 id="MateEngine"><a href="#MateEngine" class="headerlink" title="MateEngine"></a>MateEngine</h2><p>首先点这个，运行<code>MateEngine</code>，这个启动很慢，启动之后会有个出场动画。</p>
+<p>出场之后右键角色，点这个齿轮打开设置<br><img src="/2025/07/27/04-30-33/image-15.png" alt></p>
+<p>然后点下面的<code>VRM/ME</code>，可以添加自己的vrm模型<br><img src="/2025/07/27/04-30-33/image-16.png" alt></p>
+<p>然后模型也会做这几个预设动作，不过我觉得能找到的大部分模型应该都没有原本自带的几个模型兼容性好。自带的模型还有嘴和眼睛的骨骼绑定，我的这个没有，而且自带的模型还可以脱衣服。</p>
+<p>以及，这个的删除模型，是长按3秒，不是点击。</p>
+<p>大概先写到这里了。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/VRM/" rel="tag"># VRM</a>
+              <a href="/tags/Unity3D/" rel="tag"># Unity3D</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/05/03/13-16-16/" rel="prev" title="CE修改器踩坑">
+      <i class="fa fa-chevron-left"></i> CE修改器踩坑
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  <script type="text/javascript" src="/js/fa.js"></script>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E7%94%A8%E5%88%B0%E7%9A%84%E8%BD%AF%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">需要用到的软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AssetStudio%E8%A7%A3%E5%8C%85%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">AssetStudio解包模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unity"><span class="nav-number">4.</span> <span class="nav-text">Unity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MateEngine"><span class="nav-number">5.</span> <span class="nav-text">MateEngine</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
