@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生命迷宫</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>生命迷宫</h1>
+        <div class="maze-container">
+            <canvas id="mazeCanvas" width="512" height="512"></canvas>
+        </div>
+        <div class="controls-container">
+            <div class="left-column">
+                <div class="button-controls">
+                    <button id="btnUp" class="direction-btn">↑</button>
+                    <div class="horizontal-buttons">
+                        <button id="btnLeft" class="direction-btn">←</button>
+                        <button id="btnDown" class="direction-btn">↓</button>
+                        <button id="btnRight" class="direction-btn">→</button>
+                    </div>
+                </div>
+            </div>
+            <div class="middle-column">
+                <div class="actions-left">
+                    <p>剩余行动数: <span id="actionsLeft">10</span></p>
+                </div>
+                <div class="skills-left">
+                    <p>剩余技能次数: <span id="skillsLeft">1</span></p>
+                </div>
+                <div class="status">
+                    <p>状态: <span id="gameStatus">就绪</span></p>
+                </div>
+            </div>
+            <div class="right-column">
+                <div class="action-buttons">
+                    <button id="btnSkill" class="skill-btn">技能</button>
+                    <button id="btnSkip" class="action-btn">跳过回合</button>
+                    <button id="btnRestart" class="action-btn">重新开始</button>
+                    <button id="btnHelp" class="action-btn">游戏说明</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
