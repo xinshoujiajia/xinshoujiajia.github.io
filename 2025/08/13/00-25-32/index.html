@@ -20,17 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="没有描述">
-<meta property="og:type" content="website">
-<meta property="og:title" content="一个博客">
-<meta property="og:url" content="http://example.com/tags/VRM/index.html">
+  <meta name="description" content="前几天初赛结束了，虽然成绩很不理想，但是还是进复赛了，复赛题目跟初赛就完全不一样了，希望能进决赛吧。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="腾讯开悟智能体决策初赛感想">
+<meta property="og:url" content="http://example.com/2025/08/13/00-25-32/index.html">
 <meta property="og:site_name" content="一个博客">
-<meta property="og:description" content="没有描述">
+<meta property="og:description" content="前几天初赛结束了，虽然成绩很不理想，但是还是进复赛了，复赛题目跟初赛就完全不一样了，希望能进决赛吧。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-12T16:25:32.000Z">
+<meta property="article:modified_time" content="2025-08-12T18:44:48.246Z">
 <meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/tags/VRM/">
+<link rel="canonical" href="http://example.com/2025/08/13/00-25-32/">
 
 
 <script id="page-configurations">
@@ -38,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: VRM | 一个博客</title>
+  <title>腾讯开悟智能体决策初赛感想 | 一个博客</title>
   
 
 
@@ -159,53 +162,93 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">VRM
-          <small>标签</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/13/00-25-32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          腾讯开悟智能体决策初赛感想
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-08-13 00:25:32 / 修改时间：02:44:48" itemprop="dateCreated datePublished" datetime="2025-08-13T00:25:32+08:00">2025-08-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2025</span>
+        <p>前几天初赛结束了，虽然成绩很不理想，但是还是进复赛了，复赛题目跟初赛就完全不一样了，希望能进决赛吧。</p>
+<span id="more"></span>
+<h2 id="初赛"><a href="#初赛" class="headerlink" title="初赛"></a>初赛</h2><p>初赛题目是走迷宫找宝箱，这个题目我在ICT初赛时做过，但是这个的观测信息跟ICT的不一样，ICT的观测信息直接给了BFS处理过的网格距离，并且有51x51的局部视野，这次的比赛没有这些，并且视野只有11x11。</p>
+<p>虽然期间我通过反复设置起点最终打印出了初赛的地图，想要用128x128的图，加CNN，做个纯视觉的，但是家里的电脑居然跑不动，这个训练环境居然还有超时设置。</p>
+<p>后来就没用上我打的地图和CNN，但是特征也是给我改的一团乱，之前ICT时折腾了很久的奖励函数这次倒是几乎完全没改，就加入了宝箱分和终点分，毕竟奖励函数只影响训练的收敛情况，只要大方向没有问题，应该都是能收敛的，剩下的都是时间问题，但是特征如果设计不好的话应该会影响实际的效果的。</p>
+<p>现在一想其实特征里面不需要把8个宝箱的位置特征全部给出来的，只需要给终点位置特征和最近宝箱位置特征就行了，给终点位置是为了让智能体在宝箱收集完之前避开终点，因为见到过开局起点和终点只隔了3步的情况，如果不给终点位置特征的话开局可能就不小心走到终点了。</p>
+<p>对于动态障碍物的处理，我之前通过打地图的方式记录了6个障碍物的位置，特征里面留了6个特征来表示有没有障碍物，智能体边走边用11x11的视野画地图，每次都判断障碍物位置可不可走就行了。</p>
+<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>因为初赛平台没有提供算力，需要本地训练，我家的垃圾台式跑4个环境CPU就七八十往上了，可以说几乎什么事都做不了，所以肯定不可能白天跑，更别说白天我还要肝魔兽（虽然也不是不能玩，还能有三四十帧）但是感觉对电脑不好，所以基本都是晚上睡觉跑。</p>
+<p>然后折磨的事情就来了，每天晚上睡觉我都要听着风扇狂转的声音，而且我爸装的这个台式，它机箱不盖盖子，说好散热，晚上还能看见它的红光照亮半个房间。而且我家从来都说，晚上不能开空调过夜，所以睡觉的时候都要定时空调，于是在比较热的那几天，我几乎每天早上六点就被热醒（电脑发热，房间升温快）</p>
+<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>前几天我用AI写了个仿腾讯开悟平台的迷宫环境，然后稍微魔改了一下比赛给的框架代码，勉强能跑起来，这样在比赛结束之后也可以跑迷宫了，项目地址<a target="_blank" rel="noopener" href="https://github.com/xinshoujiajia/maze_agent">在这里</a>。</p>
+<p>已在白嫖的modelscope的免费CPU容器里测试能够运行了，特征和奖励都是官方默认的没改过，不开障碍物（目前我也没写障碍物）直接训练走终点的话能有百分之七十左右的胜率，可以说效果很差了。<code>requirement.txt</code>和<code>readme</code>懒得写了，反正依赖的库也不多，而且都是常规的库，运行缺什么pip安装就好了，后面如果什么时候想写了再补上。</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2025-07-27T04:30:33+08:00"
-              content="2025-07-27">
-          07-27
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag"># 随笔</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2025/07/27/04-30-33/" itemprop="url">
-            <span itemprop="name">将Unity3D的模型转为VRM模型</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/07/27/04-30-33/" rel="prev" title="将Unity3D的模型转为VRM模型">
+      <i class="fa fa-chevron-left"></i> 将Unity3D的模型转为VRM模型
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
-
-    </div>
-  </div>
   
   
   
 
-  
-
+  <script type="text/javascript" src="/js/fa.js"></script>
 
 
           </div>
@@ -256,6 +299,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E8%B5%9B"><span class="nav-number">1.</span> <span class="nav-text">初赛</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83"><span class="nav-number">2.</span> <span class="nav-text">训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9D%9F"><span class="nav-number">3.</span> <span class="nav-text">结束</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
