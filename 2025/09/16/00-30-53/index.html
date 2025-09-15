@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="安装完lean4，当然要试着用一下，由于我也快两年没碰算法了，所有算法几乎都忘完了，就只记得GCD了，所以就写个GCD吧。某种程度上选择GCD说不定刚好，够经典，够简单，够数学。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lean4编写gcd">
+<meta property="og:url" content="http://example.com/2025/09/16/00-30-53/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="安装完lean4，当然要试着用一下，由于我也快两年没碰算法了，所有算法几乎都忘完了，就只记得GCD了，所以就写个GCD吧。某种程度上选择GCD说不定刚好，够经典，够简单，够数学。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2025/09/16/00-30-53/image.png">
+<meta property="og:image" content="http://example.com/2025/09/16/00-30-53/image-1.png">
+<meta property="og:image" content="http://example.com/2025/09/16/00-30-53/image-2.png">
+<meta property="og:image" content="http://example.com/2025/09/16/00-30-53/image-3.png">
+<meta property="og:image" content="http://example.com/2025/09/16/00-30-53/image-4.png">
+<meta property="og:image" content="http://example.com/2025/09/16/00-30-53/image-5.png">
+<meta property="og:image" content="http://example.com/2025/09/16/00-30-53/image-6.png">
+<meta property="og:image" content="http://example.com/2025/09/16/00-30-53/image-7.png">
+<meta property="article:published_time" content="2025-09-15T16:30:53.000Z">
+<meta property="article:modified_time" content="2025-09-15T17:22:11.892Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="lean4">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2025/09/16/00-30-53/image.png">
+
+<link rel="canonical" href="http://example.com/2025/09/16/00-30-53/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>lean4编写gcd | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/09/16/00-30-53/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          lean4编写gcd
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-09-16 00:30:53 / 修改时间：01:22:11" itemprop="dateCreated datePublished" datetime="2025-09-16T00:30:53+08:00">2025-09-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>安装完lean4，当然要试着用一下，由于我也快两年没碰算法了，所有算法几乎都忘完了，就只记得GCD了，所以就写个GCD吧。某种程度上选择GCD说不定刚好，够经典，够简单，够数学。</p>
+<span id="more"></span>
+<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>事先声明，我也只是看过一点点教程，还没接触到lean4的皮毛，下面写的都是我自己在试错瞎写的，不报错之后我就端出来了，可能并不标准。</p>
+<h2 id="GCD"><a href="#GCD" class="headerlink" title="GCD"></a>GCD</h2><p>GCD就是最大公约数，其实就是写个欧几里得算法，也叫辗转相除法，相信大家学过C语言的应该都见过或者写过类似下面这样的代码<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">gcd</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(b==<span class="number">0</span>)<span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> gcd(b,a%b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>非常的简单，算上声明总共就两行，还是个经典的递归函数，通过不断<strong>交换</strong>和<strong>取余</strong>，当余数为0的时候，另一个数就是最大公约数。</p>
+<h2 id="lean4编写gcd"><a href="#lean4编写gcd" class="headerlink" title="lean4编写gcd"></a>lean4编写gcd</h2><p>接下来用lean4来写一下，我编写时使用的是<code>Nat</code>类型，即自然数（零和正整数），这里应该用不到负数，将上面的C语言版本修改一下，大概是下面这样<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def gcd(a b:Nat) : Nat :=</span><br><span class="line">  if b = 0 then a else gcd b (a % b)</span><br></pre></td></tr></table></figure></p>
+<p>一些需要注意的地方：</p>
+<ol>
+<li>lean4是后置类型，以及同一个类型的参数可以写在一起，共享同一个后置类型</li>
+<li>lean4的函数调用不需要用括号把参数括起来，只需要把参数按顺序写在后面，用空格隔开</li>
+<li>因为不需要括号，为了区分参数，需要把一个整体括起来作为一个参数，如上面的(a%b)是一个整体，而不是gcd(b,a)%b</li>
+</ol>
+<p><img src="/2025/09/16/00-30-53/image.png" alt></p>
+<p>没错，不出意外的出意外了，看右边有一堆字，大概就是说要指定一个会递减的量，来证明递归会终止。我之前看网上说的都是用<code>(a,b)</code>有序对来作为递减度量，但是我觉得只用一个<code>b</code>就行了（我代码中的终止条件是b为0）。所以加上<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def gcd(a b:Nat) : Nat :=</span><br><span class="line">  if b = 0 then a else gcd b (a % b)</span><br><span class="line">termination_by b</span><br></pre></td></tr></table></figure><br><img src="/2025/09/16/00-30-53/image-1.png" alt></p>
+<p>这次右边变得有点颜色了，也开始变得有意思了，大概就是说要证明<code>a%b&lt;b</code>，也就是我们的递归的参数的范围，即第一次是<code>gcd a b</code>的话，第二次就是<code>gcd b a%b</code>，我们选择<code>b</code>（即第二个参数）作为递减度量，那么就需要证明第二个参数在递归的过程中是会不断减小的，避免无限递归，这就是lean4的严谨性。</p>
+<p>虽然这个东西我们看起来非常的显然，但是居然不能自动证明了，还需要我们手动证明，接下来就手动证明gcd是停机的。</p>
+<h2 id="lean4证明gcd"><a href="#lean4证明gcd" class="headerlink" title="lean4证明gcd"></a>lean4证明gcd</h2><p>首先简单说一下右边的证明面板，那个蓝色的分叉标记后面的就是我们要证明的<strong>目标</strong>，它上面那些黄色的就是我们能够使用的<strong>前提条件</strong>，我们可以通过使用各种策略和定理来改变目标或者创造条件，最终把目标消除掉就算证明了，跟游戏一样好玩，至于有什么策略和定理就自己去摸索和尝试吧，建议先玩自然数游戏（NNG）入门。</p>
+<p>接下来正式开始，目标需要证明<code>a%b&lt;b</code>，我们就先直接让它成立，<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def gcd(a b:Nat) : Nat :=</span><br><span class="line">  if b = 0 then a else</span><br><span class="line">  have:a%b&lt;b:=by sorry</span><br><span class="line">  gcd b (a % b)</span><br><span class="line">termination_by b</span><br></pre></td></tr></table></figure><br><img src="/2025/09/16/00-30-53/image-2.png" alt></p>
+<p>换了一下行，不然一行太多东西了，可以看到现在已经没有报错了，报错变成了警告，说我们使用了<code>sorry</code>，这个的意思大概就是抱歉我不能给出证明，但是它就是成立的。这是一门严谨的语言，肯定是不能这样的，但是我们在开始证明之前都可以先通过这样的方式分解问题，来看能否成立，就像现在加入了这个之后函数已经没有报错了，所以我们只要证明了<code>a%b&lt;b</code>，就相当于证明了gcd是停机的。</p>
+<p>之后在<code>Nat</code>的库里面到处翻找，找到了一个形式跟这个一模一样的东西<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def gcd(a b:Nat) : Nat :=</span><br><span class="line">  if b = 0 then a else</span><br><span class="line">  have:a%b&lt;b:=by apply Nat.mod_lt</span><br><span class="line">  gcd b (a % b)</span><br><span class="line">termination_by b</span><br></pre></td></tr></table></figure><br><img src="/2025/09/16/00-30-53/image-3.png" alt></p>
+<p>可以看到这时候右边的目标变成了证明<code>b&gt;0</code>，这个是使用这个定理的条件，要使用这个定理需要<code>b&gt;0</code>。根据我们小学的知识，不难发现，自然数都大于等于0，b不等于0的话一定大于0，这个定理的名字说实话我也不知道，也是找了半天找到的，翻译一下意思就是零小于由不等于零推出，<br><img src="/2025/09/16/00-30-53/image-4.png" alt></p>
+<p>现在需要证明<code>b!=0</code>，这个已经是非常显然的东西了，根据我们前面的假设，这里的b一定不等于0，等于0的不在这个分支，但是这里没有捕获到if那里的假设，所以我们手动捕获一下，给它个名字就行了<br><img src="/2025/09/16/00-30-53/image-5.png" alt></p>
+<p>可以看到条件多了一个<code>h</code>，就是我们刚刚加的，在else分支里面是非(b=0)，也就是<code>b!=0</code>，接下来直接在后面加上<code>h</code>就大功告成了</p>
+<p><img src="/2025/09/16/00-30-53/image-6.png" alt></p>
+<p>非常的完美，没有报错，然后随便写两个数运行一下试试<br><img src="/2025/09/16/00-30-53/image-7.png" alt></p>
+<p>两个经典的质数，结果正确。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/lean4/" rel="tag"># lean4</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/09/15/23-20-09/" rel="prev" title="安装lean4">
+      <i class="fa fa-chevron-left"></i> 安装lean4
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  <script type="text/javascript" src="/js/fa.js"></script>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GCD"><span class="nav-number">2.</span> <span class="nav-text">GCD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lean4%E7%BC%96%E5%86%99gcd"><span class="nav-number">3.</span> <span class="nav-text">lean4编写gcd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lean4%E8%AF%81%E6%98%8Egcd"><span class="nav-number">4.</span> <span class="nav-text">lean4证明gcd</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
