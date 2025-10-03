@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="由于前段时间接触了一下lean4，所以就想着能不能用lean4来证明一下欧几里得算法能够求出最大公约数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lean4证明欧几里得算法">
+<meta property="og:url" content="http://example.com/2025/10/03/09-52-32/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="由于前段时间接触了一下lean4，所以就想着能不能用lean4来证明一下欧几里得算法能够求出最大公约数。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2025/10/03/09-52-32/image.png">
+<meta property="og:image" content="http://example.com/2025/10/03/09-52-32/image-1.png">
+<meta property="article:published_time" content="2025-10-03T01:52:32.000Z">
+<meta property="article:modified_time" content="2025-10-03T01:55:23.998Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="lean4">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2025/10/03/09-52-32/image.png">
+
+<link rel="canonical" href="http://example.com/2025/10/03/09-52-32/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>lean4证明欧几里得算法 | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/10/03/09-52-32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          lean4证明欧几里得算法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-10-03 09:52:32 / 修改时间：09:55:23" itemprop="dateCreated datePublished" datetime="2025-10-03T09:52:32+08:00">2025-10-03</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>由于前段时间接触了一下lean4，所以就想着能不能用lean4来证明一下欧几里得算法能够求出最大公约数。</p>
+<span id="more"></span>
+<h2 id="开头感想"><a href="#开头感想" class="headerlink" title="开头感想"></a>开头感想</h2><p>欧几里得算法可以说是认识了很多年了，从高中刷算法题的时候刷过，到刚上大一的C语言课，到大二的信息安全数学基础，再到大三的密码学，老师还在讲这个算法。</p>
+<p>我也不能一直停留在使用上（虽然貌似也好久没有看见什么地方会用这么简单的算法了），也该想想为什么欧几里得算法能够求出最大公约数了，或者说除了用具体数字验算，还有没有什么办法能够证明欧几里得算法算出来的数是两个数的最大公约数。</p>
+<p>刚好用lean4来试一下能否形式化证明欧几里得算法能够求出两个数的最大公约数。</p>
+<h2 id="最大公约数的定义"><a href="#最大公约数的定义" class="headerlink" title="最大公约数的定义"></a>最大公约数的定义</h2><p>最大公约数，首先它要是两个数的公约数，然后它要是所有公约数中最大的。</p>
+<p>那么什么是公约数呢，它能同时整除这两个数，假设这两个数为a和b，公约数为n，在编程中的写法是这样<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a%n==<span class="number">0</span> &amp;&amp; b%n==<span class="number">0</span></span><br></pre></td></tr></table></figure><br>一般读作a模n余数为0，且b模n余数为0。</p>
+<p>数学一点的写法是这样<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n ∣ a ∧ n ∣ b</span><br></pre></td></tr></table></figure><br>读作n整除a，且n整除b。说实话接触编程比较早的一开始一直记混这个整除的写法和顺序。</p>
+<p>所以我们可以先在lean4中定义一个公约数的概念<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def is_cd (n a b : Nat) : Prop :=</span><br><span class="line">  n ∣ a ∧ n ∣ b</span><br></pre></td></tr></table></figure></p>
+<p>读作：n是a和b的公约数，当n整除a，且n整除b。</p>
+<p>然后就是最大公约数的定义，<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def is_gcd (n a b : Nat) : Prop :=</span><br><span class="line">  (is_cd n a b) ∧ ∀ m : Nat, (is_cd m a b) → m ≤ n</span><br></pre></td></tr></table></figure><br>应该很好理解，n是a和b的最大公约数，当n是a和b的公约数，且对于任意自然数m，如果m是a和b的公约数，那么m ≤ n（即最大）。</p>
+<h2 id="证明欧几里得算法的结果是最大公约数"><a href="#证明欧几里得算法的结果是最大公约数" class="headerlink" title="证明欧几里得算法的结果是最大公约数"></a>证明欧几里得算法的结果是最大公约数</h2><p>首先先来写个简单的欧几里得算法，为了防止顶掉标准库里的<code>gcd</code>，我们自己写的这个就叫<code>mygcd</code>了<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def mygcd(a b:Nat) : Nat :=</span><br><span class="line">  if h:b = 0 then a else</span><br><span class="line">  have:a%b&lt;b:=by</span><br><span class="line">    apply Nat.mod_lt</span><br><span class="line">    apply Nat.zero_lt_of_ne_zero h</span><br><span class="line">  mygcd b (a % b)</span><br><span class="line">termination_by b</span><br></pre></td></tr></table></figure></p>
+<p>还是老配方，常规的gcd，末尾指定b作为递减度量，然后have提供了证明了b递减的证明。</p>
+<p>然后写一个命题表示mygcd是gcd<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theorem mygcd_is_gcd(a b:Nat): is_gcd (mygcd a b) a b := by sorry</span><br></pre></td></tr></table></figure></p>
+<p>证明的时候我们首先应该先展开<code>is_gcd</code>的定义，然后这是个合取式，可以拆分成两个目标分别证明，甚至可以另外再写出两个命题，像下面这样。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">theorem mygcd_is_cd (a b : Nat) : is_cd (mygcd a b) a b := by sorry</span><br><span class="line"></span><br><span class="line">theorem cd_le_mygcd(a b:Nat): ∀ m, is_cd m a b → m ≤ mygcd a b := by sorry</span><br><span class="line"></span><br><span class="line">theorem mygcd_is_gcd(a b:Nat): is_gcd (mygcd a b) a b := by</span><br><span class="line">  unfold is_gcd</span><br><span class="line">  apply And.intro</span><br><span class="line">  · apply mygcd_is_cd</span><br><span class="line">  · apply cd_le_mygcd</span><br></pre></td></tr></table></figure></p>
+<p>这时候应该能看见<code>mygcd_is_gcd</code>前面打了个大大的勾，说明证明成立，接下来只需要把我们刚刚写的两个命题的<code>sorry</code>换成证明就行了。</p>
+<h2 id="证明欧几里得算法的结果是公约数"><a href="#证明欧几里得算法的结果是公约数" class="headerlink" title="证明欧几里得算法的结果是公约数"></a>证明欧几里得算法的结果是公约数</h2><p>lean4怎么说也是个交互式定理证明助手，而交互显然是个动态的过程，这就注定了它不能很好的记录在文章里，每一步都把代码和目标截图下来太麻烦了，直接贴代码又不能看到中间的前件和目标的变化（这很重要），所以如果感兴趣的一定要自己一行行敲一遍感受一下。</p>
+<p>但是我是个懒人所以我选择直接贴代码<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">theorem mygcd_is_cd (a b : Nat) : is_cd (mygcd a b) a b := by</span><br><span class="line">  unfold is_cd mygcd</span><br><span class="line">  simp</span><br><span class="line">  by_cases h_b : b = 0</span><br><span class="line">  · rw [h_b]</span><br><span class="line">    apply And.intro</span><br><span class="line">    · exact Nat.dvd_refl a</span><br><span class="line">    · exact Nat.dvd_zero a</span><br><span class="line">  · have:a % b &lt; b := by</span><br><span class="line">      apply Nat.mod_lt</span><br><span class="line">      apply Nat.zero_lt_of_ne_zero h_b</span><br><span class="line">    have:(if b = 0 then a else mygcd b (a % b)) = mygcd b (a % b):=by</span><br><span class="line">      apply if_neg</span><br><span class="line">      exact h_b</span><br><span class="line">    rw [this]</span><br><span class="line">    have ih : is_cd (mygcd b (a % b)) b (a % b) := mygcd_is_cd b (a % b)</span><br><span class="line">    unfold is_cd at ih</span><br><span class="line">    apply And.intro</span><br><span class="line">    · have: mygcd b (a % b) ∣ a % b → mygcd b (a % b) ∣ a := by</span><br><span class="line">        rw [Nat.dvd_mod_iff]</span><br><span class="line">        intro h</span><br><span class="line">        · exact h</span><br><span class="line">        · exact ih.left</span><br><span class="line">      apply this</span><br><span class="line">      exact ih.right</span><br><span class="line">    · exact ih.left</span><br><span class="line">termination_by b</span><br></pre></td></tr></table></figure></p>
+<p>说实话我能人脑进行C++模板元编程，但是没有右边面板的话我还真不能想象出这段代码每一步的前件和目标的变化，但是这段代码只要粘贴到lean4的编辑器里就会直接告诉你这是正确的。</p>
+<p>简单说明一下，这个命题的证明也是递归的，关键就是<code>ih</code>那里。以及因为是递归的，所以跟<code>mygcd</code>一样，也指定了递减度量，并且证明了递减。相对的，我们编写<code>mygcd</code>时，对b进行了<code>if</code>分支判断，在证明时就用<code>by_cases</code>对b进行了分类讨论。</p>
+<h2 id="证明欧几里得算法的公约数是最大的"><a href="#证明欧几里得算法的公约数是最大的" class="headerlink" title="证明欧几里得算法的公约数是最大的"></a>证明欧几里得算法的公约数是最大的</h2><p>证明的过程中发生了一些意外，一个令人绝望的情况，大概是这样<br><img src="/2025/10/03/09-52-32/image.png" alt></p>
+<p>可能这样看起来还不明显我再往下写一点<br><img src="/2025/10/03/09-52-32/image-1.png" alt></p>
+<p>很显然不成立了，首先相信lean4是不会在这么简单的问题上出错的，然后来找一下问题，这个是当a=0，b=0的时候不成立，我们计算一下<code>#eval mygcd 0 0</code>是0，但是如果按照is_cd的定义，任意自然数都能整除0，任意自然数都能是0和0的公约数，就不能满足m ≤ n。</p>
+<p>但是我们稍微思考一下都会知道当a=0，b=0的时候应该是没有意义的，所以问题应该出在这里。</p>
+<h2 id="0和0的最大公约数是0！"><a href="#0和0的最大公约数是0！" class="headerlink" title="0和0的最大公约数是0！"></a>0和0的最大公约数是0！</h2><p>然后我在网上查了一下，虽然每个地方对于最大公约数都是定义在正整数上的，但是</p>
+<blockquote>
+<p>在现代数学的标准约定中，为了理论完整性和公式统一，定义gcd(0,0)=0。</p>
+</blockquote>
+<p>那这还有什么好说的，但是这样的话我最大公约数应该怎么定义，难道也给0开个特例，这样写起来就太丑陋了，然后我继续找又找到了最大公约数的另一种定义。</p>
+<h2 id="最大公约数的正确定义"><a href="#最大公约数的正确定义" class="headerlink" title="最大公约数的正确定义"></a>最大公约数的正确定义</h2><p>用lean4写大概是这样的<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def is_gcd (n a b : Nat) : Prop :=</span><br><span class="line">  (is_cd n a b) ∧ ∀ m : Nat, (is_cd m a b) → m ∣ n</span><br></pre></td></tr></table></figure></p>
+<p>前面跟我的一样没什么好说的，主要是后面，如果m是a和b的公约数，那么m能整除n。</p>
+<p>如果带入一下0和0貌似确实没毛病，但是为什么是这样定义的，然后让AI找了一下部分高校课本中关于最大公约数的定义，好像确实也都是用的后面这种定义方式，后面截取AI的回答，看如何理解吧</p>
+<blockquote>
+<p><strong>为什么这是”最大”的</strong> <br><br>在整除关系形成的偏序集中：<br><br>· 我们说 d₁ ≤ d₂ 当且仅当 d₁ ∣ d₂ <br><br>· 最大公约数就是这个偏序集中的最大元素 <br><br>所以 ∀ m, (is_cd m a b) → m ∣ n 正好表达了 n 是所有公约数的上界，因此是最大的。</p>
+</blockquote>
+<p>所以就先按这个写吧。</p>
+<h2 id="公约数整除最大公约数"><a href="#公约数整除最大公约数" class="headerlink" title="公约数整除最大公约数"></a>公约数整除最大公约数</h2><p>对原本的命题稍作修改就得到了新的最大性条件，然后证明如下<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">theorem cd_dvd_mygcd(a b:Nat): ∀ m, is_cd m a b → m ∣ mygcd a b := by</span><br><span class="line">  intro m hh</span><br><span class="line">  unfold is_cd at hh</span><br><span class="line">  unfold mygcd</span><br><span class="line">  simp</span><br><span class="line">  split</span><br><span class="line">  · exact hh.left</span><br><span class="line">  · rename_i hb</span><br><span class="line">    have:a % b &lt; b := by</span><br><span class="line">      apply Nat.mod_lt</span><br><span class="line">      apply Nat.zero_lt_of_ne_zero hb</span><br><span class="line">    have ih: ∀ m, is_cd m b (a%b) → m ∣ mygcd b (a%b) := cd_dvd_mygcd b (a % b)</span><br><span class="line">    apply ih</span><br><span class="line">    unfold is_cd</span><br><span class="line">    apply And.intro</span><br><span class="line">    · exact hh.right</span><br><span class="line">    · rw [Nat.dvd_mod_iff]</span><br><span class="line">      exact hh.left</span><br><span class="line">      exact hh.right</span><br><span class="line">termination_by b</span><br></pre></td></tr></table></figure></p>
+<p>同样也是个递归的命题，用整除定义的最大性条件就很好证明了。</p>
+<h2 id="证明完毕"><a href="#证明完毕" class="headerlink" title="证明完毕"></a>证明完毕</h2><p>最后修改我们的最大公约数定义，这样就证明完毕了，完整代码如下<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">def mygcd(a b:Nat) : Nat :=</span><br><span class="line">  if h:b = 0 then a else</span><br><span class="line">  have:a % b &lt; b := by</span><br><span class="line">    apply Nat.mod_lt</span><br><span class="line">    apply Nat.zero_lt_of_ne_zero h</span><br><span class="line">  mygcd b (a % b)</span><br><span class="line">termination_by b</span><br><span class="line"></span><br><span class="line">def is_cd(n a b:Nat) : Prop :=</span><br><span class="line">  n ∣ a ∧ n ∣ b</span><br><span class="line"></span><br><span class="line">def is_gcd(n a b:Nat) : Prop :=</span><br><span class="line">  is_cd n a b ∧ ∀ m, is_cd m a b → m ∣ n</span><br><span class="line"></span><br><span class="line">theorem mygcd_is_cd (a b : Nat) : is_cd (mygcd a b) a b := by</span><br><span class="line">  unfold is_cd mygcd</span><br><span class="line">  simp</span><br><span class="line">  by_cases h_b : b = 0</span><br><span class="line">  · rw [h_b]</span><br><span class="line">    apply And.intro</span><br><span class="line">    · exact Nat.dvd_refl a</span><br><span class="line">    · exact Nat.dvd_zero a</span><br><span class="line">  · have:a % b &lt; b := by</span><br><span class="line">      apply Nat.mod_lt</span><br><span class="line">      apply Nat.zero_lt_of_ne_zero h_b</span><br><span class="line">    have:(if b = 0 then a else mygcd b (a % b)) = mygcd b (a % b):=by</span><br><span class="line">      apply if_neg</span><br><span class="line">      exact h_b</span><br><span class="line">    rw [this]</span><br><span class="line">    have ih : is_cd (mygcd b (a % b)) b (a % b) := mygcd_is_cd b (a % b)</span><br><span class="line">    unfold is_cd at ih</span><br><span class="line">    apply And.intro</span><br><span class="line">    · have: mygcd b (a % b) ∣ a % b → mygcd b (a % b) ∣ a := by</span><br><span class="line">        rw [Nat.dvd_mod_iff]</span><br><span class="line">        intro h</span><br><span class="line">        · exact h</span><br><span class="line">        · exact ih.left</span><br><span class="line">      apply this</span><br><span class="line">      exact ih.right</span><br><span class="line">    · exact ih.left</span><br><span class="line">termination_by b</span><br><span class="line"></span><br><span class="line">theorem cd_dvd_mygcd(a b:Nat): ∀ m, is_cd m a b → m ∣ mygcd a b := by</span><br><span class="line">  intro m hh</span><br><span class="line">  unfold is_cd at hh</span><br><span class="line">  unfold mygcd</span><br><span class="line">  simp</span><br><span class="line">  split</span><br><span class="line">  · exact hh.left</span><br><span class="line">  · rename_i hb</span><br><span class="line">    have:a % b &lt; b := by</span><br><span class="line">      apply Nat.mod_lt</span><br><span class="line">      apply Nat.zero_lt_of_ne_zero hb</span><br><span class="line">    have ih: ∀ m, is_cd m b (a%b) → m ∣ mygcd b (a%b) := cd_dvd_mygcd b (a % b)</span><br><span class="line">    apply ih</span><br><span class="line">    unfold is_cd</span><br><span class="line">    apply And.intro</span><br><span class="line">    · exact hh.right</span><br><span class="line">    · rw [Nat.dvd_mod_iff]</span><br><span class="line">      exact hh.left</span><br><span class="line">      exact hh.right</span><br><span class="line">termination_by b</span><br><span class="line"></span><br><span class="line">theorem mygcd_is_gcd(a b:Nat): is_gcd (mygcd a b) a b := by</span><br><span class="line">  unfold is_gcd</span><br><span class="line">  apply And.intro</span><br><span class="line">  · apply mygcd_is_cd</span><br><span class="line">  · apply cd_dvd_mygcd</span><br></pre></td></tr></table></figure></p>
+<h2 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h2><p>再次证明了我数学基础有多薄弱，居然连最大公约数的定义都不知道，还折腾半天。以及lean4真的挺好玩的，如果证明题都这么好玩就好了，我差点就想买本小学数学证明题练习来用lean4写了（我的水平也就只能写小学证明题了），如果写现在书上的练习，我可能连实数的定义都不知道，而且我lean4至今没能成功安装mathlib4，所以我的lean4也没有实数定义和一大堆实数和微积分之类的相关定理（跟我的脑子一样空），也就只能写写自然数相关的东西了。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/lean4/" rel="tag"># lean4</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/10/02/02-16-16/" rel="prev" title="老旧服务器编译安装高版本GCC">
+      <i class="fa fa-chevron-left"></i> 老旧服务器编译安装高版本GCC
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  <script type="text/javascript" src="/js/fa.js"></script>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A4%B4%E6%84%9F%E6%83%B3"><span class="nav-number">1.</span> <span class="nav-text">开头感想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">2.</span> <span class="nav-text">最大公约数的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95%E7%9A%84%E7%BB%93%E6%9E%9C%E6%98%AF%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">证明欧几里得算法的结果是最大公约数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95%E7%9A%84%E7%BB%93%E6%9E%9C%E6%98%AF%E5%85%AC%E7%BA%A6%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">证明欧几里得算法的结果是公约数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95%E7%9A%84%E5%85%AC%E7%BA%A6%E6%95%B0%E6%98%AF%E6%9C%80%E5%A4%A7%E7%9A%84"><span class="nav-number">5.</span> <span class="nav-text">证明欧几里得算法的公约数是最大的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0%E5%92%8C0%E7%9A%84%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E6%98%AF0%EF%BC%81"><span class="nav-number">6.</span> <span class="nav-text">0和0的最大公约数是0！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%AE%9A%E4%B9%89"><span class="nav-number">7.</span> <span class="nav-text">最大公约数的正确定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AC%E7%BA%A6%E6%95%B0%E6%95%B4%E9%99%A4%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0"><span class="nav-number">8.</span> <span class="nav-text">公约数整除最大公约数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%E5%AE%8C%E6%AF%95"><span class="nav-number">9.</span> <span class="nav-text">证明完毕</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%9F%E6%83%B3"><span class="nav-number">10.</span> <span class="nav-text">感想</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
