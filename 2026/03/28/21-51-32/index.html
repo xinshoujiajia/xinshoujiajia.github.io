@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="最近龙虾大火，虽然我不觉得龙虾真的能干活，以及我认为龙虾就是个能控制电脑的聊天机器人，虽然不看好龙虾，但是咱二次元可以不养龙虾，我们可以养猫娘。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="部署astrbot">
+<meta property="og:url" content="http://example.com/2026/03/28/21-51-32/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="最近龙虾大火，虽然我不觉得龙虾真的能干活，以及我认为龙虾就是个能控制电脑的聊天机器人，虽然不看好龙虾，但是咱二次元可以不养龙虾，我们可以养猫娘。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2026/03/28/21-51-32/image.png">
+<meta property="og:image" content="http://example.com/2026/03/28/21-51-32/image-1.png">
+<meta property="article:published_time" content="2026-03-28T13:51:32.000Z">
+<meta property="article:modified_time" content="2026-03-28T13:51:10.208Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="折腾">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2026/03/28/21-51-32/image.png">
+
+<link rel="canonical" href="http://example.com/2026/03/28/21-51-32/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>部署astrbot | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/28/21-51-32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          部署astrbot
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-03-28 21:51:32 / 修改时间：21:51:10" itemprop="dateCreated datePublished" datetime="2026-03-28T21:51:32+08:00">2026-03-28</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近龙虾大火，虽然我不觉得龙虾真的能干活，以及我认为龙虾就是个能控制电脑的聊天机器人，虽然不看好龙虾，但是咱二次元可以不养龙虾，我们可以养猫娘。<br><span id="more"></span></p>
+<h2 id="安装astrbot"><a href="#安装astrbot" class="headerlink" title="安装astrbot"></a>安装astrbot</h2><p>astrbot提供了多种安装方式，可以参考<a target="_blank" rel="noopener" href="https://docs.astrbot.app/deploy/astrbot/package.html">官方文档</a>。因为astrbot是可以让机器人控制local环境的，所以我是不想通过docker之类的容器来部署的，我想让它能够直接操作本机的环境，所以我是建议用uv来部署的。先按照官方文档的说明安装好uv，然后执行下面的命令安装astrbot<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uv tool install astrbot</span><br></pre></td></tr></table></figure></p>
+<p>这里有两个需要注意的地方：</p>
+<ol>
+<li>不建议使用root用户来运行astrbot，因为如果你运行环境选了local，astrbot的机器人执行命令的用户就是你运行的用户，也就是说如果用root来运行，那机器人就会有root权限，所以建议用普通用户或者给astrbot专门建一个用户来使用。</li>
+<li>不要直接运行<code>astrbot init</code>，这个会在你当前目录下面初始化，如果你不想让你的当前目录多出些什么不知道的东西的话就先去建一个<code>astrbot</code>目录然后再初始化<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> astrbot</span><br><span class="line"><span class="built_in">cd</span> astrbot</span><br><span class="line">astrbot init</span><br><span class="line">astrbot run</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>run完之后应该是能看见正常启动了，可以通过浏览器访问<code>http://你的服务器IP:6185</code>进入webui，第一次登录用户名和密码都是astrbot，登录之后会叫你改用户名和密码，改完之后先去把左边栏的条目全部点一遍看看熟悉一下界面，然后放着先去整点别的。</p>
+<h2 id="注册QQ官方机器人"><a href="#注册QQ官方机器人" class="headerlink" title="注册QQ官方机器人"></a>注册QQ官方机器人</h2><p>因为我平常QQ用得比较多，所以这里就说说接入QQ官方机器人使用。很多人都说QQ官方机器人限制比较多，想整那种QQ号的机器人，那种需要用napcat来接入。虽然两种方法我都用过，但是这里只说明QQ官方机器人，不提及napcat的部署，感兴趣的可以自行去查napcat的部署，这里只做两种方法的对比</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>对比</th>
+<th>QQ官方机器人</th>
+<th>napcat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>稳定性</td>
+<td>只要astrbot不掉线就不会掉线（除非腾讯的服务器掉线了）</td>
+<td>因为是在服务器上登录自己的QQ号，如果服务器那边的QQ掉线了得自己回去手动登录</td>
+</tr>
+<tr>
+<td>主动发信息</td>
+<td>本来之前以为官方机器人不能主动发信息，但是其实可以，但是有限制，具体的可以去看文档</td>
+<td>主动发消息没有限制</td>
+</tr>
+<tr>
+<td>用户信息</td>
+<td>看不到用户QQ号和昵称，只能看到一个ID</td>
+<td>能看见QQ号和昵称</td>
+</tr>
+<tr>
+<td>好友和群</td>
+<td>上线之前不能加群和好友</td>
+<td>跟正常QQ一样可以加好友加群</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>另外说明，QQ官方机器人虽然说有个审核和上线，但是你要是不审核上线也是能自己一直用的，以及如果不审核上线的话也不需要公网IP，如果要审核上线的话需要服务器有公网IP，将服务器的IP添加到白名单。</p>
+<p>先去<a target="_blank" rel="noopener" href="https://q.qq.com/">QQ开放平台</a>注册，具体注册流程之前没有记录，就自己看着注册吧。注册完颠倒机器人，然后创建机器人，昵称、头像和描述自己随便写，反正能创建就行了，创建完成之后先自己熟悉一下界面，把左边每个条目都点一下看看。</p>
+<p>然后可以先把你的QQ机器人加入到自己的消息列表，点左边的<code>使用范围和人员</code>，然后有两个二维码，扫右边那个添加到<code>群和消息列表</code>就可以给机器人发消息了，但是这时候应该是没有反应的（我也没试过不知道是不是真的没有反应）。</p>
+<h2 id="astrbot接入QQ官方机器人"><a href="#astrbot接入QQ官方机器人" class="headerlink" title="astrbot接入QQ官方机器人"></a>astrbot接入QQ官方机器人</h2><p>在astrbot的webui上点击<code>机器人-&gt;创建机器人</code>，消息平台选<code>QQ官方机器人(WebSocket)</code>，机器人名称随便写，适配器不知道有什么用，但是我启用了。消息列表单聊肯定要启用的，频道私聊要不要启用看个人，反正我是从来没用过QQ的频道。然后接下来说说<code>appid</code>和<code>secret</code>怎么获取。</p>
+<p>回到QQ机器人管理界面，在左边点击<code>开发管理</code>，然后界面应该是这样的。<br><img src="/2026/03/28/21-51-32/image.png" alt></p>
+<p>机器人QQ号不用管，这个没什么用。那个AppID就是我们需要的那个appid，点右边的复制，然后把它粘贴到astrbot的设置里面。然后重点来了，那个Token，作用不明先不要管它，我们需要的是下面那个<code>AppSecret(机器人密钥)</code>，注意这个东西是不保存的，你点生成的时候就会生成一个新的，然后旧的就没用了，并且平台也不会保存这个生成的密钥，你必须在生成完之后马上复制然后粘贴回astrbot里。</p>
+<p>上面的操作做完之后点保存，然后应该能在机器人里面看见创建的QQ机器人了，但是这时候还用不了，还要接入大模型。</p>
+<h2 id="astrbot接入大模型"><a href="#astrbot接入大模型" class="headerlink" title="astrbot接入大模型"></a>astrbot接入大模型</h2><p>然后首先，不管是穷鬼还是富哥，强烈建议不要用自己本地的ollama的模型，起码主模型不要用ollama的，ollama的模型首先是不够新，其次是没有工具调用能力，如果设备不行参数再小一点那还很蠢，很影响体验，这个不能将就，还是要吃点好的。</p>
+<p>如果是富哥或者能弄到国外的大厂的付费API那肯定最好，如果是跟我一样的穷鬼，那可以白嫖魔搭社区的每日免费额度，每日总共2000次的免费额度日常使用是够了的。</p>
+<p>魔搭社区的注册就自己去注册了，好像还要再绑定个阿里云才能免费使用。然后说说怎么接入modelscope，点到个人主页，然后左边点到访问控制，新建访问令牌，然后复制访问令牌。到astrbot的界面点<code>模型提供商</code>，新增选<code>modelscope</code>，API Key里面粘贴刚刚复制的访问令牌，然后点下面的获取模型列表就能看到可用的免费模型了。</p>
+<p>然后魔搭社区这么多免费模型选哪个呢，我个人是建议用<code>MiniMax/MiniMax-M2.5</code>，首先能调用工具，而且聪明，最主要的是够新，现在大模型也是日新月异，新是很重要的，但是这个模型的缺点是，每日限额100次，所以最好只用它来对话，其他分析的或者什么选别的模型。</p>
+<p>这时候应该是能够使用了，可以先自己给机器人发点信息试试，应该是会有反应（我也没有试过）。</p>
+<h2 id="配置管理员和运行权限"><a href="#配置管理员和运行权限" class="headerlink" title="配置管理员和运行权限"></a>配置管理员和运行权限</h2><p>首先点到普通配置-&gt;AI配置然后一直往下拉，拉到这里<br><img src="/2026/03/28/21-51-32/image-1.png" alt></p>
+<p>运行环境我觉得local才够酷，玩不起的可以选沙盒模式，不过我没用过。然后打开需要管理员权限，毕竟也不希望别人通过机器人控制自己的电脑（虽然不上线的QQ官方机器人理论上也只有我们自己用），下面那个主动型能力就是可以让机器人自己给自己设定未来任务，就是相当于定时任务了。勾完之后记得在右下角找一下<code>保存配置</code>，点完再干别的。</p>
+<p>接下来去设置管理员，如果之前已经给机器人发过消息了可以在左边点击对话数据，应该能看见有一个无标题对话，然后找到<code>会话ID</code>，注意是会话不是对话，是一串32位的十六进制码，中间不带横线的。复制那个对话ID，然后再点到普通配置-&gt;平台配置，管理员ID那里点添加更多，然后把我们刚刚复制的那串对话ID粘贴进去，然后记得点确定，然后再点保存配置，这时候应该可以让机器人执行命令了，如果想测试的话可以在机器人能访问到的目录里面塞个文本文件，让它用<code>cat</code>读取一下内容来测试。</p>
+<h2 id="将astrbot添加到系统服务"><a href="#将astrbot添加到系统服务" class="headerlink" title="将astrbot添加到系统服务"></a>将astrbot添加到系统服务</h2><p>到目前为止我们的astrbot应该都还是在一个shell窗口中运行的，现在先把它<code>ctrl+c</code>终止掉，然后写个服务以及让它开机自启动，创建<code>/etc/systemd/system/astrbot.service</code>文件并写入以下内容：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=AstrBot Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=运行astrbot的用户</span><br><span class="line">Group=运行astrbot的用户</span><br><span class="line">WorkingDirectory=之前运行astrbot init 的目录</span><br><span class="line">ExecStart=astrbot run</span><br><span class="line">Restart=always</span><br><span class="line">RestartSec=5</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></p>
+<p>然后运行下面的命令来启动和添加开机自启动<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start astrbot.service</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> astrbot.service</span><br></pre></td></tr></table></figure></p>
+<h2 id="一些增强体验的设置"><a href="#一些增强体验的设置" class="headerlink" title="一些增强体验的设置"></a>一些增强体验的设置</h2><p>首先是人格设定，这个可以去找玩酒馆的或者网上，甚至AI自己生成一段角色设定的提示词，保存完人格设定之后在配置里面选择刚刚添加的那个人格。</p>
+<p>插件的话，我朋友装了个<code>天使之心</code>和<code>天使之魂</code>，我也装了这两个，然后<code>天使之魂</code>需要设置一下那个<code>记忆整理</code>的模型提供商，随便选个模型就行了，其他的我也不会设置，可以自行研究。</p>
+<p>skill的话可以在界面里面上传，也可以在<code>astrbot目录/data/skills</code>直接创建和编写，skill需要符合<code>Anthropic Skills</code>标准。也就是说，如果你的机器人有本地执行权限，且足够新，知道怎么编写skill，你完全可以让它自己给自己写skill，并且写得可能比你自己写的要好。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%98%E8%85%BE/" rel="tag"># 折腾</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/03/26/03-19-32/" rel="prev" title="美少女万华镜15周年原声集Get！">
+      <i class="fa fa-chevron-left"></i> 美少女万华镜15周年原声集Get！
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  <script type="text/javascript" src="/js/fa.js"></script>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85astrbot"><span class="nav-number">1.</span> <span class="nav-text">安装astrbot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%86%8CQQ%E5%AE%98%E6%96%B9%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="nav-number">2.</span> <span class="nav-text">注册QQ官方机器人</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#astrbot%E6%8E%A5%E5%85%A5QQ%E5%AE%98%E6%96%B9%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="nav-number">3.</span> <span class="nav-text">astrbot接入QQ官方机器人</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#astrbot%E6%8E%A5%E5%85%A5%E5%A4%A7%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">astrbot接入大模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E5%91%98%E5%92%8C%E8%BF%90%E8%A1%8C%E6%9D%83%E9%99%90"><span class="nav-number">5.</span> <span class="nav-text">配置管理员和运行权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86astrbot%E6%B7%BB%E5%8A%A0%E5%88%B0%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1"><span class="nav-number">6.</span> <span class="nav-text">将astrbot添加到系统服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%A2%9E%E5%BC%BA%E4%BD%93%E9%AA%8C%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="nav-number">7.</span> <span class="nav-text">一些增强体验的设置</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
