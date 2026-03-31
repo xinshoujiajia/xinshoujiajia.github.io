@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="最近在看《同构：编程中的数学》，觉得可以用lean4来写一下里面的习题，所以记录一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="同构1.4">
+<meta property="og:url" content="http://example.com/2026/03/31/19-31-32/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="最近在看《同构：编程中的数学》，觉得可以用lean4来写一下里面的习题，所以记录一下。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2026/03/31/19-31-32/IMG_4784.JPG">
+<meta property="og:image" content="http://example.com/2026/03/31/19-31-32/IMG_4785.JPG">
+<meta property="og:image" content="http://example.com/2026/03/31/19-31-32/IMG_4786.JPG">
+<meta property="article:published_time" content="2026-03-31T11:31:32.000Z">
+<meta property="article:modified_time" content="2026-03-31T12:28:56.000Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="lean4">
+<meta property="article:tag" content="同构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2026/03/31/19-31-32/IMG_4784.JPG">
+
+<link rel="canonical" href="http://example.com/2026/03/31/19-31-32/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>同构1.4 | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/31/19-31-32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          同构1.4
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-03-31 19:31:32 / 修改时间：20:28:56" itemprop="dateCreated datePublished" datetime="2026-03-31T19:31:32+08:00">2026-03-31</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近在看《同构：编程中的数学》，觉得可以用lean4来写一下里面的习题，所以记录一下。<br><span id="more"></span></p>
+<h2 id="foldn"><a href="#foldn" class="headerlink" title="foldn"></a>foldn</h2><p>之前在C++中见到fold的时候说是折叠的意思，那时候我还在想为什么叫折叠。有左折叠和右折叠，左折叠就是从左边开始，对第一个和第二个元素应用一个二元函数，然后将得到的结果和第三个元素继续应用这个函数，直到应用完整个容器，右折叠就是从右边开始。最常用的一个例子就是函数是加法，那这个fold实现的功能就是求和，所以我当时的理解是这样的：想象数组就是一张有很多个水平折痕的纸，每个折痕就是一个元素，从左边第一个折痕开始，把它折到第二个折痕上，然后再把第二个折痕折到第三个折痕一直折到头，这样得到的纸条就是所有元素重叠在一起的了，如果把重叠理解为加法的话那就是这一条纸就是所有元素加在一起了。<br><img src="/2026/03/31/19-31-32/IMG_4784.JPG" alt></p>
+<p><img src="/2026/03/31/19-31-32/IMG_4785.JPG" alt></p>
+<p><img src="/2026/03/31/19-31-32/IMG_4786.JPG" alt></p>
+<p>题外话说完了，书上的说法是</p>
+<blockquote>
+<p>我们称foldn 为自然数上的叠加（fold）操作。</p>
+</blockquote>
+<p>所以其实是叠加的意思，这样折叠起来也确实是叠加了。按照书上的，用lean4实现的foldn如下：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def foldn &#123;α : Type&#125; (c : α) (f : α → α) : Nat → α</span><br><span class="line">| 0 =&gt; c</span><br><span class="line">| n&#x27; + 1 =&gt; f (foldn c f n&#x27;)</span><br></pre></td></tr></table></figure></p>
+<p>大概意思是将操作<code>f</code>，在初始值<code>c</code>上叠加<code>n</code>次，其中<code>α</code>是一个类型参数，为了让这个fold更加通用。当<code>n=0</code>时直接返回<code>c</code>，当<code>n=n&#39;+1</code>时，将<code>f</code>应用在<code>foldn c f n&#39;</code>上，这其实就是一个递归了。</p>
+<h2 id="计数、累加和累乘"><a href="#计数、累加和累乘" class="headerlink" title="计数、累加和累乘"></a>计数、累加和累乘</h2><p>这也是按照书上的描述实现的<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def num := foldn 0 Nat.succ</span><br><span class="line">def sum := Prod.snd ∘ foldn (0,0) fun (a,b) =&gt; (a+1,a+1+b)</span><br><span class="line">def fact := Prod.snd ∘ foldn (0,1) fun (a,b) =&gt; (a+1,(a+1)*b)</span><br></pre></td></tr></table></figure></p>
+<p><code>num</code>就是0的n次后缀。<code>sum</code>和<code>fact</code>的话用到了二元组，二元组的第一个数是序号，第二个数是累加和累乘的结果。其中<code>∘</code>是lean4中函数组合的符号，用<code>\o</code>输入。</p>
+<h2 id="斐波那契数列和卢卡斯数列"><a href="#斐波那契数列和卢卡斯数列" class="headerlink" title="斐波那契数列和卢卡斯数列"></a>斐波那契数列和卢卡斯数列</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def fib := Prod.fst ∘ foldn (0,1) fun (a,b) =&gt; (b,a+b)</span><br><span class="line">def luc := Prod.fst ∘ foldn (1,3) fun (a,b) =&gt; (b,a+b)</span><br></pre></td></tr></table></figure>
+<p>跟前面不一样的地方在于这个二元组的意义不一样，第一个元素表示前一个值，第二个元素表示后一个值。</p>
+<h2 id="课后习题"><a href="#课后习题" class="headerlink" title="课后习题"></a>课后习题</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def pow2 := Prod.snd ∘ foldn (0,0) fun (a,b) =&gt; (a+1,b+2*a+1)</span><br><span class="line">def pow (m n : Nat) := (Prod.snd ∘ foldn (n,1) fun (a,b) =&gt; (a,b*a)) m</span><br></pre></td></tr></table></figure>
+<p><code>pow2</code>是平方，<code>pow</code>是n的m次方。平方那题我觉得出得很巧妙，或者说我觉得我写得很巧妙，我用平方公式来迭代的，也就是$(n+1)^2=n^2+2n+1$，迭代过程中的<code>(a,b)</code>表示的就是$(n,n^2)$，后一项的b可以通过前一项算出来。</p>
+<p><code>pow</code>如果书上把n和m的顺序换一下也是个好题，但是这个顺序太奇怪了，要先给出m，再给n，所以写得有点复杂。</p>
+<p>还有一题奇数和之前漏了，所以放在扩展第一种里了</p>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>我在写前面的东西的过程中发现了一些共性的东西，觉得可以把它们提取出来一下，所以也写了一下，因为我不会起名字，所以就直接叫<code>F</code>了<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def F &#123;α:Type&#125; (c:α) (g:α → α → α) (f:Nat → α) := Prod.snd ∘ foldn (0,c) fun (a,b) =&gt; (a+1,g b (f a))</span><br><span class="line">def sumF (f:Nat → Nat) := F 0 Nat.add f</span><br><span class="line">def sum := sumF Nat.succ</span><br><span class="line">def factF (f:Nat → Nat) := F 1 Nat.mul f</span><br><span class="line">def fact := factF Nat.succ</span><br></pre></td></tr></table></figure></p>
+<p>大概说一下<code>F</code>是怎么来的，前面观察累加和累乘我们会发现，其实除了个加号和乘号以外全部都是一样的，所以我们可以把<code>a+1</code>和<code>b</code>之间的符号提取出来，作为参数<code>g</code>。然后我们发现还有个看起来不顺眼的东西，<code>a+1</code>为什么会有个<code>+1</code>呢，这个东西的意义是什么，可以理解为一个对<code>a</code>的操作，总之先把它提取出来就对了，它就叫<code>f</code>了。</p>
+<p>接下来我们可以实现一个广义上的数列的求和<code>sumF</code>，前面我们说的<code>f</code>就可以理解为一个数列，表示数列的第a项。接下来就可以实现一个奇数的和了<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def oddsum := sumF fun n =&gt; n*2+1</span><br></pre></td></tr></table></figure></p>
+<p>其中<code>fun n =&gt; n*2+1</code>就是用于计算第n个奇数。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/lean4/" rel="tag"># lean4</a>
+              <a href="/tags/%E5%90%8C%E6%9E%84/" rel="tag"># 同构</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/03/28/21-51-32/" rel="prev" title="部署astrbot">
+      <i class="fa fa-chevron-left"></i> 部署astrbot
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  <script type="text/javascript" src="/js/fa.js"></script>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#foldn"><span class="nav-number">1.</span> <span class="nav-text">foldn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E6%95%B0%E3%80%81%E7%B4%AF%E5%8A%A0%E5%92%8C%E7%B4%AF%E4%B9%98"><span class="nav-number">2.</span> <span class="nav-text">计数、累加和累乘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97%E5%92%8C%E5%8D%A2%E5%8D%A1%E6%96%AF%E6%95%B0%E5%88%97"><span class="nav-number">3.</span> <span class="nav-text">斐波那契数列和卢卡斯数列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BE%E5%90%8E%E4%B9%A0%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">课后习题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A9%E5%B1%95"><span class="nav-number">5.</span> <span class="nav-text">扩展</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
