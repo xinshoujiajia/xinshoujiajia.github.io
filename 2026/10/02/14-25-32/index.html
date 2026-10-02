@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="最近Jev爆火，所以我也想弄个开源版本的laya来玩玩，于是想起了我之前白嫖的超算互联网好像还没用过，就来看看怎么用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="国家超算互联网使用指南">
+<meta property="og:url" content="http://example.com/2026/10/02/14-25-32/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="最近Jev爆火，所以我也想弄个开源版本的laya来玩玩，于是想起了我之前白嫖的超算互联网好像还没用过，就来看看怎么用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-1.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-2.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-3.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-4.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-6.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-7.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-8.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-9.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-10.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-11.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-12.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-13.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-14.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-15.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-16.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-17.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-18.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-19.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-20.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-21.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-22.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-23.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-24.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-25.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-26.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-29.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-27.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-28.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-30.png">
+<meta property="og:image" content="http://example.com/2026/10/02/14-25-32/image-5.png">
+<meta property="article:published_time" content="2026-10-02T06:25:32.000Z">
+<meta property="article:modified_time" content="2026-10-02T10:00:17.278Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="超算">
+<meta property="article:tag" content="容器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2026/10/02/14-25-32/image.png">
+
+<link rel="canonical" href="http://example.com/2026/10/02/14-25-32/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>国家超算互联网使用指南 | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/10/02/14-25-32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          国家超算互联网使用指南
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-10-02 14:25:32 / 修改时间：18:00:17" itemprop="dateCreated datePublished" datetime="2026-10-02T14:25:32+08:00">2026-10-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近Jev爆火，所以我也想弄个开源版本的laya来玩玩，于是想起了我之前白嫖的超算互联网好像还没用过，就来看看怎么用。<br><span id="more"></span></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>超算互联网的<a target="_blank" rel="noopener" href="https://www.scnet.cn/ui/mall/">网址</a>，显而易见是个算力平台，具体的我也没了解过，之前别人说有免费算力所以我就注册了一个。</p>
+<p>里面能免费使用的好像基本是国产的异构加速卡（对标nvidia的显卡）和DTK框架（对标cuda），因为不是nvidia的显卡，所以我们自己装的torch大概率是用不了的，但是里面提供的镜像的torch好像是做了DTK适配的，所以只要选择合适的版本的镜像，并且在配环境的时候不要去动内置的torch，应该是没有问题的。</p>
+<p>所以作为学生党，免费的就是最好的，用来随便玩玩最合适了。</p>
+<h2 id="创建容器"><a href="#创建容器" class="headerlink" title="创建容器"></a>创建容器</h2><p>虽然这个网站好像有很多高级的功能，但是我们只是写写python跑跑实验的话，使用容器服务应该就够用了，其他的功能以后再说吧。</p>
+<p>注册的步骤就不说了，我也忘了怎么注册的了，注册完就去算力市场逛一下免费专区和试用专区，领一下想用的。</p>
+<p>然后鼠标放到<code>服务</code>，在下拉菜单中点击<code>容器服务</code><br><img src="/2026/10/02/14-25-32/image.png" alt></p>
+<p>然后点中间的<code>立即使用</code>，就来到了这个页面<br><img src="/2026/10/02/14-25-32/image-1.png" alt></p>
+<p>然后点击<code>体验新版</code>，我之前试了旧版的怎么用，而且也有免费额度，但是好像旧版免费用的DTK版本都比较低，所以还是来说说新版怎么用吧，</p>
+<p>点击创建容器实例，可以来到这个页面，我这里领的是华中三区【武汉】的一个免费节点<br><img src="/2026/10/02/14-25-32/image-2.png" alt></p>
+<p>可能因为是免费的，所以这里可能不一定会有可用卡（我今天写这篇博客的时候就出现了暂无容器的情况，今天还是国庆假期期间）</p>
+<p>以及一个可能出现的情况，领了免费的机器，但是在这个区域没有文件存储，我之前免费领的一个区域就出现了文件存储配置失败的。</p>
+<p>下面<code>容器配置</code>这里需要注意，开发工具不要直接选vs code，这里的vs code的镜像的DTK版本很低，连带的torch版本也很低，而且选择很少。这里先选SSH，这样DTK版本比较高，可以选择的版本也多，后面我们可以自己装vs code（而且我们自己装的vs code版本也高）<br><img src="/2026/10/02/14-25-32/image-3.png" alt></p>
+<p><img src="/2026/10/02/14-25-32/image-4.png" alt></p>
+<p>选完之后点右下角的创建，然后就等待部署，然后等<code>服务状态</code>变成<code>运行中</code>就点击容器名称<br><img src="/2026/10/02/14-25-32/image-6.png" alt></p>
+<p>因为我们之后需要下载软件，所以需要联网，点这里绑定外网IP，<br><img src="/2026/10/02/14-25-32/image-7.png" alt></p>
+<p>然后去创建外网IP，记得区域要选跟你的机器相同的区域<br><img src="/2026/10/02/14-25-32/image-8.png" alt></p>
+<p>绑定外网IP之后就可以点击终端进入容器，安装软件了<br><img src="/2026/10/02/14-25-32/image-9.png" alt></p>
+<h2 id="安装vs-code"><a href="#安装vs-code" class="headerlink" title="安装vs code"></a>安装vs code</h2><p>虽然使用终端和vim来写代码也不是不行，但是果然还是使用一些现代的编辑器更方便，所以先来安装vs code。虽然说是vs code其实这个是code-server，其实是个长得像vs code的开源的网页版的编辑器。</p>
+<p>可以直接用下面这一行脚本来安装最新的code-server<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https:<span class="regexp">//</span>code-server.dev/install.sh | sh</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2026/10/02/14-25-32/image-10.png" alt><br>这样就安装完了，它提示可以用systemctl来启动，这个不用管。</p>
+<p>接下来回之前容器组的页面，先保存一次镜像，名字和版本可以随便写，这次保存的还不是最终版本，然后点到我的镜像可以看见刚刚保存的镜像<br><img src="/2026/10/02/14-25-32/image-11.png" alt></p>
+<p>点击镜像的名称，然后等待构建完成，然后点右边的三个点编辑<br><img src="/2026/10/02/14-25-32/image-12.png" alt></p>
+<p>往下面翻，找到<code>开发工具</code>，点击<code>添加</code>-&gt;<code>vs code</code><br><img src="/2026/10/02/14-25-32/image-13.png" alt></p>
+<p>如果是使用之前的脚本安装的，那就不用指定路径，使用默认路径就行了，然后点击右下角的确认<br><img src="/2026/10/02/14-25-32/image-14.png" alt></p>
+<p>然后等一下就能看见镜像的<code>开发工具</code>这里多出了个<code>vs code</code>，并且前面标了绿色的勾那就说明能用了</p>
+<p>然后点击左边栏的<code>容器实例</code>来到容器界面，在之前的这个容器右边点击<code>停止</code>，等<code>服务状态</code>从<code>停止中</code>变成<code>已停止</code>之后点<code>更新服务</code>，<br><img src="/2026/10/02/14-25-32/image-15.png" alt></p>
+<p>然后往下翻来到<code>容器配置</code>，这次我们开发工具就<code>vs code</code>，然后点<code>我的镜像</code>，在下面选择镜像应该能看见刚才保存的镜像，选择这个镜像，然后保存，启动容器。<br><img src="/2026/10/02/14-25-32/image-16.png" alt></p>
+<p><img src="/2026/10/02/14-25-32/image-17.png" alt></p>
+<p>这时候可能会看见个黄字说未安装ssh工具，这个我也不知道是什么原因，但是我们的镜像显然是有ssh工具的（不然之前是怎么用的），而且这个黄字在第二次保存镜像之后会自己消失，所以现在先不管。<br><img src="/2026/10/02/14-25-32/image-18.png" alt></p>
+<p>点击右下角的<code>更新</code>，如果资源充足就再点击右边的<code>启动</code>（疑似是白天的时候人都在上班，现在快到饭点了，下班了用的人变少了）<br><img src="/2026/10/02/14-25-32/image-19.png" alt></p>
+<p>等容器启动完点容器名字，往下翻应该能看到这里多了个<code>vs code</code>，<br><img src="/2026/10/02/14-25-32/image-20.png" alt></p>
+<p>鼠标先放到密码后面点击一下复制，然后点上面的<code>vs code</code>，点完可能会提示一个<code>你的连接不是专用连接</code>，这个是正常现象，点<code>高级</code>，然后点下面的继续访问。</p>
+<p>然后会看到网页中间有个密码框（我故意把不安全网址也截进来的，反正这个容器我马上就要销毁掉了，泄露也没事）<br><img src="/2026/10/02/14-25-32/image-21.png" alt></p>
+<p>把之前复制的密码粘贴到网页中间的密码框，就能进来了，界面上大致和vs code是一样的<br><img src="/2026/10/02/14-25-32/image-22.png" alt></p>
+<p>如果觉得不一样，那就点左下角的齿轮，<code>themes</code>-&gt;<code>color themes</code>，然后在上面的配色方案中选择<code>dark modern</code><br><img src="/2026/10/02/14-25-32/image-23.png" alt></p>
+<p>然后是不是就顺眼多了<br><img src="/2026/10/02/14-25-32/image-24.png" alt></p>
+<p>接下来演示一下怎么装插件，先装个中文插件来演示，其实就跟vs code的一模一样<br><img src="/2026/10/02/14-25-32/image-25.png" alt></p>
+<p>这里点一下信任<br><img src="/2026/10/02/14-25-32/image-26.png" alt></p>
+<p>接下来根据使用方法，按下<code>ctrl+shift+p</code>，在搜索框输入<code>display</code>，然后点击<code>Configure Display Language</code>，选择简体中文<br><img src="/2026/10/02/14-25-32/image-29.png" alt></p>
+<h2 id="安装常用软件"><a href="#安装常用软件" class="headerlink" title="安装常用软件"></a>安装常用软件</h2><p>我们现在要制作的是一个通用镜像，容器里面有root权限，可以使用apt，使用之前记得先<code>apt update</code>一次，镜像非常贴心的帮我们换过清华源了，先用apt把自己常用的软件，比如tmux之类的装好，然后还有把code-server的插件装完，其他的该配置的东西配置好，然后再保存一次镜像。</p>
+<p>这里可以选择<code>添加到已有镜像</code>，然后写个版本名，版本名如果不想编数字可以写时间，但是不建议写简介，镜像里面有专门的地方写简介。<br><img src="/2026/10/02/14-25-32/image-27.png" alt></p>
+<p>镜像保存好之后就会发现<code>开发工具</code>自己多出了<code>SSH</code><br><img src="/2026/10/02/14-25-32/image-28.png" alt></p>
+<p>以后如果新装了什么软件或者库的话也要及时保存一次镜像，不然关机之后下一次启动又是从上次的镜像开始，而且这个镜像也可以作为环境的备份，虽然作为备份来说还是太大了点，一个镜像动辄二三十G，也不知道个人保存镜像的上限是多少，所以也不建议没事就干啥都点一次保存镜像。</p>
+<h2 id="写代码"><a href="#写代码" class="headerlink" title="写代码"></a>写代码</h2><p>刚才的第二次镜像保存好之后继续重复之前的，<code>关机</code>-&gt;<code>更新服务</code>-&gt;<code>选择新的镜像</code>-&gt;<code>更新</code>-&gt;<code>启动</code>-&gt;<code>进入vs code</code></p>
+<p>因为容器关机之后，下次启动的话又是从镜像开始，容器里面的东西会丢失，所以代码不能直接放在容器里，但是仔细看会发现工作区里面有个<code>private_data</code>，这个就是挂载的我们个人的文件存储空间，我们的代码或者其他的数据都要放在这个里面。<br><img src="/2026/10/02/14-25-32/image-30.png" alt></p>
+<p>我们也可以从平台这里点到文件管理，看到我们的个人文件存储空间，然后点上传文件可以上传我们的代码。<br><img src="/2026/10/02/14-25-32/image-5.png" alt></p>
+<p>然后运行代码的时候，为了防止浏览器关闭之后程序中止，所以就需要之前装的tmux了，这个相当于在后台运行的，即使当前的终端关闭了也能保持运行，tmux的使用这里也不多介绍，会下面4个操作差不多就行了</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建会话</span></span><br><span class="line">tmux </span><br><span class="line"></span><br><span class="line"><span class="comment"># 分离会话（不终止运行的情况下退出会话）</span></span><br><span class="line">ctrl+b 松开ctrl 按b</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看所有会话</span></span><br><span class="line">tmux <span class="built_in">ls</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入会话</span></span><br><span class="line">tmux a -t 会话序号（从0开始递增）</span><br></pre></td></tr></table></figure>
+<p>容器单次运行时间最长好像是72小时，所以在跑实验的时候要注意时间，如果时长剩余太少就关机了重新开一次再跑，不要跑一半就关机了。以及虽然说是免费的，一直开着也不会产生额外费用，但是不使用的时候还是顺手点一下关机，也给其他冲着免费来的人一点机会。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%B6%85%E7%AE%97/" rel="tag"># 超算</a>
+              <a href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag"># 容器</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/07/20/15-25-32/" rel="prev" title="用矩阵表示图操作">
+      <i class="fa fa-chevron-left"></i> 用矩阵表示图操作
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  <script type="text/javascript" src="/js/fa.js"></script>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">创建容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85vs-code"><span class="nav-number">3.</span> <span class="nav-text">安装vs code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">安装常用软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E4%BB%A3%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">写代码</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
