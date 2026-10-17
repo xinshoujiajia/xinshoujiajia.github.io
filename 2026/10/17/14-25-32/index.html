@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文为与基地的学弟交流讨论的过程的记录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="马踏棋盘类问题公式解">
+<meta property="og:url" content="http://example.com/2026/10/17/14-25-32/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="本文为与基地的学弟交流讨论的过程的记录。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2026/10/17/14-25-32/B6BF4FB479F27BC9DAF58C2741FAFDF2.png">
+<meta property="og:image" content="http://example.com/2026/10/17/14-25-32/DECCC46C2F2C41976D056B87B08A3249.png">
+<meta property="og:image" content="http://example.com/2026/10/17/14-25-32/C1B3D406A09F31459E0EEBBC62BCB272.png">
+<meta property="article:published_time" content="2026-10-17T06:25:32.000Z">
+<meta property="article:modified_time" content="2026-10-17T08:59:04.282Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2026/10/17/14-25-32/B6BF4FB479F27BC9DAF58C2741FAFDF2.png">
+
+<link rel="canonical" href="http://example.com/2026/10/17/14-25-32/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>马踏棋盘类问题公式解 | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/10/17/14-25-32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          马踏棋盘类问题公式解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-10-17 14:25:32 / 修改时间：16:59:04" itemprop="dateCreated datePublished" datetime="2026-10-17T14:25:32+08:00">2026-10-17</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文为与基地的学弟交流讨论的过程的记录。<br><span id="more"></span></p>
+<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>一年一度的基地招新又要开始了，为了显得没那么水，我觉得每年还是要出点新题，不能总是使用题库的旧题，所以我就叫现在的副主席来出题，他最近好像莫名的跟马踏棋盘杠上了，然后就进行了一些讨论。</p>
+<h2 id="最初版最优步数公式解"><a href="#最初版最优步数公式解" class="headerlink" title="最初版最优步数公式解"></a>最初版最优步数公式解</h2><p>下面是他最开始给我看的公式，以及他打印的图</p>
+<p><img src="/2026/10/17/14-25-32/B6BF4FB479F27BC9DAF58C2741FAFDF2.png" alt></p>
+<p><img src="/2026/10/17/14-25-32/DECCC46C2F2C41976D056B87B08A3249.png" alt></p>
+<p>他的公式是如何得出的我就不太清楚了，但是可以看出这个版本看起来还很复杂，而且有很多特例（没办法在[-4,4]x[-4,4]的区域确实很特殊），于是我也加入了寻找公式求解的方法。</p>
+<h2 id="我最初的错误思路"><a href="#我最初的错误思路" class="headerlink" title="我最初的错误思路"></a>我最初的错误思路</h2><p>为了方便写，我们决定先把范围限制在$0\le x\le y$，对于$[0,4]$区域内就直接查表，我的想法是选择两种减小xy坐标且曼哈顿距离减少最快的走法的组合，来快速进入可查表的范围然后查表来解，我选择的是$(3,3)$和$(0,4)$，但是后来发现两个问题，一是表不一样，得初始一张，移动后修正一张，但是这样依然不能保证进入查表范围之后是在最优位置，所以这个凭感觉的想法宣告错误。</p>
+<h2 id="三元最优化问题"><a href="#三元最优化问题" class="headerlink" title="三元最优化问题"></a>三元最优化问题</h2><p>之后我又提出了另一个错误的猜想，任何一个点都能只使用三种步法到达，在$0\le x\le y$内是$(1,2),(2,1),(-1,2)$，然后我列出了下面这个东西</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+a+2b-c=x\\
+2a+b+2c=y
+\end{cases}
+\quad{a,b,c \ge0}</script><p>然后最优步数就是$\min (a+b+c)$</p>
+<p>稍微化简一下能得到</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+a=-2x+4y-5t\\
+b=2x-3y+4t\\
+c=x-2y+3t
+\end{cases}
+\quad{t\in\Z}</script><p>然后最优步数就是$\min (x-y+2t)$，但是这里面有一个很大的问题，abc必须大于等于0，有些时候会没有解，所以三种步法应该是不一定能走到。</p>
+<h2 id="四元最优化问题"><a href="#四元最优化问题" class="headerlink" title="四元最优化问题"></a>四元最优化问题</h2><p>最后就是我的最终版本，绝对正确的方程组，唯一的问题就是解不出来</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+a+2b-c+2d=x\\
+2a+b+2c-d=y
+\end{cases}
+\quad{a,b,c,d \in \Z}</script><script type="math/tex; mode=display">
+\min |a|+|b|+|c|+|d|</script><p>理解还是很简单的，abcd分别就是四种步法走多少步，负数就是反方向走，可以很显然的看出顺序无关，以及如果是最优走法不会回头，所以四种步法一定能走出最优解。</p>
+<h2 id="用最优步数作为第三个方程"><a href="#用最优步数作为第三个方程" class="headerlink" title="用最优步数作为第三个方程"></a>用最优步数作为第三个方程</h2><p>之后我把这个方程组给了学弟，他直接用他的最优步数公式作为第三个方程，然后对abcd分别为负的16种情况进行了讨论，最终得出了能够求出最优步数和最优走法的解族。</p>
+<p>并且做出了个网页版：无限马踏棋盘。不过有一说一，他这个网页版的操作属实逆天，左键右键的各种排列组合，移动端适配更是逆天完了，一种没被现代人机界面交互方式污染过的美。</p>
+<h2 id="最优步数公式后续简化"><a href="#最优步数公式后续简化" class="headerlink" title="最优步数公式后续简化"></a>最优步数公式后续简化</h2><p>他的后续优化<br><img src="/2026/10/17/14-25-32/C1B3D406A09F31459E0EEBBC62BCB272.png" alt></p>
+<h2 id="最优化走法的最终解法"><a href="#最优化走法的最终解法" class="headerlink" title="最优化走法的最终解法"></a>最优化走法的最终解法</h2><p>多亏了他的网页版，在大量的观察下，我也终于完成了我之前的最优化问题的解法。</p>
+<p>四种步法中，一定有一种至多走了1步，即属于[-1,1]，我们称它为修正步。以及有一种步法占主导，即恒不为负，且不会成为修正步。</p>
+<p>如果在$0\le x\le y$举例子的话就是，a占主导，然后我们可以分别讨论bcd作为修正步的取值，然后解出方程组</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+a = \dfrac{-x + 2y + 4s -5t}{3} \\
+b = \dfrac{2x - y -5s +4t}{3} \\
+c = t \\
+d = s
+\end{cases}</script><p>或</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+a = \dfrac{2x + y - 3s - 5t}{4} \\
+b = t \\
+c = \dfrac{-2x + y + 5s + 3t}{4} \\
+d = s
+\end{cases}</script><p>然后用约束$a\ge0$，可以求解最优步数。</p>
+<p>然后这个问题显然具有对称性，可以先对要求的点的x和y进行预处理，如改正负号和交换xy来变到这个范围，然后求出abcd之后进行逆变换，得到原问题的解。</p>
+<p>一些对应的变换</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+(x,y) &= (a,b,c,d)\\
+(y,x) &= (b,a,d,c)\\
+(-x,y) &= (c,-d,a,-b)\\
+(x,-y) &= (-c,d,-a,b)
+\end{cases}</script><p>上述变换可以进行组合，如</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+(-x,-y) &= (-a,-b,-c,-d)\\
+(-y,-x) &= (-b,-a,-d,-c)\\
+(-y,x) &= (d,-c,b,-a)\\
+(y,-x) &= (-d,c,-b,a)
+\end{cases}</script><p>这个解法对于[0,4]内的特例可能不适用，但是无所谓了。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/10/02/14-25-32/" rel="prev" title="国家超算互联网使用指南">
+      <i class="fa fa-chevron-left"></i> 国家超算互联网使用指南
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  <script type="text/javascript" src="/js/fa.js"></script>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%88%9D%E7%89%88%E6%9C%80%E4%BC%98%E6%AD%A5%E6%95%B0%E5%85%AC%E5%BC%8F%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">最初版最优步数公式解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E6%9C%80%E5%88%9D%E7%9A%84%E9%94%99%E8%AF%AF%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">我最初的错误思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%85%83%E6%9C%80%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">三元最优化问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E5%85%83%E6%9C%80%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">四元最优化问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%9C%80%E4%BC%98%E6%AD%A5%E6%95%B0%E4%BD%9C%E4%B8%BA%E7%AC%AC%E4%B8%89%E4%B8%AA%E6%96%B9%E7%A8%8B"><span class="nav-number">6.</span> <span class="nav-text">用最优步数作为第三个方程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%BC%98%E6%AD%A5%E6%95%B0%E5%85%AC%E5%BC%8F%E5%90%8E%E7%BB%AD%E7%AE%80%E5%8C%96"><span class="nav-number">7.</span> <span class="nav-text">最优步数公式后续简化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%BC%98%E5%8C%96%E8%B5%B0%E6%B3%95%E7%9A%84%E6%9C%80%E7%BB%88%E8%A7%A3%E6%B3%95"><span class="nav-number">8.</span> <span class="nav-text">最优化走法的最终解法</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

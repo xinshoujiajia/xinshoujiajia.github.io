@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>无限马踏棋盘</title>
+<style>
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    font: 13px/1.4 "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body { display: flex; flex-direction: column; background: #fff; }
+
+  .toolbar {
+    flex: 0 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    padding: 6px;
+    background: #f5f5f5;
+    border-bottom: 1px solid #d8d8d8;
+  }
+  .toolbar label { color: #333; }
+  .toolbar input {
+    width: 60px;
+    padding: 3px 5px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font: inherit;
+    -webkit-user-select: text;
+    user-select: text;
+  }
+  .toolbar button {
+    padding: 4px 10px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    background: #fff;
+    font: inherit;
+    cursor: pointer;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .toolbar button:hover  { background: #eef4ff; border-color: #2f80ed; }
+  .toolbar button:active { background: #dce9ff; }
+  .sep { width: 1px; height: 20px; background: #ccc; margin: 0 4px; }
+  .hl-label {
+    margin-left: auto;
+    padding-right: 4px;
+    color: #2d8a4e;
+    font-weight: 600;
+  }
+
+  #stage {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    background: #fff;
+  }
+  #cv {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: block;
+    touch-action: none;
+    cursor: crosshair;
+  }
+
+  #status {
+    flex: 0 0 auto;
+    min-height: 24px;
+    padding: 4px 8px;
+    border-top: 1px solid #d8d8d8;
+    background: #fafafa;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ============ 最短路径解族面板 ============ */
+  #paths-panel {
+    position: absolute;
+    top: 8px; right: 8px;
+    width: min(420px, calc(100% - 16px));
+    max-height: calc(100% - 16px);
+    background: #fff;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    overflow: hidden;
+  }
+  #paths-panel.hidden { display: none; }
+
+  .paths-header {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    border-bottom: 1px solid #ddd;
+    background: #f5f5f5;
+    font-weight: 600;
+    color: #333;
+  }
+  #paths-close {
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 4px;
+    color: #555;
+  }
+  #paths-close:hover { color: #c92a2a; }
+
+  #paths-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 8px 10px;
+    overflow-y: auto;
+    font: 12px/1.55 Consolas, "Courier New", monospace;
+    white-space: pre-wrap;
+    color: #141414;
+    -webkit-user-select: text;
+    user-select: text;
+  }
+</style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <label for="xv">跳转 x =</label>
+    <input id="xv" type="text" value="0" autocomplete="off" spellcheck="false">
+    <label for="yv">y =</label>
+    <input id="yv" type="text" value="0" autocomplete="off" spellcheck="false">
+    <button id="btn-jump"  type="button">跳转</button>
+    <button id="btn-reset" type="button">回原点</button>
+
+    <span class="sep"></span>
+
+    <button id="btn-left"  type="button"
+            title="单选=长按高亮；连按两次=同数高亮；与右键同按=粉色标记">左键</button>
+    <button id="btn-right" type="button"
+            title="单选=马步高亮；与左键同按=粉色标记">右键</button>
+
+    <span class="sep"></span>
+
+    <button id="btn-clear-all"        type="button">清除全部</button>
+    <button id="btn-clear-longpress"  type="button">清长按</button>
+    <button id="btn-clear-same"       type="button">清同数</button>
+    <button id="btn-clear-knight"     type="button">清马步</button>
+    <button id="btn-clear-pink"       type="button">清粉色</button>
+
+    <span class="sep"></span>
+
+    <button id="btn-paths" type="button"
+            title="显示/隐藏当前选中格子的最短路径解">最短路径</button>
+
+    <span class="hl-label" id="hl-label"></span>
+  </div>
+
+  <div id="stage">
+    <canvas id="cv"></canvas>
+
+    <div id="paths-panel" class="hidden">
+      <div class="paths-header">
+        <span id="paths-title">最短路径</span>
+        <button id="paths-close" type="button" title="收起">×</button>
+      </div>
+      <div id="paths-body"></div>
+    </div>
+  </div>
+
+  <div id="status"></div>
+
+<script>
+"use strict";
+
+/* =============================================================
+ * 常量配置
+ * ============================================================= */
+
+const MIN_CELL = 26.0;
+const MAX_CELL = 200.0;
+const INIT_CELL = 44.0;
+
+const LONG_PRESS_MS = 450;
+const DRAG_THRESHOLD = 4;
+
+/* 双击识别窗口：时间（毫秒）与位置（像素） */
+const DOUBLE_CLICK_MS = 350;
+const DOUBLE_CLICK_DIST = 30;
+
+const KNIGHT_MOVES = [
+  [1, 2], [2, 1], [-1, 2], [-2, 1],
+  [1, -2], [2, -1], [-1, -2], [-2, -1],
+];
+
+const DIAGONALS = [[-1, -1], [-1, 1], [1, -1], [1, 1]];
+
+const SMALL_COUNT = [1, 8, 32, 68, 96];
+
+const COLORS = {
+  origin:           '#ffd166',
+  origin_edge:      '#e67700',
+  same_n:           '#b7e4c7',
+  same_n_edge:      '#2d8a4e',
+  longpress:        '#d0bfff',
+  longpress_edge:   '#6741d9',
+  knight_src:       '#ffc078',
+  knight_src_edge:  '#e8590c',
+  knight_up:        '#ffa8a8',
+  knight_up_edge:   '#c92a2a',
+  knight_down:      '#a5d8ff',
+  knight_down_edge: '#1971c2',
+  pink_mark:        '#ff4d94',
+  pink_mark_edge:   '#a61e4d',
+  pink_area:        '#ffd6e7',
+  hover_edge:       '#2f80ed',
+  hover_fill:       '#ffffe0',
+  cell_edge:        '#c8c8c8',
+  text:             '#141414',
+  white:            '#ffffff',
+};
+
+const MONO = 'Consolas, "Courier New", monospace';
+
+
+/* =============================================================
+ * 算法：纯函数
+ * ============================================================= */
+
+function knight_dist(x, y) {
+  const ax = Math.abs(x), ay = Math.abs(y);
+  if (ax === 0 && ay === 0) return 0;
+  if ((ax === 1 && ay === 0) || (ax === 0 && ay === 1)) return 3;
+  if (ax === 2 && ay === 2) return 4;
+  if (ay >= 2 * ax) return ay - ax - 2 * Math.floor((ay - 2 * ax) / 4);
+  if (ax >= 2 * ay) return ax - ay - 2 * Math.floor((ax - 2 * ay) / 4);
+  if (ay >= ax) return ay - ax + 2 * Math.floor((2 * ax - ay - 1) / 3) + 2;
+  return ax - ay + 2 * Math.floor((2 * ay - ax - 1) / 3) + 2;
+}
+
+function count_same_n(n) {
+  if (n === null || n === undefined) return null;
+  if (n < 0) return 0;
+  if (n === 0) return 1;
+  let k;
+  if (n === 2) k = -1;
+  else if (n === 4 || n === 3) k = 1;
+  else k = 0;
+  return 4 * (7 * n - 5) + 4 * k;
+}
+
+function pyRound(x) {
+  const f = Math.floor(x);
+  const d = x - f;
+  if (d > 0.5) return f + 1;
+  if (d < 0.5) return f;
+  return (f % 2 === 0) ? f : f + 1;
+}
+
+function parseIntStrict(str) {
+  const s = String(str).trim();
+  if (!/^[+-]?\d+$/.test(s)) return null;
+  const v = parseInt(s, 10);
+  return Number.isFinite(v) ? v : null;
+}
+
+
+/* =============================================================
+ * 最短路径解族求解器（从 Python 版移植）
+ * 纯整数运算，无第三方依赖
+ *
+ * 设 w, x, y, z 为四个基向量的步数系数，一步位移为
+ *     w·( 1,  2) + x·( 2,  1) + y·(-1,  2) + z·( 2, -1)
+ * 等价方程组：
+ *     w + 2x -  y + 2z = m
+ *    2w +  x + 2y -  z = n
+ *   e_w·w + e_x·x + e_y·y + e_z·z = f      (e_i = ±1)
+ * 求解后按符号约束 e_i·X_i >= 0 取非负计数。
+ * ============================================================= */
+
+function gcd_int(a, b) {
+  a = Math.abs(a); b = Math.abs(b);
+  while (b) { const t = a % b; a = b; b = t; }
+  return a;
+}
+
+function det3(m) {
+  return (m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1])
+        - m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0])
+        + m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0]));
+}
+
+function det3ReplaceCol(B, col, vec) {
+  const M = B.map(r => r.slice());
+  for (let i = 0; i < 3; i++) M[i][col] = vec[i];
+  return det3(M);
+}
+
+const ALL_SIGNS = [
+  [ 1, 1, 1, 1], [ 1, 1, 1,-1], [ 1, 1,-1, 1], [ 1, 1,-1,-1],
+  [ 1,-1, 1, 1], [ 1,-1, 1,-1], [ 1,-1,-1, 1], [ 1,-1,-1,-1],
+  [-1, 1, 1, 1], [-1, 1, 1,-1], [-1, 1,-1, 1], [-1, 1,-1,-1],
+  [-1,-1, 1, 1], [-1,-1, 1,-1], [-1,-1,-1, 1], [-1,-1,-1,-1],
+];
+
+function solveWithSigns(signs, m, n) {
+  const e_w = signs[0], e_x = signs[1], e_y = signs[2], e_z = signs[3];
+  const f = knight_dist(m, n);
+
+  const B = [
+    [1, 2, -1],
+    [2, 1,  2],
+    [e_w, e_x, e_y],
+  ];
+  const det = det3(B);
+  if (det === 0) return null;
+
+  const b   = [m, n, f];
+  const b_z = [-2, 1, -e_z];
+
+  const Cw0 = det3ReplaceCol(B, 0, b);
+  const Cwz = det3ReplaceCol(B, 0, b_z);
+  const Cx0 = det3ReplaceCol(B, 1, b);
+  const Cxz = det3ReplaceCol(B, 1, b_z);
+  const Cy0 = det3ReplaceCol(B, 2, b);
+  const Cyz = det3ReplaceCol(B, 2, b_z);
+
+  // 找 z0 ∈ [0, |det|) 使三个分子均被 det 整除
+  let z0 = null;
+  const adet = Math.abs(det);
+  for (let z = 0; z < adet; z++) {
+    if ((Cw0 + Cwz * z) % det === 0 &&
+        (Cx0 + Cxz * z) % det === 0 &&
+        (Cy0 + Cyz * z) % det === 0) {
+      z0 = z;
+      break;
+    }
+  }
+  if (z0 === null) return null;
+
+  const X0 = [
+    Math.floor((Cw0 + Cwz * z0) / det),
+    Math.floor((Cx0 + Cxz * z0) / det),
+    Math.floor((Cy0 + Cyz * z0) / det),
+    z0,
+  ];
+  let D = [Cwz, Cxz, Cyz, det];
+
+  // 本原化方向向量，覆盖整条整数直线
+  let g = 0;
+  for (const d of D) g = gcd_int(g, Math.abs(d));
+  if (g > 1) D = D.map(d => d / g);
+
+  // 根据符号约束 e_i * (X0_i + k*D_i) >= 0 求 k 的整数区间
+  let kMin = -1e18, kMax = 1e18;
+  for (let i = 0; i < 4; i++) {
+    const Xi = X0[i], Di = D[i], ei = signs[i];
+    if (Di === 0) {
+      if (ei * Xi < 0) return null;
+    } else {
+      const A  = ei * Xi;
+      const Bc = ei * Di;
+      if (Bc > 0) {
+        kMin = Math.max(kMin, Math.floor((-A + Bc - 1) / Bc)); // ceil(-A/Bc)
+      } else {
+        kMax = Math.min(kMax, Math.floor((-A) / Bc));          // floor(-A/Bc)
+      }
+    }
+  }
+  if (kMin > kMax) return null;
+
+  return { signs, X0, D, kMin, kMax };
+}
+
+function solveEquations(m, n) {
+  const out = [];
+  for (const s of ALL_SIGNS) {
+    const r = solveWithSigns(s, m, n);
+    if (r) out.push(r);
+  }
+  return out;
+}
+
+
+/* =============================================================
+ * 应用主体
+ * ============================================================= */
+
+class App {
+
+  constructor() {
+    this._init_state();
+    this._init_window();
+    this._init_toolbar();
+    this._init_canvas();
+    this._init_statusbar();
+    this._bind_events();
+    this.refresh_hl_label();
+
+    requestAnimationFrame(() => this.resize());
+    window.addEventListener('load', () => this.resize());
+  }
+
+  _init_state() {
+    this.cell = INIT_CELL;
+    this.cx = 0.0;
+    this.cy = 0.0;
+
+    this.hover_cell = null;
+    this.mouse_pos = null;
+
+    this.left_down = false;
+    this.right_down = false;
+    this.dragging = false;
+    this.press_pos = null;
+    this.press_world = null;
+    this.press_consumed = false;
+
+    this.long_press_timer = null;
+    this.long_press_fired = false;
+
+    this.sel_cell = null;
+
+    this.same_n_value = null;
+    this.same_n_count = null;
+
+    this.knight_origin = null;
+    this.knight_targets = null;
+
+    this.pink_marks = [];
+    this.long_press_cells = new Set();
+
+    this._redraw_pending = false;
+    this._cssW = 0;
+    this._cssH = 0;
+    this._dpr = 1;
+
+    /* --- 多指 / 捏合状态 --- */
+    this.pointers = new Map();
+    this.ignored_pointers = new Set();
+    this.pinch = null;
+
+    /* --- 工具栏左键 / 右键按钮状态 --- */
+    this.btn_left_down = false;
+    this.btn_right_down = false;
+    this.btn_both_consumed = false;
+
+    /* --- 双击识别：画布 --- */
+    this._last_canvas_click = null;   // { time, x, y }
+
+    /* --- 双击识别：左键按钮 --- */
+    this._last_left_btn = null;       // { time, key }
+  }
+
+  _init_window() {
+    document.title = "无限马踏棋盘";
+  }
+
+  _init_toolbar() {
+    this.xv = document.getElementById('xv');
+    this.yv = document.getElementById('yv');
+    this.hl_label = document.getElementById('hl-label');
+    this.btn_left  = document.getElementById('btn-left');
+    this.btn_right = document.getElementById('btn-right');
+
+    const on = (id, fn) => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('click', fn);
+    };
+
+    on('btn-jump',            () => this.jump());
+    on('btn-reset',           () => this.reset());
+    on('btn-clear-all',       () => this.clear_all());
+    on('btn-clear-longpress', () => this.clear_long_press());
+    on('btn-clear-same',      () => this.clear_same_n());
+    on('btn-clear-knight',    () => this.clear_knight());
+    on('btn-clear-pink',      () => this.clear_pink());
+    on('btn-paths',           () => this.toggle_paths_panel());
+
+    const closeBtn = document.getElementById('paths-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => this.hide_paths_panel());
+    }
+
+    this._bind_action_buttons();
+
+    for (const el of [this.xv, this.yv]) {
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') this.jump();
+      });
+    }
+  }
+
+  /* ---------------------------------------------------------
+   * 工具栏「左键」「右键」按钮
+   *   · 单击          → 施加对应动作到选中的格子上
+   *   · 两键同时按下  → 对选中的格子施加粉色标记
+   *   · 左键连按两次  → 对选中的格子高亮同数（模拟画布双击）
+   * --------------------------------------------------------- */
+  _bind_action_buttons() {
+    const bind = (btn, which) => {
+      if (!btn) return;
+
+      btn.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        try { btn.setPointerCapture(e.pointerId); } catch (_) { /* 忽略 */ }
+        if (which === 'left') this.btn_left_down = true;
+        else                  this.btn_right_down = true;
+        this.maybe_trigger_pink_from_buttons();
+      });
+
+      btn.addEventListener('pointerup', (e) => {
+        e.preventDefault();
+        if (which === 'left') this.btn_left_down = false;
+        else                  this.btn_right_down = false;
+
+        // 被“两键同按”消费掉的这次按压：不触发单击动作
+        if (this.btn_both_consumed) {
+          if (!this.btn_left_down && !this.btn_right_down) {
+            this.btn_both_consumed = false;
+          }
+          return;
+        }
+
+        if (which === 'left') this.on_left_btn_action();
+        else                  this.on_right_btn_action();
+      });
+
+      btn.addEventListener('pointercancel', () => {
+        if (which === 'left') this.btn_left_down = false;
+        else                  this.btn_right_down = false;
+        if (!this.btn_left_down && !this.btn_right_down) {
+          this.btn_both_consumed = false;
+        }
+      });
+    };
+
+    bind(this.btn_left,  'left');
+    bind(this.btn_right, 'right');
+  }
+
+  maybe_trigger_pink_from_buttons() {
+    if (!this.btn_left_down || !this.btn_right_down) return;
+    if (this.btn_both_consumed) return;
+    this.btn_both_consumed = true;
+
+    const cell = this.sel_cell;
+    if (cell === null) {
+      this.set_status("请先用左键点选一个格子");
+      return;
+    }
+    this.toggle_pink(cell[0], cell[1]);
+  }
+
+  /** 左键按钮：单击=长按高亮；连按两次=同数高亮 */
+  on_left_btn_action() {
+    const cell = this.require_selection();
+    if (cell === null) {
+      this._last_left_btn = null;
+      return;
+    }
+
+    const now = Date.now();
+    const key = cell[0] + ',' + cell[1];
+    const last = this._last_left_btn;
+
+    if (last && last.key === key && now - last.time < DOUBLE_CLICK_MS) {
+      // 连按两次：撤销上一次“长按高亮”切换，然后高亮同数
+      this._last_left_btn = null;
+      this.toggle_long_press(cell[0], cell[1]);   // 撤销
+      this.sel_cell = [cell[0], cell[1]];
+      this.toggle_same_n(cell[0], cell[1]);
+      return;
+    }
+
+    this._last_left_btn = { time: now, key };
+    this.apply_left_click();
+  }
+
+  /** 右键按钮：单击=马步高亮 */
+  on_right_btn_action() {
+    this._last_left_btn = null;   // 打断左键按钮的连按节奏
+    this.apply_right_click();
+  }
+
+  _init_canvas() {
+    this.canvas = document.getElementById('cv');
+    this.ctx = this.canvas.getContext('2d');
+
+    if (typeof ResizeObserver !== 'undefined') {
+      this._ro = new ResizeObserver(() => this.resize());
+      this._ro.observe(this.canvas.parentElement || this.canvas);
+    }
+    window.addEventListener('resize', () => this.resize());
+    window.addEventListener('orientationchange', () => this.resize());
+
+    this.resize();
+  }
+
+  _init_statusbar() {
+    this.status = document.getElementById('status');
+  }
+
+  /* ---------------------------------------------------------
+   * 事件绑定
+   * --------------------------------------------------------- */
+  _bind_events() {
+    const c = this.canvas;
+
+    c.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      try { c.setPointerCapture(e.pointerId); } catch (_) { /* 忽略 */ }
+
+      const { x, y } = this.event_pos(e);
+      this.pointers.set(e.pointerId, { x, y, type: e.pointerType });
+
+      if (this.pointers.size >= 2) {
+        this.start_pinch();
+        return;
+      }
+
+      this.sync_pointer_buttons(e);
+    });
+
+    c.addEventListener('pointermove', (e) => {
+      const { x, y } = this.event_pos(e);
+
+      if (this.pointers.has(e.pointerId)) {
+        this.pointers.set(e.pointerId, { x, y, type: e.pointerType });
+      }
+
+      if (this.pinch) {
+        this.update_pinch();
+        return;
+      }
+
+      if (this.ignored_pointers.has(e.pointerId)) return;
+
+      this.sync_pointer_buttons(e);
+      this.on_motion(x, y);
+    });
+
+    c.addEventListener('pointerup', (e) => {
+      e.preventDefault();
+      this.pointers.delete(e.pointerId);
+
+      if (this.pinch) {
+        if (this.pointers.size < 2) {
+          this.end_pinch();
+          this.reset_input_state();
+          for (const id of this.pointers.keys()) {
+            this.ignored_pointers.add(id);
+          }
+        }
+        return;
+      }
+
+      if (this.ignored_pointers.has(e.pointerId)) {
+        this.ignored_pointers.delete(e.pointerId);
+        return;
+      }
+
+      this.sync_pointer_buttons(e);
+    });
+
+    c.addEventListener('pointercancel', (e) => {
+      this.pointers.delete(e.pointerId);
+      this.ignored_pointers.delete(e.pointerId);
+      if (this.pinch && this.pointers.size < 2) {
+        this.end_pinch();
+      }
+      this.reset_input_state();
+    });
+
+    c.addEventListener('pointerleave', (e) => {
+      if (e.pointerType === 'mouse') this.on_leave();
+    });
+
+    // 不再依赖原生 dblclick（手机浏览器不可靠），改由 pointerup 手动检测
+
+    c.addEventListener('contextmenu', (e) => e.preventDefault());
+
+    c.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const { x, y } = this.event_pos(e);
+      this.zoom_at(this.wheel_factor(e), x, y);
+    }, { passive: false });
+
+    window.addEventListener('blur', () => {
+      this.reset_input_state();
+      this.pointers.clear();
+      this.ignored_pointers.clear();
+      this.pinch = null;
+      this.btn_left_down = false;
+      this.btn_right_down = false;
+      this.btn_both_consumed = false;
+      this._last_canvas_click = null;
+      this._last_left_btn = null;
+    });
+  }
+
+  /* ---------------------------------------------------------
+   * 捏合缩放
+   * --------------------------------------------------------- */
+  start_pinch() {
+    const pts = Array.from(this.pointers.values()).slice(0, 2);
+    if (pts.length < 2) return;
+
+    const [a, b] = pts;
+    const dist = Math.max(1, Math.hypot(b.x - a.x, b.y - a.y));
+    const midX = (a.x + b.x) / 2;
+    const midY = (a.y + b.y) / 2;
+    const [wx, wy] = this.to_world(midX, midY);
+
+    this.pinch = {
+      initialDist: dist,
+      initialCell: this.cell,
+      worldX: wx,
+      worldY: wy,
+    };
+
+    this._cancel_long_press_timer();
+    this.left_down = false;
+    this.right_down = false;
+    this.dragging = false;
+    this.press_pos = null;
+    this.press_world = null;
+    this.press_consumed = false;
+    this.long_press_fired = false;
+    this._last_canvas_click = null;
+  }
+
+  update_pinch() {
+    if (!this.pinch) return;
+    const pts = Array.from(this.pointers.values()).slice(0, 2);
+    if (pts.length < 2) return;
+
+    const [a, b] = pts;
+    const dist = Math.max(1, Math.hypot(b.x - a.x, b.y - a.y));
+    const midX = (a.x + b.x) / 2;
+    const midY = (a.y + b.y) / 2;
+
+    const scale = dist / this.pinch.initialDist;
+    let newCell = this.pinch.initialCell * scale;
+    newCell = Math.max(MIN_CELL, Math.min(MAX_CELL, newCell));
+
+    const cw = this._cssW || this.canvas.clientWidth || 0;
+    const ch = this._cssH || this.canvas.clientHeight || 0;
+
+    this.cell = newCell;
+    this.cx = this.pinch.worldX - (midX - cw / 2) / this.cell;
+    this.cy = this.pinch.worldY + (midY - ch / 2) / this.cell;
+
+    this.redraw();
+  }
+
+  end_pinch() {
+    this.pinch = null;
+  }
+
+  /* ---------------------------------------------------------
+   * 画布尺寸
+   * --------------------------------------------------------- */
+  resize() {
+    const cv = this.canvas;
+    const stage = cv.parentElement;
+
+    const rect = cv.getBoundingClientRect();
+    let cw = Math.round(rect.width);
+    let ch = Math.round(rect.height);
+
+    if ((cw <= 0 || ch <= 0) && stage) {
+      cw = Math.round(stage.clientWidth);
+      ch = Math.round(stage.clientHeight);
+    }
+
+    const dpr = window.devicePixelRatio || 1;
+    this._cssW = cw;
+    this._cssH = ch;
+    this._dpr = dpr;
+
+    if (cw > 0 && ch > 0) {
+      const newW = Math.max(1, Math.round(cw * dpr));
+      const newH = Math.max(1, Math.round(ch * dpr));
+      if (cv.width  !== newW) cv.width  = newW;
+      if (cv.height !== newH) cv.height = newH;
+    }
+
+    this.redraw();
+  }
+
+  /* ---------------------------------------------------------
+   * 坐标换算
+   * --------------------------------------------------------- */
+  to_world(sx, sy) {
+    const cw = this._cssW || this.canvas.clientWidth || 0;
+    const ch = this._cssH || this.canvas.clientHeight || 0;
+    return [
+      this.cx + (sx - cw / 2) / this.cell,
+      this.cy - (sy - ch / 2) / this.cell,
+    ];
+  }
+
+  cell_at(sx, sy) {
+    const [wx, wy] = this.to_world(sx, sy);
+    return [pyRound(wx), pyRound(wy)];
+  }
+
+  view_context() {
+    const cw = this._cssW || this.canvas.clientWidth || 0;
+    const ch = this._cssH || this.canvas.clientHeight || 0;
+    const cell = this.cell;
+    const ox = cw / 2 - this.cx * cell;
+    const oy = ch / 2 + this.cy * cell;
+    return {
+      cw, ch, cell, half: cell / 2,
+      ox, oy,
+      i0: Math.floor(-ox / cell) - 1,
+      i1: Math.floor((cw - ox) / cell) + 2,
+      j0: Math.floor((oy - ch) / cell) - 1,
+      j1: Math.floor(oy / cell) + 2,
+    };
+  }
+
+  *visible_cells(ctx) {
+    for (let j = ctx.j0; j < ctx.j1; j++) {
+      for (let i = ctx.i0; i < ctx.i1; i++) {
+        yield [i, j];
+      }
+    }
+  }
+
+  is_visible(i, j, ctx) {
+    const sx = ctx.ox + i * ctx.cell;
+    const sy = ctx.oy - j * ctx.cell;
+    const half = ctx.half;
+    return !(sx + half < -1 || sx - half > ctx.cw + 1 ||
+             sy + half < -1 || sy - half > ctx.ch + 1);
+  }
+
+  cell_rect(i, j, ctx) {
+    const sx = ctx.ox + i * ctx.cell;
+    const sy = ctx.oy - j * ctx.cell;
+    const half = ctx.half;
+    return {
+      sx, sy,
+      x0: sx - half, y0: sy - half,
+      x1: sx + half, y1: sy + half,
+    };
+  }
+
+  event_pos(e) {
+    const r = this.canvas.getBoundingClientRect();
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+  }
+
+  /* ---------------------------------------------------------
+   * 指针按钮同步
+   * --------------------------------------------------------- */
+  sync_pointer_buttons(e) {
+    const { x, y } = this.event_pos(e);
+    const leftNow  = !!(e.buttons & 1);
+    const rightNow = !!(e.buttons & 2);
+
+    if (leftNow && !this.left_down)   this.on_left_press(x, y);
+    if (rightNow && !this.right_down) this.on_right_press(x, y);
+    if (!leftNow && this.left_down)   this.on_left_release(x, y);
+    if (!rightNow && this.right_down) this.on_right_release(x, y);
+  }
+
+  reset_input_state() {
+    this._cancel_long_press_timer();
+    this.left_down = false;
+    this.right_down = false;
+    this.dragging = false;
+    this.press_pos = null;
+    this.press_world = null;
+    this.press_consumed = false;
+    this.long_press_fired = false;
+  }
+
+  /* ---------------------------------------------------------
+   * 事件：左键
+   *   按下 → 起长按计时器
+   *   拖动 → 平移画布，取消计时器
+   *   长按 → 切换长按高亮，标记已触发
+   *   抬起 → 既没拖也没长按 ⇒ 视为“点击”：
+   *           · 与上一次点击构成双击 ⇒ 选中 + 同数高亮
+   *           · 否则                ⇒ 切换选中
+   * --------------------------------------------------------- */
+  on_left_press(x, y) {
+    this.left_down = true;
+    this.dragging = false;
+    this.long_press_fired = false;
+    this.press_consumed = false;
+    this.press_pos = [x, y];
+    this.press_world = [this.cx, this.cy];
+
+    if (this.right_down) {
+      this.press_consumed = true;
+      this.toggle_pink_at(x, y);
+      return;
+    }
+
+    this.long_press_timer = setTimeout(() => this.on_long_press_timer(), LONG_PRESS_MS);
+  }
+
+  on_left_release(x, y) {
+    const is_click = (!this.dragging
+                      && !this.long_press_fired
+                      && !this.press_consumed
+                      && !this.right_down);
+
+    this.left_down = false;
+    this.dragging = false;
+    this._cancel_long_press_timer();
+    this.press_pos = null;
+    this.press_world = null;
+
+    if (!is_click) {
+      this._last_canvas_click = null;
+      return;
+    }
+
+    // 手动双击检测（手机 / 桌面都可靠）
+    const now = Date.now();
+    const last = this._last_canvas_click;
+    if (last
+        && now - last.time < DOUBLE_CLICK_MS
+        && Math.abs(x - last.x) < DOUBLE_CLICK_DIST
+        && Math.abs(y - last.y) < DOUBLE_CLICK_DIST) {
+      this._last_canvas_click = null;
+      this.on_double_click(x, y);
+      return;
+    }
+
+    this._last_canvas_click = { time: now, x, y };
+    this.select_at(x, y);
+  }
+
+  on_long_press_timer() {
+    this.long_press_timer = null;
+    if (!this.left_down || this.dragging || this.right_down) return;
+    if (this.press_pos === null) return;
+    this.long_press_fired = true;
+    this.toggle_long_press_at(this.press_pos[0], this.press_pos[1]);
+  }
+
+  exceeds_drag_threshold(x, y) {
+    if (this.press_pos === null) return false;
+    const [px, py] = this.press_pos;
+    return (x - px) ** 2 + (y - py) ** 2 >= DRAG_THRESHOLD ** 2;
+  }
+
+  _cancel_long_press_timer() {
+    if (this.long_press_timer !== null) {
+      clearTimeout(this.long_press_timer);
+      this.long_press_timer = null;
+    }
+  }
+
+  /* ---------------------------------------------------------
+   * 事件：右键
+   * --------------------------------------------------------- */
+  on_right_press(x, y) {
+    this.right_down = true;
+    if (this.left_down) {
+      this.toggle_pink_at(x, y);
+    } else {
+      this.toggle_knight_at(x, y);
+    }
+  }
+
+  on_right_release(_x, _y) {
+    this.right_down = false;
+  }
+
+  /* ---------------------------------------------------------
+   * 事件：鼠标移动 / 离开 / 双击 / 滚轮
+   * --------------------------------------------------------- */
+  on_motion(x, y) {
+    if (this.left_down && !this.right_down) {
+      if (!this.dragging && this.exceeds_drag_threshold(x, y)) {
+        this._cancel_long_press_timer();
+        this.dragging = true;
+      }
+      if (this.dragging) {
+        this.set_world_from_anchor(x, y);
+        return;
+      }
+    }
+    if (this.dragging) return;
+
+    const [i, j] = this.cell_at(x, y);
+    this.mouse_pos = [x, y];
+    this.refresh_status(i, j);
+
+    if (!this.hover_cell || this.hover_cell[0] !== i || this.hover_cell[1] !== j) {
+      this.hover_cell = [i, j];
+    }
+    this.redraw();
+  }
+
+  on_leave() {
+    this.hover_cell = null;
+    this.mouse_pos = null;
+    this.refresh_status(null, null);
+    this.redraw();
+  }
+
+  on_double_click(x, y) {
+    const [i, j] = this.cell_at(x, y);
+    this.sel_cell = [i, j];        // 双击后该格保持选中
+    this.toggle_same_n(i, j);
+    this.refresh_paths_panel_if_open();
+  }
+
+  wheel_factor(e) {
+    return (e.deltaY < 0) ? 1.15 : 1 / 1.15;
+  }
+
+  /* ---------------------------------------------------------
+   * 状态切换：左键选中
+   * --------------------------------------------------------- */
+  select_at(sx, sy) {
+    const [i, j] = this.cell_at(sx, sy);
+    this.toggle_select(i, j);
+  }
+
+  toggle_select(i, j) {
+    if (this.sel_cell && this.sel_cell[0] === i && this.sel_cell[1] === j) {
+      this.sel_cell = null;
+    } else {
+      this.sel_cell = [i, j];
+    }
+    if (this.hover_cell) {
+      this.refresh_status(this.hover_cell[0], this.hover_cell[1]);
+    } else {
+      this.refresh_status(null, null);
+    }
+    this.refresh_paths_panel_if_open();
+    this.redraw();
+  }
+
+  clear_select() {
+    this.sel_cell = null;
+    this.refresh_status(null, null);
+    this.refresh_paths_panel_if_open();
+    this.redraw();
+  }
+
+  require_selection() {
+    if (this.sel_cell === null) {
+      this.set_status("请先用左键点选一个格子");
+      return null;
+    }
+    return this.sel_cell;
+  }
+
+  /* ---------------------------------------------------------
+   * 工具栏按钮动作
+   * --------------------------------------------------------- */
+  apply_left_click() {
+    const cell = this.require_selection();
+    if (cell === null) return;
+    this.toggle_long_press(cell[0], cell[1]);
+  }
+
+  apply_right_click() {
+    const cell = this.require_selection();
+    if (cell === null) return;
+    this.toggle_knight(cell[0], cell[1]);
+  }
+
+  /* ---------------------------------------------------------
+   * 状态切换：同数高亮
+   * --------------------------------------------------------- */
+  toggle_same_n(i, j) {
+    const n = knight_dist(i, j);
+    if (this.same_n_value === n) {
+      this.clear_same_n();
+      return;
+    }
+    this.same_n_value = n;
+    this.same_n_count = count_same_n(n);
+    this.refresh_hl_label();
+    this.redraw();
+  }
+
+  clear_same_n() {
+    this.same_n_value = null;
+    this.same_n_count = null;
+    this.refresh_hl_label();
+    this.redraw();
+  }
+
+  /* ---------------------------------------------------------
+   * 状态切换：马步高亮
+   * --------------------------------------------------------- */
+  toggle_knight_at(sx, sy) {
+    const [i, j] = this.cell_at(sx, sy);
+    this.toggle_knight(i, j);
+  }
+
+  toggle_knight(i, j) {
+    if (this.knight_origin && this.knight_origin[0] === i && this.knight_origin[1] === j) {
+      this.clear_knight();
+      return;
+    }
+    this.knight_origin = [i, j];
+    this.knight_targets = this.compute_knight_targets(i, j);
+    this.redraw();
+  }
+
+  compute_knight_targets(i, j) {
+    const n = knight_dist(i, j);
+    const targets = new Map();
+    for (const [dx, dy] of KNIGHT_MOVES) {
+      const ti = i + dx, tj = j + dy;
+      const m = knight_dist(ti, tj);
+      let kind;
+      if (m > n) kind = 'up';
+      else if (m < n) kind = 'down';
+      else kind = 'same';
+      targets.set(ti + ',' + tj, kind);
+    }
+    return targets;
+  }
+
+  clear_knight() {
+    this.knight_origin = null;
+    this.knight_targets = null;
+    this.redraw();
+  }
+
+  /* ---------------------------------------------------------
+   * 状态切换：粉色标记
+   * --------------------------------------------------------- */
+  toggle_pink_at(sx, sy) {
+    const [i, j] = this.cell_at(sx, sy);
+    this.toggle_pink(i, j);
+  }
+
+  toggle_pink(i, j) {
+    if (this.is_pink_mark(i, j)) return;
+    if (this.pink_marks.length >= 2) {
+      this.pink_marks.length = 0;
+    } else {
+      this.pink_marks.push([i, j]);
+    }
+    this.redraw();
+  }
+
+  clear_pink() {
+    this.pink_marks.length = 0;
+    this.redraw();
+  }
+
+  /* ---------------------------------------------------------
+   * 状态切换：长按高亮
+   * --------------------------------------------------------- */
+  toggle_long_press_at(sx, sy) {
+    const [i, j] = this.cell_at(sx, sy);
+    this.toggle_long_press(i, j);
+  }
+
+  toggle_long_press(i, j) {
+    const k = i + ',' + j;
+    if (this.long_press_cells.has(k)) {
+      this.long_press_cells.delete(k);
+    } else {
+      this.long_press_cells.add(k);
+    }
+    this.redraw();
+  }
+
+  clear_long_press() {
+    this.long_press_cells.clear();
+    this.redraw();
+  }
+
+  /* ---------------------------------------------------------
+   * 全部清除
+   * --------------------------------------------------------- */
+  clear_all() {
+    this.same_n_value = null;
+    this.same_n_count = null;
+    this.knight_origin = null;
+    this.knight_targets = null;
+    this.pink_marks.length = 0;
+    this.long_press_cells.clear();
+    this.sel_cell = null;
+    this.refresh_hl_label();
+    if (this.hover_cell) {
+      this.refresh_status(this.hover_cell[0], this.hover_cell[1]);
+    } else {
+      this.refresh_status(null, null);
+    }
+    this.refresh_paths_panel_if_open();
+    this.redraw();
+  }
+
+  /* ---------------------------------------------------------
+   * 视图操作
+   * --------------------------------------------------------- */
+  jump() {
+    const x = parseIntStrict(this.xv.value);
+    const y = parseIntStrict(this.yv.value);
+    if (x === null || y === null) return;
+    this.cx = x;
+    this.cy = y;
+    this.redraw();
+  }
+
+  reset() {
+    this.cx = 0.0;
+    this.cy = 0.0;
+    this.cell = INIT_CELL;
+    this.redraw();
+  }
+
+  set_world_from_anchor(sx, sy) {
+    const [x0, y0] = this.press_pos;
+    const [cx0, cy0] = this.press_world;
+    this.cx = cx0 - (sx - x0) / this.cell;
+    this.cy = cy0 + (sy - y0) / this.cell;
+    this.redraw();
+  }
+
+  zoom_at(factor, sx, sy) {
+    const desired = this.cell * factor;
+    const new_cell = Math.max(MIN_CELL, Math.min(MAX_CELL, desired));
+    if (Math.abs(new_cell - this.cell) < 1e-9) return;
+
+    const [wx, wy] = this.to_world(sx, sy);
+    this.cell = new_cell;
+
+    const cw = this._cssW || this.canvas.clientWidth || 0;
+    const ch = this._cssH || this.canvas.clientHeight || 0;
+    this.cx = wx - (sx - cw / 2) / this.cell;
+    this.cy = wy + (sy - ch / 2) / this.cell;
+    this.redraw();
+  }
+
+  /* ---------------------------------------------------------
+   * 查询
+   * --------------------------------------------------------- */
+  is_origin(i, j) {
+    return i === 0 && j === 0;
+  }
+
+  is_same_n(i, j, n) {
+    return this.same_n_value !== null && n === this.same_n_value;
+  }
+
+  is_long_press(i, j) {
+    return this.long_press_cells.has(i + ',' + j);
+  }
+
+  is_knight_origin(i, j) {
+    return !!this.knight_origin && this.knight_origin[0] === i && this.knight_origin[1] === j;
+  }
+
+  knight_target_kind(i, j) {
+    if (this.knight_targets === null) return null;
+    const k = this.knight_targets.get(i + ',' + j);
+    return k === undefined ? null : k;
+  }
+
+  is_pink_mark(i, j) {
+    return this.pink_marks.some(([a, b]) => a === i && b === j);
+  }
+
+  in_pink_rect(i, j) {
+    if (this.pink_marks.length < 2) return false;
+    const [a, b] = this.pink_marks;
+    return (Math.min(a[0], b[0]) <= i && i <= Math.max(a[0], b[0]) &&
+            Math.min(a[1], b[1]) <= j && j <= Math.max(a[1], b[1]));
+  }
+
+  is_hover(i, j) {
+    return !!this.hover_cell && this.hover_cell[0] === i && this.hover_cell[1] === j;
+  }
+
+  is_selected(i, j) {
+    return !!this.sel_cell && this.sel_cell[0] === i && this.sel_cell[1] === j;
+  }
+
+  /* ---------------------------------------------------------
+   * 配色决策
+   * --------------------------------------------------------- */
+  fill_color(i, j, n) {
+    const kind = this.knight_target_kind(i, j);
+    if (kind === 'up')   return COLORS.knight_up;
+    if (kind === 'down') return COLORS.knight_down;
+    if (kind === 'same') return '#e6e6e6';
+    if (this.is_knight_origin(i, j)) return COLORS.knight_src;
+    if (this.is_long_press(i, j))    return COLORS.longpress;
+    if (this.is_pink_mark(i, j))     return COLORS.pink_mark;
+    if (this.in_pink_rect(i, j))     return COLORS.pink_area;
+    if (this.is_origin(i, j))        return COLORS.origin;
+    if (this.is_same_n(i, j, n))     return COLORS.same_n;
+    return COLORS.white;
+  }
+
+  outline_spec(i, j, n) {
+    const kind = this.knight_target_kind(i, j);
+    if (kind === 'up')   return [COLORS.knight_up_edge, 2];
+    if (kind === 'down') return [COLORS.knight_down_edge, 2];
+    if (kind === 'same') return ['#9e9e9e', 2];
+    if (this.is_knight_origin(i, j)) return [COLORS.knight_src_edge, 3];
+    if (this.is_long_press(i, j))    return [COLORS.longpress_edge, 2];
+    if (this.is_pink_mark(i, j))     return [COLORS.pink_mark_edge, 3];
+    if (this.is_origin(i, j))        return [COLORS.origin_edge, 2];
+    if (this.is_same_n(i, j, n))     return [COLORS.same_n_edge, 2];
+    return [COLORS.cell_edge, 1];
+  }
+
+  /* ---------------------------------------------------------
+   * 渲染：总入口
+   * --------------------------------------------------------- */
+  redraw() {
+    if (this._redraw_pending) return;
+    this._redraw_pending = true;
+    requestAnimationFrame(() => {
+      this._redraw_pending = false;
+      this.do_redraw();
+    });
+  }
+
+  do_redraw() {
+    const c = this.ctx;
+    const cw = this._cssW || this.canvas.clientWidth || 0;
+    const ch = this._cssH || this.canvas.clientHeight || 0;
+    const dpr = this._dpr || 1;
+
+    if (cw < 2 || ch < 2) return;
+
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    c.clearRect(0, 0, cw, ch);
+
+    const ctx = this.view_context();
+    this.draw_all_backgrounds(ctx);
+    this.draw_all_numbers(ctx);
+    this.draw_all_borders(ctx);
+    this.draw_pink_rect(ctx);
+    this.draw_sel_box(ctx);
+    this.draw_hover_box(ctx);
+    this.draw_sel_tooltip(ctx);
+    this.draw_hover_tooltip(ctx);
+  }
+
+  /* ---------------------------------------------------------
+   * 渲染：原子步骤
+   * --------------------------------------------------------- */
+  draw_all_backgrounds(ctx) {
+    const c = this.ctx;
+    for (const [i, j] of this.visible_cells(ctx)) {
+      if (!this.is_visible(i, j, ctx)) continue;
+      const r = this.cell_rect(i, j, ctx);
+      const n = knight_dist(i, j);
+      c.fillStyle = this.fill_color(i, j, n);
+      c.fillRect(r.x0, r.y0, r.x1 - r.x0, r.y1 - r.y0);
+    }
+  }
+
+  draw_all_numbers(ctx) {
+    const c = this.ctx;
+    const base_fs = Math.max(8, Math.min(28, Math.trunc(ctx.cell * 0.42)));
+
+    c.textAlign = 'center';
+    c.textBaseline = 'middle';
+    c.fillStyle = COLORS.text;
+
+    for (const [i, j] of this.visible_cells(ctx)) {
+      if (!this.is_visible(i, j, ctx)) continue;
+      const { sx, sy } = this.cell_rect(i, j, ctx);
+      const text = String(knight_dist(i, j));
+      const fs = this.fit_font_size(text, base_fs, ctx.cell);
+      c.font = 'bold ' + fs + 'px ' + MONO;
+      c.fillText(text, sx, sy);
+    }
+  }
+
+  draw_all_borders(ctx) {
+    const c = this.ctx;
+    for (const [i, j] of this.visible_cells(ctx)) {
+      if (!this.is_visible(i, j, ctx)) continue;
+      const r = this.cell_rect(i, j, ctx);
+      const [col, w] = this.outline_spec(i, j, knight_dist(i, j));
+      c.strokeStyle = col;
+      c.lineWidth = w;
+      c.strokeRect(r.x0 + 1, r.y0 + 1, (r.x1 - 1) - (r.x0 + 1), (r.y1 - 1) - (r.y0 + 1));
+    }
+  }
+
+  draw_pink_rect(ctx) {
+    if (this.pink_marks.length < 2) return;
+
+    const [a, b] = this.pink_marks;
+    const min_i = Math.min(a[0], b[0]), max_i = Math.max(a[0], b[0]);
+    const min_j = Math.min(a[1], b[1]), max_j = Math.max(a[1], b[1]);
+
+    const cell = ctx.cell, half = ctx.half, ox = ctx.ox, oy = ctx.oy;
+
+    const rx0 = ox + min_i * cell - half;
+    const rx1 = ox + max_i * cell + half;
+    const ry0 = oy - max_j * cell - half;
+    const ry1 = oy - min_j * cell + half;
+
+    const c = this.ctx;
+    c.strokeStyle = COLORS.pink_mark_edge;
+    c.lineWidth = 3;
+    c.strokeRect(rx0, ry0, rx1 - rx0, ry1 - ry0);
+  }
+
+  draw_sel_box(ctx) {
+    if (this.sel_cell === null) return;
+    const [i, j] = this.sel_cell;
+    if (!this.is_visible(i, j, ctx)) return;
+    const r = this.cell_rect(i, j, ctx);
+    const c = this.ctx;
+    c.strokeStyle = COLORS.hover_edge;
+    c.lineWidth = 3;
+    c.strokeRect(r.x0, r.y0, r.x1 - r.x0, r.y1 - r.y0);
+  }
+
+  draw_hover_box(ctx) {
+    if (this.hover_cell === null) return;
+    const r = this.cell_rect(this.hover_cell[0], this.hover_cell[1], ctx);
+    const c = this.ctx;
+    c.strokeStyle = COLORS.hover_edge;
+    c.lineWidth = 3;
+    c.strokeRect(r.x0, r.y0, r.x1 - r.x0, r.y1 - r.y0);
+  }
+
+  draw_sel_tooltip(ctx) {
+    if (this.sel_cell === null) return;
+    const [i, j] = this.sel_cell;
+    if (!this.is_visible(i, j, ctx)) return;
+    const r = this.cell_rect(i, j, ctx);
+    const label = `(${i}, ${j})`;
+    const w = 9 + label.length * 9;
+    this.draw_tooltip(ctx, label, r.sx - w / 2, r.y1 + 4);
+  }
+
+  draw_hover_tooltip(ctx) {
+    if (this.hover_cell === null || this.mouse_pos === null) return;
+    if (this.sel_cell &&
+        this.hover_cell[0] === this.sel_cell[0] &&
+        this.hover_cell[1] === this.sel_cell[1]) return;
+
+    const [i, j] = this.hover_cell;
+    const [mx, my] = this.mouse_pos;
+    this.draw_tooltip(ctx, `(${i}, ${j})`, mx + 16, my + 16);
+  }
+
+  draw_tooltip(ctx, label, tx, ty) {
+    const w = 9 + label.length * 9;
+    const h = 26;
+
+    tx = Math.max(2, Math.min(tx, ctx.cw - w - 2));
+    ty = Math.max(2, Math.min(ty, ctx.ch - h - 2));
+
+    const c = this.ctx;
+
+    c.fillStyle = COLORS.hover_fill;
+    c.fillRect(tx, ty, w, h);
+
+    c.strokeStyle = COLORS.hover_edge;
+    c.lineWidth = 1;
+    c.strokeRect(tx + 0.5, ty + 0.5, w - 1, h - 1);
+
+    c.fillStyle = '#111111';
+    c.font = 'bold 11px ' + MONO;
+    c.textAlign = 'left';
+    c.textBaseline = 'middle';
+    c.fillText(label, tx + 6, ty + h / 2);
+  }
+
+  fit_font_size(text, base_fs, cell) {
+    let fs = base_fs;
+    while (fs > 7 && text.length * fs * 0.62 > cell * 0.88) {
+      fs -= 1;
+    }
+    return fs;
+  }
+
+  /* ---------------------------------------------------------
+   * 最短路径面板
+   *   展开所有解族的解，按 (w, x, y, z) 四元组去重后逐条列出，
+   *   最后给出 S × I = P 的矩阵形式与基向量说明。
+   * --------------------------------------------------------- */
+  toggle_paths_panel() {
+    const panel = document.getElementById('paths-panel');
+    if (panel.classList.contains('hidden')) {
+      this.render_paths_panel();
+      panel.classList.remove('hidden');
+    } else {
+      this.hide_paths_panel();
+    }
+  }
+
+  hide_paths_panel() {
+    const panel = document.getElementById('paths-panel');
+    if (panel) panel.classList.add('hidden');
+  }
+
+  refresh_paths_panel_if_open() {
+    const panel = document.getElementById('paths-panel');
+    if (panel && !panel.classList.contains('hidden')) {
+      this.render_paths_panel();
+    }
+  }
+
+  render_paths_panel() {
+    const titleEl = document.getElementById('paths-title');
+    const bodyEl  = document.getElementById('paths-body');
+    if (!titleEl || !bodyEl) return;
+
+    if (this.sel_cell === null) {
+      titleEl.textContent = '最短路径';
+      bodyEl.textContent  = '请先用左键点选一个格子。';
+      return;
+    }
+
+    const m = this.sel_cell[0];
+    const n = this.sel_cell[1];
+    const f = knight_dist(m, n);
+    const families = solveEquations(m, n);
+
+    /* ---- 展开所有族的解，按 (w, x, y, z) 去重 ---- */
+    const seen = new Set();
+    const sols = [];
+    for (const fam of families) {
+      for (let k = fam.kMin; k <= fam.kMax; k++) {
+        const v = [
+          fam.X0[0] + k * fam.D[0],
+          fam.X0[1] + k * fam.D[1],
+          fam.X0[2] + k * fam.D[2],
+          fam.X0[3] + k * fam.D[3],
+        ];
+        const key = v.join(',');
+        if (seen.has(key)) continue;
+        seen.add(key);
+        sols.push(v);
+      }
+    }
+    sols.sort((a, b) =>
+      (a[0] - b[0]) || (a[1] - b[1]) || (a[2] - b[2]) || (a[3] - b[3]));
+
+    const L = [];
+
+    L.push(`从原点到P(${m}, ${n})的最短路径共${sols.length}个分配解，即S = `);
+    if (sols.length === 0) {
+      L.push('  (无解)');
+    } else {
+      sols.forEach((v, i) => {
+        L.push(`[${i + 1}] (${v.join(', ')})`);
+      });
+    }
+    L.push('');
+    L.push('S × I = P');
+    L.push('');
+    L.push('方向解基向量 I 为(w,x,y,z)^T');
+    L.push('其中：');
+    L.push('w = (1,2)');
+    L.push('x = (2,1)');
+    L.push('y = (-1,2)');
+    L.push('z = (2,-1)');
+
+    titleEl.textContent = `最短路径 (${m}, ${n})`;
+    bodyEl.textContent  = L.join('\n');
+  }
+
+  /* ---------------------------------------------------------
+   * 面板 / 状态栏
+   * --------------------------------------------------------- */
+  refresh_hl_label() {
+    if (this.same_n_value === null) {
+      this.hl_label.textContent = "同数高亮：无";
+    } else {
+      this.hl_label.textContent =
+        `最少步为 ${this.same_n_value} 的格子有 ${this.same_n_count} 个`;
+    }
+  }
+
+  refresh_status(i, j) {
+    const parts = [];
+    if (this.sel_cell !== null) {
+      parts.push(`已选中 (${this.sel_cell[0]}, ${this.sel_cell[1]})`);
+    }
+    if (i !== null && i !== undefined && j !== null && j !== undefined) {
+      parts.push(`(${i}, ${j})`);
+    }
+    this.set_status(parts.join("    "));
+  }
+
+  set_status(text) {
+    this.status.textContent = text;
+  }
+}
+
+
+/* =============================================================
+ * 入口
+ * ============================================================= */
+
+function boot() {
+  try {
+    window.app = new App();
+  } catch (err) {
+    const el = document.getElementById('status');
+    if (el) el.textContent = '初始化失败：' + (err && err.message ? err.message : String(err));
+    throw err;
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', boot);
+} else {
+  boot();
+}
+</script>
+</body>
+</html>
