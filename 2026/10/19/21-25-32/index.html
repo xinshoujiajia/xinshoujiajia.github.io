@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="免费的glm4.7-flash太拥堵了，虽然我也不常用，但是用的时候看见请求失败很影响心情。所以我又想到了许久未用的1080ti。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在学院服务器部署小模型">
+<meta property="og:url" content="http://example.com/2026/10/19/21-25-32/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="免费的glm4.7-flash太拥堵了，虽然我也不常用，但是用的时候看见请求失败很影响心情。所以我又想到了许久未用的1080ti。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-10-19T13:25:32.000Z">
+<meta property="article:modified_time" content="2026-10-27T07:47:41.811Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="折腾">
+<meta property="article:tag" content="服务器">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2026/10/19/21-25-32/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>在学院服务器部署小模型 | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/10/19/21-25-32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在学院服务器部署小模型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2026-10-19 21:25:32" itemprop="dateCreated datePublished" datetime="2026-10-19T21:25:32+08:00">2026-10-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-10-27 15:47:41" itemprop="dateModified" datetime="2026-10-27T15:47:41+08:00">2026-10-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>免费的<code>glm4.7-flash</code>太拥堵了，虽然我也不常用，但是用的时候看见请求失败很影响心情。所以我又想到了许久未用的1080ti。<br><span id="more"></span></p>
+<h2 id="服务器状况"><a href="#服务器状况" class="headerlink" title="服务器状况"></a>服务器状况</h2><p>252G内存，一张11G显存的1080ti，系统是Ubuntu18.04，cuda版本是12.0，gcc版本是7.5，因为系统太老了正常安装不了llama.cpp。</p>
+<h2 id="使用conda创建环境"><a href="#使用conda创建环境" class="headerlink" title="使用conda创建环境"></a>使用conda创建环境</h2><p>之前不知道conda能安装指定版本的gcc，还自己编译了gcc14，这次直接用conda装了<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda create -n llama-build -c conda-forge gcc_linux-64=11 gxx_linux-64=11 cmake make</span><br><span class="line">conda activate llama-build</span><br><span class="line">conda install -c <span class="string">&quot;nvidia/label/cuda-12.0.0&quot;</span> cuda-toolkit cuda-nvcc</span><br></pre></td></tr></table></figure></p>
+<p>因为cuda12的nvcc是gcc12的，不支持gcc14，所以还是得装个gcc11（因为之前不知道nvcc支持那个版本，但是知道14高了，所以装的11）</p>
+<h2 id="克隆并编译llama-cpp"><a href="#克隆并编译llama-cpp" class="headerlink" title="克隆并编译llama.cpp"></a>克隆并编译llama.cpp</h2><p>版本我没有多注意，就是最新的版本，而且也编译通过了<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/ggml-org/llama.cpp</span><br></pre></td></tr></table></figure></p>
+<p>下面是构建和编译的参数，只需要编译<code>llama_server</code>，全部编译的话有一个东西会失败，但是只需要<code>llama_server</code>就行了<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CC=conda环境里的gcc</span><br><span class="line"><span class="built_in">export</span> CXX=conda环境里的g++</span><br><span class="line"></span><br><span class="line">cmake -B build \</span><br><span class="line">-DGGML_CUDA=ON \</span><br><span class="line">-DCMAKE_CUDA_ARCHITECTURES=61 \ <span class="comment"># 1080ti要指定</span></span><br><span class="line">-DCMAKE_BUILD_TYPE=Release \</span><br><span class="line">-DCMAKE_BUILD_RPATH=<span class="string">&quot;<span class="variable">$&#123;CONDA_PREFIX&#125;</span>/lib:<span class="variable">$&#123;CONDA_PREFIX&#125;</span>/lib64&quot;</span> \</span><br><span class="line">-DCMAKE_INSTALL_RPATH=<span class="string">&quot;<span class="variable">$&#123;CONDA_PREFIX&#125;</span>/lib:<span class="variable">$&#123;CONDA_PREFIX&#125;</span>/lib64&quot;</span> \</span><br><span class="line">-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON</span><br><span class="line">cmake --build build --target llama-server -j16</span><br></pre></td></tr></table></figure></p>
+<h2 id="qwen3-6-35b-a3b"><a href="#qwen3-6-35b-a3b" class="headerlink" title="qwen3.6-35b-a3b"></a>qwen3.6-35b-a3b</h2><p>因为只有11g显存，理论上应该运行不了什么模型的。但是有一种很神奇的MoE模型，可以只激活一部分参数，于是我找到了<code>qwen3.6-35b-a3b</code>，可以从modelscope下载它的gguf版本，可以去这里看看想要哪一个，<a target="_blank" rel="noopener" href="https://modelscope.cn/models/unsloth/Qwen3.6-35B-A3B-GGUF/summary">网址</a></p>
+<p>下面是我的启动配置<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CUDA_VISIBLE_DEVICES=0 ./llama-server \</span><br><span class="line">  -m Qwen3.6-35B-A3B-UD-Q5_K_M.gguf \</span><br><span class="line">  --mmproj mmproj-F16.gguf \</span><br><span class="line">  -c 262144 \</span><br><span class="line">  --n-cpu-moe 99 \</span><br><span class="line">  --cache-type-k f16 \</span><br><span class="line">  --cache-type-v f16 \</span><br><span class="line">  --load-mode none \</span><br><span class="line">  --host 0.0.0.0 \</span><br><span class="line">  --port 自己写 \</span><br><span class="line">  --no-ui</span><br></pre></td></tr></table></figure></p>
+<p>这样运行的话大约会用掉9.6G的显存，以及25.6G内存，模型有262K的上下文，而且有视觉，使用起来大约22tok/s，跟免费的glm4.7-flash差不多。</p>
+<h2 id="CPU版"><a href="#CPU版" class="headerlink" title="CPU版"></a>CPU版</h2><p>本来这个事情到上面应该就已经结束了，但是我转念一想，服务器这么大内存，这么多核，干脆试试纯CPU跑了，而且纯CPU的话不会受低版本的cuda驱动影响，所以又编译了个CPU版本的<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CC=自己的gcc</span><br><span class="line"><span class="built_in">export</span> CXX=自己的g++</span><br><span class="line"></span><br><span class="line">cmake -B build_cpu \</span><br><span class="line">-DGGML_NATIVE=ON \</span><br><span class="line">-DGGML_AVX=ON \</span><br><span class="line">-DGGML_AVX2=ON \</span><br><span class="line">-DGGML_FMA=ON \</span><br><span class="line">-DGGML_F16C=ON \</span><br><span class="line">-DGGML_BMI2=ON \</span><br><span class="line">-DCMAKE_BUILD_TYPE=Release \</span><br><span class="line">-DLLAMA_BUILD_UI=OFF \</span><br><span class="line">-DLLAMA_BUILD_WEBUI=OFF</span><br><span class="line"></span><br><span class="line">cmake --build build_cpu --target llama-server -j 32</span><br></pre></td></tr></table></figure></p>
+<p>然后运行了CPU版本的配置，并且装了个<code>numactl</code>，并且因为有超大内存，所以能用<code>YaRN</code>扩展上下文（不知道效果怎么样，先试试），<code>-t</code>和<code>--threads-batch</code>根据自己的CPU修改。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">numactl --interleave=all \</span><br><span class="line">llama-server \</span><br><span class="line">  -m Qwen3.6-35B-A3B-UD-Q6_K_XL.gguf \</span><br><span class="line">  --mmproj mmproj-F16.gguf \</span><br><span class="line">  -a Qwen3.6-35B-A3B \</span><br><span class="line">  -ngl 0 \</span><br><span class="line">  -t 24 \</span><br><span class="line">  --threads-batch 24 \</span><br><span class="line">  --load-mode none \</span><br><span class="line">  --cache-type-k f16 \</span><br><span class="line">  --cache-type-v f16 \</span><br><span class="line">  --rope-scaling yarn \</span><br><span class="line">  --rope-scale 4 \</span><br><span class="line">  --yarn-orig-ctx 262144 \</span><br><span class="line">  --override-kv qwen35.context_length=int:1048576 \</span><br><span class="line">  --host 0.0.0.0 \</span><br><span class="line">  --port 自己写 \</span><br><span class="line">  --no-ui</span><br></pre></td></tr></table></figure></p>
+<p>提醒：CPU下运行速度约为GPU的30%到40%，极有可能句首就超时了，所以如果使用的是<code>dsh</code>，可以去修改<code>~/.dsh/profiles/web/cordis.patch.yml</code>，然后找到<code>llm-pi-ai</code>，在形如下面的的配置里面加上超时时间设置<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">id:</span> <span class="string">llm-pi-ai</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">&quot;@deepseek-ai/dsh-llm-pi-ai&quot;</span></span><br><span class="line">  <span class="attr">config:</span></span><br><span class="line">    <span class="attr">providers:</span></span><br><span class="line">      <span class="string">你的供应商名字:</span></span><br><span class="line">        <span class="string">......</span></span><br><span class="line">        <span class="attr">timeoutMs:</span> <span class="number">1800000</span></span><br><span class="line">        <span class="attr">streamIdleTimeoutMs:</span> <span class="number">1800000</span></span><br><span class="line">        <span class="string">......</span></span><br></pre></td></tr></table></figure></p>
+<p>嗯，虽然首句速度非常非常慢，但是我是个非常有耐心的人（其实是一句话发过去一天不看一眼），以及应该没什么人使用CPU也没人会用这么多内存，所以我用一半的CPU和53G内存应该也没事。不过还是建议，256k上下文将就用着，这样强开1M上下文根本用不了。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%98%E8%85%BE/" rel="tag"># 折腾</a>
+              <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"># 服务器</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/10/17/14-25-32/" rel="prev" title="马踏棋盘类问题公式解">
+      <i class="fa fa-chevron-left"></i> 马踏棋盘类问题公式解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/10/24/21-25-32/" rel="next" title="让AI也能玩上galgame（ONS篇）">
+      让AI也能玩上galgame（ONS篇） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  <script type="text/javascript" src="/js/fa.js"></script>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8A%B6%E5%86%B5"><span class="nav-number">1.</span> <span class="nav-text">服务器状况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8conda%E5%88%9B%E5%BB%BA%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">使用conda创建环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%8B%E9%9A%86%E5%B9%B6%E7%BC%96%E8%AF%91llama-cpp"><span class="nav-number">3.</span> <span class="nav-text">克隆并编译llama.cpp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#qwen3-6-35b-a3b"><span class="nav-number">4.</span> <span class="nav-text">qwen3.6-35b-a3b</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU%E7%89%88"><span class="nav-number">5.</span> <span class="nav-text">CPU版</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
