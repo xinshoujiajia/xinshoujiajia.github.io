@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="书接上回让AI写完了MCP，然后实际使用又遇到了一堆问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI玩galgame遇到的问题">
+<meta property="og:url" content="http://example.com/2026/10/30/21-25-32/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="书接上回让AI写完了MCP，然后实际使用又遇到了一堆问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2026/10/30/21-25-32/2c8e119ed83e0acc54040086d237aa1d.png">
+<meta property="og:image" content="http://example.com/2026/10/30/21-25-32/6ec8d1e5a41d5a0ccb32065a0b111748_720.png">
+<meta property="og:image" content="http://example.com/2026/10/30/21-25-32/626d6d83985fec3ef4796ad2923ee799.png">
+<meta property="og:image" content="http://example.com/2026/10/30/21-25-32/image-3.png">
+<meta property="og:image" content="http://example.com/2026/10/30/21-25-32/image-4.png">
+<meta property="og:image" content="http://example.com/2026/10/30/21-25-32/image-5.png">
+<meta property="og:image" content="http://example.com/2026/10/30/21-25-32/68cc7831dcd35240a45a689f524bee73.png">
+<meta property="og:image" content="http://example.com/2026/10/30/21-25-32/image-1.png">
+<meta property="og:image" content="http://example.com/2026/10/30/21-25-32/image-2.png">
+<meta property="article:published_time" content="2026-10-30T13:25:32.000Z">
+<meta property="article:modified_time" content="2026-11-02T07:09:33.453Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="ONS">
+<meta property="article:tag" content="折腾">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2026/10/30/21-25-32/2c8e119ed83e0acc54040086d237aa1d.png">
+
+<link rel="canonical" href="http://example.com/2026/10/30/21-25-32/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>AI玩galgame遇到的问题 | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/10/30/21-25-32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AI玩galgame遇到的问题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2026-10-30 21:25:32" itemprop="dateCreated datePublished" datetime="2026-10-30T21:25:32+08:00">2026-10-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-11-02 15:09:33" itemprop="dateModified" datetime="2026-11-02T15:09:33+08:00">2026-11-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>书接上回让AI写完了MCP，然后实际使用又遇到了一堆问题<br><span id="more"></span></p>
+<h2 id="工具描述调整"><a href="#工具描述调整" class="headerlink" title="工具描述调整"></a>工具描述调整</h2><p>之前AI写的工具描述和MCP描述都太长了，而且包含一些agent不需要知道的信息，我重新调整了一下工具描述和返回的信息，把最常用的click中的引擎状态相关信息去掉了，并且每个工具描述仅写出作用（虽然后面我也想过把工具描述写成状态机，但是后面还是算了）</p>
+<h2 id="agent预设"><a href="#agent预设" class="headerlink" title="agent预设"></a>agent预设</h2><p>这个也是先让AI给我写了，然后我再改的。我对这个的理解就是系统提示词，以及启用哪些内置工具。系统提示词拿来写约束，大概规则就几条</p>
+<ol>
+<li>每节剧情后要写笔记</li>
+<li>背景变了要看图片</li>
+<li>在压缩上下文之前先记笔记</li>
+<li>每轮对话结束的时候存档</li>
+</ol>
+<p>工具的话，几乎不需要其他工具，只要它能启动游戏，能写入文件就行。插件留了个<code>billion-context</code>让agent能自己控制上下文压缩的时机。</p>
+<h2 id="跑飞了"><a href="#跑飞了" class="headerlink" title="跑飞了"></a>跑飞了</h2><p>因为我理想的状态是，我一句话让它去玩galgame，然后它就一直自己玩，等玩完了再来跟我汇报，然后推进剧情的方法只有万能的<code>click</code>，据我保守估计，像eden*这样的小短篇也有上万行文本，也就是一轮对话里面会有上万步的工具调用，相当的可怕。</p>
+<p>然后就是遇到了上下文的问题，大约在300步工具调用之后模型应该是忘记系统提示词了，或者说系统提示词的约束变弱了，具体表现就是背景变化之后不会调用截屏来看图片，以及不会写入笔记，只是一味的点击。</p>
+<p>后来想了很多办法都没有解决，然后就出现了新的最麻烦的问题。</p>
+<h2 id="qwen3-5架构的问题"><a href="#qwen3-5架构的问题" class="headerlink" title="qwen3.5架构的问题"></a>qwen3.5架构的问题</h2><p>qwen3.5系列的模型视觉编码使用M-RoPE编码，其他的忘了，总之就是这个bug会让缓存失效，然后图片的下一次请求要重新prefill，也就是首token要等很久（甚至远超正常prefill）</p>
+<p><img src="/2026/10/30/21-25-32/2c8e119ed83e0acc54040086d237aa1d.png" alt></p>
+<p>据我观察的发生规律，只有命中缓存的图片请求才会触发，也就是galgame中常见的立绘差分、场景差分都会命中缓存，然后触发这个bug，使下一次请求时间变长，一开始只是几秒，但是到后面会突然变得很慢，网上其他人说还会导致崩溃，但是我服务器内存比较充裕，没有OOM，并且等到了后台提示缓存用了太多自动删除了最旧的。</p>
+<p>这个问题目前还没有解决，github上也有很多人说这个问题。所以我就只能先换其他模型来试试了。</p>
+<h2 id="qwen3-8-flash-next吐槽"><a href="#qwen3-8-flash-next吐槽" class="headerlink" title="qwen3.8-flash-next吐槽"></a>qwen3.8-flash-next吐槽</h2><p>说真的，这是我用过的模型里面幻觉最严重最不听话的，不知道是不是量化的问题，我用的是<code>qwen3.8-flash-next_UD_Q6_K_XL</code>量化版本</p>
+<h3 id="想象力丰富"><a href="#想象力丰富" class="headerlink" title="想象力丰富"></a>想象力丰富</h3><p>首来先吐槽幻觉问题，看见个标题界面直接脑补出一个游戏，而且我还没开联网，真的纯脑补<br><img src="/2026/10/30/21-25-32/6ec8d1e5a41d5a0ccb32065a0b111748_720.png" alt></p>
+<p>然后还有擅自给角色乱加设定<br><img src="/2026/10/30/21-25-32/626d6d83985fec3ef4796ad2923ee799.png" alt></p>
+<h3 id="节俭"><a href="#节俭" class="headerlink" title="节俭"></a>节俭</h3><p>首先我从来没叫过它省token，我本地部署的为什么要省token。</p>
+<h3 id="高效"><a href="#高效" class="headerlink" title="高效"></a>高效</h3><p>而且我写的一直都是慢慢体验，每句台词都要读，它点几次click之后想扫游戏文件还有解码游戏脚本<br><img src="/2026/10/30/21-25-32/image-3.png" alt></p>
+<p><img src="/2026/10/30/21-25-32/image-4.png" alt></p>
+<p><img src="/2026/10/30/21-25-32/image-5.png" alt></p>
+<h3 id="注意力惊人"><a href="#注意力惊人" class="headerlink" title="注意力惊人"></a>注意力惊人</h3><p>能在重复且无聊的工作中找到捷径<br><img src="/2026/10/30/21-25-32/68cc7831dcd35240a45a689f524bee73.png" alt></p>
+<p>以下省略我为了约束它的行为调整了无数次人设提示词。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>最后的结局还是失败了，没能玩完eden*，即使有bili的上下文压缩，上下文依然在缓慢的增长，然后剩余的上下文越来越少，压缩越来越频繁，而且因为压缩越来越频繁，每次压缩都会影响缓存命中，然后越跑越慢，最后我还是不忍心看它这么折磨的跑下去了，还是把它停掉了，最后的结局还是可塑性记忆吗。</p>
+<p><img src="/2026/10/30/21-25-32/image-1.png" alt></p>
+<p><img src="/2026/10/30/21-25-32/image-2.png" alt></p>
+<p>下一篇博客就放AI的游玩笔记吧，前面写的其实还可以，后面已经能看出因为压缩上下文，提示词的效果越来越弱，前后风格差距很大，但是从某种程度上来说，开头的记录也不太好，太机械了，后面的则是太碎了，但是中间的就刚刚好。</p>
+<p>总之，虽然问题很多但是姑且还是一起当作记录放出来吧。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ONS/" rel="tag"># ONS</a>
+              <a href="/tags/%E6%8A%98%E8%85%BE/" rel="tag"># 折腾</a>
+              <a href="/tags/AI/" rel="tag"># AI</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/10/24/21-25-32/" rel="prev" title="让AI也能玩上galgame（ONS篇）">
+      <i class="fa fa-chevron-left"></i> 让AI也能玩上galgame（ONS篇）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/11/02/14-25-32/" rel="next" title="eden* 游玩笔记（2026-10-31）">
+      eden* 游玩笔记（2026-10-31） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  <script type="text/javascript" src="/js/fa.js"></script>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E6%8F%8F%E8%BF%B0%E8%B0%83%E6%95%B4"><span class="nav-number">1.</span> <span class="nav-text">工具描述调整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#agent%E9%A2%84%E8%AE%BE"><span class="nav-number">2.</span> <span class="nav-text">agent预设</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%91%E9%A3%9E%E4%BA%86"><span class="nav-number">3.</span> <span class="nav-text">跑飞了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#qwen3-5%E6%9E%B6%E6%9E%84%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">qwen3.5架构的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#qwen3-8-flash-next%E5%90%90%E6%A7%BD"><span class="nav-number">5.</span> <span class="nav-text">qwen3.8-flash-next吐槽</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%B3%E8%B1%A1%E5%8A%9B%E4%B8%B0%E5%AF%8C"><span class="nav-number">5.1.</span> <span class="nav-text">想象力丰富</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8A%82%E4%BF%AD"><span class="nav-number">5.2.</span> <span class="nav-text">节俭</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E6%95%88"><span class="nav-number">5.3.</span> <span class="nav-text">高效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%83%8A%E4%BA%BA"><span class="nav-number">5.4.</span> <span class="nav-text">注意力惊人</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
