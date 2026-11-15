@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="昨天看学弟折腾博客才想起来我还有个域名，以及还有个cloudflare，给他展示了一下之后突然想起来我还可以用来搭镜像站。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录cloudflare镜像网站">
+<meta property="og:url" content="http://example.com/2026/11/15/15-25-32/index.html">
+<meta property="og:site_name" content="一个博客">
+<meta property="og:description" content="昨天看学弟折腾博客才想起来我还有个域名，以及还有个cloudflare，给他展示了一下之后突然想起来我还可以用来搭镜像站。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2026/11/15/15-25-32/image.png">
+<meta property="og:image" content="http://example.com/2026/11/15/15-25-32/image-1.png">
+<meta property="og:image" content="http://example.com/2026/11/15/15-25-32/image-2.png">
+<meta property="og:image" content="http://example.com/2026/11/15/15-25-32/image-3.png">
+<meta property="og:image" content="http://example.com/2026/11/15/15-25-32/image-4.png">
+<meta property="og:image" content="http://example.com/2026/11/15/15-25-32/image-6.png">
+<meta property="article:published_time" content="2026-11-15T07:25:32.000Z">
+<meta property="article:modified_time" content="2026-11-15T14:02:29.688Z">
+<meta property="article:author" content="新手佳佳">
+<meta property="article:tag" content="折腾">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2026/11/15/15-25-32/image.png">
+
+<link rel="canonical" href="http://example.com/2026/11/15/15-25-32/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>记录cloudflare镜像网站 | 一个博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一个博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">随便写写</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/11/15/15-25-32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="新手佳佳">
+      <meta itemprop="description" content="没有描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          记录cloudflare镜像网站
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-11-15 15:25:32 / 修改时间：22:02:29" itemprop="dateCreated datePublished" datetime="2026-11-15T15:25:32+08:00">2026-11-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>昨天看学弟折腾博客才想起来我还有个域名，以及还有个cloudflare，给他展示了一下之后突然想起来我还可以用来搭镜像站。<br><span id="more"></span></p>
+<h2 id="镜像站是什么"><a href="#镜像站是什么" class="headerlink" title="镜像站是什么"></a>镜像站是什么</h2><p>镜像站就是你访问这个网站的时候，这个网站把你的请求再发到另一个被镜像的网站，然后再把那个网站返回的页面再发回来给你。我的理解大概就是这样，具体的也可以问问万能的AI。</p>
+<h2 id="镜像站的作用"><a href="#镜像站的作用" class="headerlink" title="镜像站的作用"></a>镜像站的作用</h2><p>在国内有很多网站被墙了，不能直接访问，虽然很多人都说可以翻墙来访问，但是翻墙还是比较有风险的，而且还得找机场也是比较麻烦的。</p>
+<p>如果镜像站能够访问到目标网站，并且国内能访问到镜像站的话就不用翻墙了。</p>
+<h2 id="镜像站的搭建"><a href="#镜像站的搭建" class="headerlink" title="镜像站的搭建"></a>镜像站的搭建</h2><p>这里只说用cloudflare的worker来搭建的方式，所以你至少需要注册有cloudflare，并且有一个域名。</p>
+<p>首先来这里点击<code>计算</code>-&gt;<code>Workers和Pages</code><br><img src="/2026/11/15/15-25-32/image.png" alt></p>
+<p>然后点击右边的创建应用程序<br><img src="/2026/11/15/15-25-32/image-1.png" alt></p>
+<p>然后这里点<code>从Hello World!开始</code><br><img src="/2026/11/15/15-25-32/image-2.png" alt></p>
+<p>然后要写个转发请求用的worker.js，一般来说需要结合网站实际内容来写，而且其实还是比较麻烦的，这边建议交给AI写。</p>
+<p>鉴于需要镜像的网站在国内一般是无法访问的，而且我在校园网下面也不好挂梯子访问，用手机热点挂梯子的话又不能白嫖校园网下的本地模型，所以一种做法就是先让AI写个简单的转发脚本，然后先部署一次，然后让AI访问部署好的镜像站，这时候就只有一个页面，里面请求的其他资源应该全部都是超时的，然后再让AI去爬站然后分析网站，然后再修改脚本，以及AI写的脚本自己也看一下，看不懂就边看边问，起码要知道都镜像了些什么。</p>
+<h2 id="重要事项"><a href="#重要事项" class="headerlink" title="重要事项"></a>重要事项</h2><p>这不是我第一次搭镜像站，我之前刚上大学的时候搭过GitHub的镜像站，当时也是什么都不懂，在网上瞎拼凑了一下整了个镜像站出来，没做任何处理。后来我就收到了cloudflare的邮件，说GitHub举报我的网站是钓鱼网站，当时我也是吓坏了，我就只是想建个镜像站来自己用的，从来没有想过要欺骗和盗取他人的账号密码，还好后来整改之后也没有发生什么事，不然我美好的大学生活才刚开始就要结束了。</p>
+<p>所以这件事情告诉我们，如果你镜像的网站有注册和登录功能，在镜像的时候一定要注意，不要把注册和登录相关的api也镜像了，一旦你镜像了注册和登录的api，别人的账号密码就会经过你的镜像站，到时候就会很麻烦，如果脚本是AI写的就让AI注意不要镜像注册和登录的api。</p>
+<h2 id="一些使用说明"><a href="#一些使用说明" class="headerlink" title="一些使用说明"></a>一些使用说明</h2><p>首先看看下面这些标签<br><img src="/2026/11/15/15-25-32/image-3.png" alt></p>
+<p><code>概述</code>和<code>指标</code>是些给你自己点来看的信息。</p>
+<p><code>部署</code>是你部署的信息，一般来说没什么看的。</p>
+<p><code>Observability</code>是记录的经过你镜像站的请求，可以来这里看请求的详细信息。</p>
+<p><code>问题</code>和<code>Access</code>我没有启用，所以我也不知道是什么，<code>设置</code>里面的东西我也没有动。</p>
+<p>最后到<code>域</code>，这里可以给你的镜像站绑一个域名，镜像站部署完之后，默认访问应该是一个又长又难记的东西，直接用这个也不是不行，但是绑个域名上去，看起来有模有样一点。可以点下面的<code>添加域名</code>来绑定，另一个<code>路由</code>是什么我还没用过。</p>
+<h2 id="可选事项"><a href="#可选事项" class="headerlink" title="可选事项"></a>可选事项</h2><p>有一些网站它的资源，比如图片、音频、视频等资源是有CDN的，这些CDN国内可能没有屏蔽，如果能够直接访问的话就不要镜像CDN了，没有必要，而且浪费免费额度。</p>
+<p>因为这次我镜像的是一个前段时间被墙的asmr网站，昨晚我刚部署完然后听着asmr美美睡觉之后，早上起来一看天都塌了，居然已经被人用爬虫刷我的免费额度了，为什么确定是爬虫，平均每秒两个页面请求这是人啊，而且还不是那种资源的，就是纯翻页和纯点网页，如果是正常人访问的话还会带一堆js、css什么的乱七八糟的请求还有api请求的，这个真的就纯网页爬虫，只是在无意义的消耗我的免费请求次数。</p>
+<p>首先，点到你的域名的设置下面，先点到左边的<code>数据分析</code>，应该会有一个IP的请求数量看起来特别显眼，复制下来，<br><img src="/2026/11/15/15-25-32/image-4.png" alt></p>
+<p>然后点开<code>安全性</code>-&gt;<code>安全规则</code>，免费版只能设置一个速率限制规则，和5个<code>自定义规则</code></p>
+<p>然后先添加<code>自定义规则</code>，直接把它ban了<br><img src="/2026/11/15/15-25-32/image-6.png" alt></p>
+<p>然后为了保险起见，可以再设置个速率限制，每10秒一个页面请求，api的请求不要限制，对人类来说这个速度差不多了</p>
+<p>规则表达式的写法可以你描述完让AI来写，然后AI写完你自己核对一下。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%98%E8%85%BE/" rel="tag"># 折腾</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/11/02/14-25-32/" rel="prev" title="eden* 游玩笔记（2026-10-31）">
+      <i class="fa fa-chevron-left"></i> eden* 游玩笔记（2026-10-31）
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  <script type="text/javascript" src="/js/fa.js"></script>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E7%AB%99%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">镜像站是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E7%AB%99%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">镜像站的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E7%AB%99%E7%9A%84%E6%90%AD%E5%BB%BA"><span class="nav-number">3.</span> <span class="nav-text">镜像站的搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E4%BA%8B%E9%A1%B9"><span class="nav-number">4.</span> <span class="nav-text">重要事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="nav-number">5.</span> <span class="nav-text">一些使用说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E4%BA%8B%E9%A1%B9"><span class="nav-number">6.</span> <span class="nav-text">可选事项</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">新手佳佳</p>
+  <div class="site-description" itemprop="description">没有描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">88</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">新手佳佳</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
