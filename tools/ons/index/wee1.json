@@ -1,0 +1,2609 @@
+{
+  "title": "wee",
+  "gamedir": "/onsyuri/wee",
+  "savedir": "/onsyuri_save/wee",
+  "args": [],
+  "lazyload": true,
+  "files": [
+    {
+      "path": "default.ttf",
+      "url": "https://wee1-9ld.pages.dev/f00000.ttf"
+    },
+    {
+      "path": "nscript.dat",
+      "url": "https://wee1-9ld.pages.dev/f00001.dat"
+    },
+    {
+      "path": "bgimage/bg02_chch_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00002.png"
+    },
+    {
+      "path": "bgimage/bg02_chch_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00003.png"
+    },
+    {
+      "path": "bgimage/bg03_haruroom_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00004.png"
+    },
+    {
+      "path": "bgimage/bg03_haruroom_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00005.png"
+    },
+    {
+      "path": "bgimage/bg03_haruroom_03.png",
+      "url": "https://wee1-9ld.pages.dev/f00006.png"
+    },
+    {
+      "path": "bgimage/bg05_living_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00007.png"
+    },
+    {
+      "path": "bgimage/bg05_living_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00008.png"
+    },
+    {
+      "path": "bgimage/bg07_corridor_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00009.png"
+    },
+    {
+      "path": "bgimage/bg08_garden_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00010.png"
+    },
+    {
+      "path": "bgimage/bg09cityentire_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00011.png"
+    },
+    {
+      "path": "bgimage/bg09cityentire_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00012.png"
+    },
+    {
+      "path": "bgimage/bg10_centralst_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00013.png"
+    },
+    {
+      "path": "bgimage/bg10_centralst_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00014.png"
+    },
+    {
+      "path": "bgimage/bg12_hotel_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00015.png"
+    },
+    {
+      "path": "bgimage/bg12_hotel_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00016.png"
+    },
+    {
+      "path": "bgimage/bg13_lobby_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00017.png"
+    },
+    {
+      "path": "bgimage/bg13_lobby_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00018.png"
+    },
+    {
+      "path": "bgimage/bg14_citymainst_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00019.png"
+    },
+    {
+      "path": "bgimage/bg15_tech_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00020.png"
+    },
+    {
+      "path": "bgimage/bg17_sixmainstr_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00021.png"
+    },
+    {
+      "path": "bgimage/bg17_sixmainstr_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00022.png"
+    },
+    {
+      "path": "bgimage/bg17_sixmainstr_03.png",
+      "url": "https://wee1-9ld.pages.dev/f00023.png"
+    },
+    {
+      "path": "bgimage/bg18_shops_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00024.png"
+    },
+    {
+      "path": "bgimage/bg18_shops_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00025.png"
+    },
+    {
+      "path": "bgimage/bg19_hill_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00026.png"
+    },
+    {
+      "path": "bgimage/bg20_hanten_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00027.png"
+    },
+    {
+      "path": "bgimage/bg22_bbcin_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00028.png"
+    },
+    {
+      "path": "bgimage/bg25_reservoir_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00029.png"
+    },
+    {
+      "path": "bgimage/bg26_sky_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00030.png"
+    },
+    {
+      "path": "bgimage/bg26_sky_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00031.png"
+    },
+    {
+      "path": "bgimage/bg29_redvalley_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00032.png"
+    },
+    {
+      "path": "bgimage/black.png",
+      "url": "https://wee1-9ld.pages.dev/f00033.png"
+    },
+    {
+      "path": "bgimage/hik_kri_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00034.png"
+    },
+    {
+      "path": "bgimage/hik_kri_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00035.png"
+    },
+    {
+      "path": "bgimage/hik_kri_03.png",
+      "url": "https://wee1-9ld.pages.dev/f00036.png"
+    },
+    {
+      "path": "bgimage/white.png",
+      "url": "https://wee1-9ld.pages.dev/f00037.png"
+    },
+    {
+      "path": "bgm/BGM-01.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00038.ogg"
+    },
+    {
+      "path": "bgm/BGM-02.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00039.ogg"
+    },
+    {
+      "path": "bgm/BGM-03.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00040.ogg"
+    },
+    {
+      "path": "bgm/BGM-04.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00041.ogg"
+    },
+    {
+      "path": "bgm/BGM-05.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00042.ogg"
+    },
+    {
+      "path": "bgm/BGM-06.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00043.ogg"
+    },
+    {
+      "path": "bgm/BGM-07.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00044.ogg"
+    },
+    {
+      "path": "bgm/BGM-08.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00045.ogg"
+    },
+    {
+      "path": "bgm/BGM-09.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00046.ogg"
+    },
+    {
+      "path": "bgm/BGM-10.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00047.ogg"
+    },
+    {
+      "path": "bgm/BGM-11.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00048.ogg"
+    },
+    {
+      "path": "bgm/BGM-12.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00049.ogg"
+    },
+    {
+      "path": "bgm/BGM-13.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00050.ogg"
+    },
+    {
+      "path": "bgm/BGM-14.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00051.ogg"
+    },
+    {
+      "path": "bgm/BGM-15.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00052.ogg"
+    },
+    {
+      "path": "bgm/BGM-16.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00053.ogg"
+    },
+    {
+      "path": "bgm/BGM-17.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00054.ogg"
+    },
+    {
+      "path": "bgm/BGM-18.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00055.ogg"
+    },
+    {
+      "path": "bgm/BGM-19.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00056.ogg"
+    },
+    {
+      "path": "bgm/BGM-20.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00057.ogg"
+    },
+    {
+      "path": "bgm/BGM-21.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00058.ogg"
+    },
+    {
+      "path": "bgm/BGM-22.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00059.ogg"
+    },
+    {
+      "path": "bgm/BGM-23.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00060.ogg"
+    },
+    {
+      "path": "bgm/BGM-24.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00061.ogg"
+    },
+    {
+      "path": "bgm/BGM-25.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00062.ogg"
+    },
+    {
+      "path": "bgm/BGM-26.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00063.ogg"
+    },
+    {
+      "path": "bgm/BGM-27.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00064.ogg"
+    },
+    {
+      "path": "bgm/BGM-28.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00065.ogg"
+    },
+    {
+      "path": "bgm/BGM-29.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00066.ogg"
+    },
+    {
+      "path": "bgm/BGM-30.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00067.ogg"
+    },
+    {
+      "path": "bgm/BGM-31.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00068.ogg"
+    },
+    {
+      "path": "bgm/BGM-32.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00069.ogg"
+    },
+    {
+      "path": "bgm/BGM-33.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00070.ogg"
+    },
+    {
+      "path": "bgm/BGM-34.ogg",
+      "url": "https://wee1-9ld.pages.dev/f00071.ogg"
+    },
+    {
+      "path": "evimage/ev01_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00073.png"
+    },
+    {
+      "path": "evimage/ev02_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00074.png"
+    },
+    {
+      "path": "evimage/ev02_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00075.png"
+    },
+    {
+      "path": "evimage/ev03_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00076.png"
+    },
+    {
+      "path": "evimage/ev04_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00077.png"
+    },
+    {
+      "path": "evimage/ev05_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00078.png"
+    },
+    {
+      "path": "evimage/ev05_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00079.png"
+    },
+    {
+      "path": "evimage/ev06_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00080.png"
+    },
+    {
+      "path": "evimage/ev06_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00081.png"
+    },
+    {
+      "path": "evimage/ev07_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00082.png"
+    },
+    {
+      "path": "evimage/ev08_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00083.png"
+    },
+    {
+      "path": "evimage/ev09_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00084.png"
+    },
+    {
+      "path": "evimage/ev09_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00085.png"
+    },
+    {
+      "path": "evimage/ev10_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00086.png"
+    },
+    {
+      "path": "evimage/ev11_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00087.png"
+    },
+    {
+      "path": "evimage/ev11_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00088.png"
+    },
+    {
+      "path": "evimage/ev11_03.png",
+      "url": "https://wee1-9ld.pages.dev/f00089.png"
+    },
+    {
+      "path": "evimage/ev11_04.png",
+      "url": "https://wee1-9ld.pages.dev/f00090.png"
+    },
+    {
+      "path": "evimage/ev11_05.png",
+      "url": "https://wee1-9ld.pages.dev/f00091.png"
+    },
+    {
+      "path": "evimage/ev12_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00092.png"
+    },
+    {
+      "path": "evimage/ev12_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00093.png"
+    },
+    {
+      "path": "evimage/ev13_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00094.png"
+    },
+    {
+      "path": "evimage/ev14_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00095.png"
+    },
+    {
+      "path": "evimage/ev15_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00096.png"
+    },
+    {
+      "path": "evimage/ev16_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00097.png"
+    },
+    {
+      "path": "evimage/ev17_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00098.png"
+    },
+    {
+      "path": "evimage/ev17_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00099.png"
+    },
+    {
+      "path": "evimage/ev17_03.png",
+      "url": "https://wee1-9ld.pages.dev/f00100.png"
+    },
+    {
+      "path": "evimage/ev18_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00101.png"
+    },
+    {
+      "path": "evimage/ev19_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00102.png"
+    },
+    {
+      "path": "evimage/ev20_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00103.png"
+    },
+    {
+      "path": "evimage/ev21_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00104.png"
+    },
+    {
+      "path": "evimage/ev22_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00105.png"
+    },
+    {
+      "path": "evimage/ev23_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00106.png"
+    },
+    {
+      "path": "evimage/ev24_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00107.png"
+    },
+    {
+      "path": "evimage/ev25_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00108.png"
+    },
+    {
+      "path": "evimage/ev25_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00109.png"
+    },
+    {
+      "path": "evimage/ev25_03.png",
+      "url": "https://wee1-9ld.pages.dev/f00110.png"
+    },
+    {
+      "path": "evimage/ev25_04.png",
+      "url": "https://wee1-9ld.pages.dev/f00111.png"
+    },
+    {
+      "path": "evimage/ev25_05.png",
+      "url": "https://wee1-9ld.pages.dev/f00112.png"
+    },
+    {
+      "path": "evimage/ev25_06.png",
+      "url": "https://wee1-9ld.pages.dev/f00113.png"
+    },
+    {
+      "path": "evimage/ev25_07.png",
+      "url": "https://wee1-9ld.pages.dev/f00114.png"
+    },
+    {
+      "path": "evimage/ev25_08.png",
+      "url": "https://wee1-9ld.pages.dev/f00115.png"
+    },
+    {
+      "path": "evimage/ev26_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00116.png"
+    },
+    {
+      "path": "evimage/ev27_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00117.png"
+    },
+    {
+      "path": "evimage/ev28_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00118.png"
+    },
+    {
+      "path": "evimage/ev28_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00119.png"
+    },
+    {
+      "path": "evimage/ev29_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00120.png"
+    },
+    {
+      "path": "evimage/ev30_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00121.png"
+    },
+    {
+      "path": "evimage/ev31_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00122.png"
+    },
+    {
+      "path": "evimage/ev31_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00123.png"
+    },
+    {
+      "path": "evimage/ev32_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00124.png"
+    },
+    {
+      "path": "evimage/ev33_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00125.png"
+    },
+    {
+      "path": "evimage/ev34_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00126.png"
+    },
+    {
+      "path": "evimage/ev35_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00127.png"
+    },
+    {
+      "path": "evimage/ev36_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00128.png"
+    },
+    {
+      "path": "evimage/ev37_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00129.png"
+    },
+    {
+      "path": "fgimage/bt_01_01.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00130.bmp"
+    },
+    {
+      "path": "fgimage/bt_01_02.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00131.bmp"
+    },
+    {
+      "path": "fgimage/bt_01_03.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00132.bmp"
+    },
+    {
+      "path": "fgimage/bt_01_04.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00133.bmp"
+    },
+    {
+      "path": "fgimage/bt_01_05.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00134.bmp"
+    },
+    {
+      "path": "fgimage/bt_01_06.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00135.bmp"
+    },
+    {
+      "path": "fgimage/bt_01_07.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00136.bmp"
+    },
+    {
+      "path": "fgimage/bt_01_08.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00137.bmp"
+    },
+    {
+      "path": "fgimage/cr_01_01.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00138.bmp"
+    },
+    {
+      "path": "fgimage/cr_01_02.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00139.bmp"
+    },
+    {
+      "path": "fgimage/cr_01_03.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00140.bmp"
+    },
+    {
+      "path": "fgimage/cr_01_04.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00141.bmp"
+    },
+    {
+      "path": "fgimage/cr_01_05.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00142.bmp"
+    },
+    {
+      "path": "fgimage/cr_01_06.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00143.bmp"
+    },
+    {
+      "path": "fgimage/cr_01_07.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00144.bmp"
+    },
+    {
+      "path": "fgimage/cr_01_08.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00145.bmp"
+    },
+    {
+      "path": "fgimage/cr_01_09.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00146.bmp"
+    },
+    {
+      "path": "fgimage/hg_01_01.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00147.bmp"
+    },
+    {
+      "path": "fgimage/hg_01_02.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00148.bmp"
+    },
+    {
+      "path": "fgimage/hg_01_03.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00149.bmp"
+    },
+    {
+      "path": "fgimage/hg_01_04.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00150.bmp"
+    },
+    {
+      "path": "fgimage/hg_01_05.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00151.bmp"
+    },
+    {
+      "path": "fgimage/hg_01_06.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00152.bmp"
+    },
+    {
+      "path": "fgimage/hg_02_01.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00153.bmp"
+    },
+    {
+      "path": "fgimage/hg_02_02.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00154.bmp"
+    },
+    {
+      "path": "fgimage/hg_02_03.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00155.bmp"
+    },
+    {
+      "path": "fgimage/hg_02_04.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00156.bmp"
+    },
+    {
+      "path": "fgimage/hg_02_05.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00157.bmp"
+    },
+    {
+      "path": "fgimage/hg_02_06.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00158.bmp"
+    },
+    {
+      "path": "fgimage/hg_03_01.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00159.bmp"
+    },
+    {
+      "path": "fgimage/hg_03_02.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00160.bmp"
+    },
+    {
+      "path": "fgimage/hg_03_03.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00161.bmp"
+    },
+    {
+      "path": "fgimage/hg_03_04.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00162.bmp"
+    },
+    {
+      "path": "fgimage/hg_03_05.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00163.bmp"
+    },
+    {
+      "path": "fgimage/hg_03_06.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00164.bmp"
+    },
+    {
+      "path": "fgimage/hr_01_01.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00165.bmp"
+    },
+    {
+      "path": "fgimage/lk_01_01.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00166.bmp"
+    },
+    {
+      "path": "fgimage/lk_01_02.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00167.bmp"
+    },
+    {
+      "path": "fgimage/lk_01_03.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00168.bmp"
+    },
+    {
+      "path": "fgimage/lk_01_04.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00169.bmp"
+    },
+    {
+      "path": "fgimage/ob_01_01.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00170.bmp"
+    },
+    {
+      "path": "fgimage/ob_01_02.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00171.bmp"
+    },
+    {
+      "path": "fgimage/ob_01_03.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00172.bmp"
+    },
+    {
+      "path": "fgimage/rk_01_01.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00173.bmp"
+    },
+    {
+      "path": "fgimage/rk_01_02.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00174.bmp"
+    },
+    {
+      "path": "fgimage/rk_01_03.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00175.bmp"
+    },
+    {
+      "path": "fgimage/rk_01_04.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00176.bmp"
+    },
+    {
+      "path": "fgimage/rs_01_01.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00177.bmp"
+    },
+    {
+      "path": "fgimage/rs_01_02.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00178.bmp"
+    },
+    {
+      "path": "fgimage/rs_01_03.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00179.bmp"
+    },
+    {
+      "path": "fgimage/rs_01_04.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00180.bmp"
+    },
+    {
+      "path": "fgimage/rs_01_05.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00181.bmp"
+    },
+    {
+      "path": "fgimage/rs_01_06.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00182.bmp"
+    },
+    {
+      "path": "fgimage/rs_01_07.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00183.bmp"
+    },
+    {
+      "path": "fgimage/rs_02_01.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00184.bmp"
+    },
+    {
+      "path": "fgimage/rs_02_02.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00185.bmp"
+    },
+    {
+      "path": "fgimage/rs_02_03.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00186.bmp"
+    },
+    {
+      "path": "fgimage/rs_02_04.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00187.bmp"
+    },
+    {
+      "path": "fgimage/rs_02_05.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00188.bmp"
+    },
+    {
+      "path": "fgimage/rs_02_06.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00189.bmp"
+    },
+    {
+      "path": "fgimage/rs_02_07.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00190.bmp"
+    },
+    {
+      "path": "fgimage/rs_03_01.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00191.bmp"
+    },
+    {
+      "path": "fgimage/rs_03_02.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00192.bmp"
+    },
+    {
+      "path": "fgimage/rs_03_03.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00193.bmp"
+    },
+    {
+      "path": "fgimage/rs_03_04.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00194.bmp"
+    },
+    {
+      "path": "fgimage/rs_03_05.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00195.bmp"
+    },
+    {
+      "path": "fgimage/rs_03_06.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00196.bmp"
+    },
+    {
+      "path": "fgimage/rs_03_07.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00197.bmp"
+    },
+    {
+      "path": "fgimage/se_01_01.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00198.bmp"
+    },
+    {
+      "path": "fgimage/se_01_02.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00199.bmp"
+    },
+    {
+      "path": "fgimage/se_01_03.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00200.bmp"
+    },
+    {
+      "path": "fgimage/se_01_04.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00201.bmp"
+    },
+    {
+      "path": "fgimage/se_01_05.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00202.bmp"
+    },
+    {
+      "path": "fgimage/ty_01_01.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00203.bmp"
+    },
+    {
+      "path": "fgimage/ty_01_02.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00204.bmp"
+    },
+    {
+      "path": "fgimage/ty_01_03.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00205.bmp"
+    },
+    {
+      "path": "fgimage/ty_01_04.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00206.bmp"
+    },
+    {
+      "path": "fgimage/ty_01_05.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00207.bmp"
+    },
+    {
+      "path": "fgimage/ty_01_06.bmp",
+      "url": "https://wee1-9ld.pages.dev/f00208.bmp"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg01_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00209.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg02_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00210.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg03_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00211.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg04_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00212.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg05_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00213.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg06_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00214.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg07_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00215.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg08_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00216.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg09_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00217.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg10_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00218.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg11_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00219.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg12_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00220.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg13_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00221.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg14_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00222.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg15_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00223.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg16_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00224.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg17_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00225.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg17_02.png",
+      "url": "https://wee1-9ld.pages.dev/f00226.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg17_03.png",
+      "url": "https://wee1-9ld.pages.dev/f00227.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg18_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00228.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg19_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00229.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg20_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00230.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg21_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00231.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg22_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00232.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg23_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00233.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg24_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00234.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg25_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00235.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg26_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00236.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg27_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00237.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg28_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00238.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg29_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00239.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg30_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00240.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg31_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00241.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg32_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00242.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg33_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00243.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg34_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00244.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg35_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00245.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg36_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00246.png"
+    },
+    {
+      "path": "image_cgmode/cgimage/cg37_01.png",
+      "url": "https://wee1-9ld.pages.dev/f00247.png"
+    },
+    {
+      "path": "image_cgmode/cgmode_base.png",
+      "url": "https://wee1-9ld.pages.dev/f00248.png"
+    },
+    {
+      "path": "image_cgmode/cgmode_page_01_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00249.png"
+    },
+    {
+      "path": "image_cgmode/cgmode_page_01_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00250.png"
+    },
+    {
+      "path": "image_cgmode/cgmode_page_02_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00251.png"
+    },
+    {
+      "path": "image_cgmode/cgmode_page_02_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00252.png"
+    },
+    {
+      "path": "image_cgmode/cgmode_page_03_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00253.png"
+    },
+    {
+      "path": "image_cgmode/cgmode_page_03_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00254.png"
+    },
+    {
+      "path": "image_cgmode/cgmode_page_04_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00255.png"
+    },
+    {
+      "path": "image_cgmode/cgmode_page_04_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00256.png"
+    },
+    {
+      "path": "image_cgmode/cgmode_page_05_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00257.png"
+    },
+    {
+      "path": "image_cgmode/cgmode_page_05_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00258.png"
+    },
+    {
+      "path": "image_cgmode/cgmode_thum_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00259.png"
+    },
+    {
+      "path": "image_config/btn.png",
+      "url": "https://wee1-9ld.pages.dev/f00260.png"
+    },
+    {
+      "path": "image_config/config_autospeed_100.png",
+      "url": "https://wee1-9ld.pages.dev/f00261.png"
+    },
+    {
+      "path": "image_config/config_autospeed_2000.png",
+      "url": "https://wee1-9ld.pages.dev/f00262.png"
+    },
+    {
+      "path": "image_config/config_autospeed_3000.png",
+      "url": "https://wee1-9ld.pages.dev/f00263.png"
+    },
+    {
+      "path": "image_config/config_autospeed_4000.png",
+      "url": "https://wee1-9ld.pages.dev/f00264.png"
+    },
+    {
+      "path": "image_config/config_autospeed_5000.png",
+      "url": "https://wee1-9ld.pages.dev/f00265.png"
+    },
+    {
+      "path": "image_config/config_base.png",
+      "url": "https://wee1-9ld.pages.dev/f00266.png"
+    },
+    {
+      "path": "image_config/config_bgm_vol_10.png",
+      "url": "https://wee1-9ld.pages.dev/f00267.png"
+    },
+    {
+      "path": "image_config/config_bgm_vol_30.png",
+      "url": "https://wee1-9ld.pages.dev/f00268.png"
+    },
+    {
+      "path": "image_config/config_bgm_vol_50.png",
+      "url": "https://wee1-9ld.pages.dev/f00269.png"
+    },
+    {
+      "path": "image_config/config_bgm_vol_70.png",
+      "url": "https://wee1-9ld.pages.dev/f00270.png"
+    },
+    {
+      "path": "image_config/config_bgm_vol_90.png",
+      "url": "https://wee1-9ld.pages.dev/f00271.png"
+    },
+    {
+      "path": "image_config/config_close_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00272.png"
+    },
+    {
+      "path": "image_config/config_close_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00273.png"
+    },
+    {
+      "path": "image_config/config_effect_base_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00274.png"
+    },
+    {
+      "path": "image_config/config_font_base_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00275.png"
+    },
+    {
+      "path": "image_config/config_initial_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00276.png"
+    },
+    {
+      "path": "image_config/config_initial_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00277.png"
+    },
+    {
+      "path": "image_config/config_screan_base_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00278.png"
+    },
+    {
+      "path": "image_config/config_se_vol_10.png",
+      "url": "https://wee1-9ld.pages.dev/f00279.png"
+    },
+    {
+      "path": "image_config/config_se_vol_30.png",
+      "url": "https://wee1-9ld.pages.dev/f00280.png"
+    },
+    {
+      "path": "image_config/config_se_vol_50.png",
+      "url": "https://wee1-9ld.pages.dev/f00281.png"
+    },
+    {
+      "path": "image_config/config_se_vol_70.png",
+      "url": "https://wee1-9ld.pages.dev/f00282.png"
+    },
+    {
+      "path": "image_config/config_se_vol_90.png",
+      "url": "https://wee1-9ld.pages.dev/f00283.png"
+    },
+    {
+      "path": "image_config/config_textspeed_0.png",
+      "url": "https://wee1-9ld.pages.dev/f00284.png"
+    },
+    {
+      "path": "image_config/config_textspeed_120.png",
+      "url": "https://wee1-9ld.pages.dev/f00285.png"
+    },
+    {
+      "path": "image_config/config_textspeed_30.png",
+      "url": "https://wee1-9ld.pages.dev/f00286.png"
+    },
+    {
+      "path": "image_config/config_textspeed_60.png",
+      "url": "https://wee1-9ld.pages.dev/f00287.png"
+    },
+    {
+      "path": "image_config/config_textspeed_90.png",
+      "url": "https://wee1-9ld.pages.dev/f00288.png"
+    },
+    {
+      "path": "image_dialog/dialog_exit_base.png",
+      "url": "https://wee1-9ld.pages.dev/f00289.png"
+    },
+    {
+      "path": "image_dialog/dialog_load_base.png",
+      "url": "https://wee1-9ld.pages.dev/f00290.png"
+    },
+    {
+      "path": "image_dialog/dialog_no_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00291.png"
+    },
+    {
+      "path": "image_dialog/dialog_no_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00292.png"
+    },
+    {
+      "path": "image_dialog/dialog_qload_base.png",
+      "url": "https://wee1-9ld.pages.dev/f00293.png"
+    },
+    {
+      "path": "image_dialog/dialog_qsave_base.png",
+      "url": "https://wee1-9ld.pages.dev/f00294.png"
+    },
+    {
+      "path": "image_dialog/dialog_save_base.png",
+      "url": "https://wee1-9ld.pages.dev/f00295.png"
+    },
+    {
+      "path": "image_dialog/dialog_title_base.png",
+      "url": "https://wee1-9ld.pages.dev/f00296.png"
+    },
+    {
+      "path": "image_dialog/dialog_yes_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00297.png"
+    },
+    {
+      "path": "image_dialog/dialog_yes_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00298.png"
+    },
+    {
+      "path": "image_musicmode/musicmode_base.png",
+      "url": "https://wee1-9ld.pages.dev/f00299.png"
+    },
+    {
+      "path": "image_musicmode/musicmode_page_01_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00300.png"
+    },
+    {
+      "path": "image_musicmode/musicmode_page_01_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00301.png"
+    },
+    {
+      "path": "image_musicmode/musicmode_page_02_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00302.png"
+    },
+    {
+      "path": "image_musicmode/musicmode_page_02_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00303.png"
+    },
+    {
+      "path": "image_musicmode/musicmode_page_03_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00304.png"
+    },
+    {
+      "path": "image_musicmode/musicmode_page_03_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00305.png"
+    },
+    {
+      "path": "image_musicmode/track01_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00306.png"
+    },
+    {
+      "path": "image_musicmode/track01_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00307.png"
+    },
+    {
+      "path": "image_musicmode/track02_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00308.png"
+    },
+    {
+      "path": "image_musicmode/track02_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00309.png"
+    },
+    {
+      "path": "image_musicmode/track03_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00310.png"
+    },
+    {
+      "path": "image_musicmode/track03_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00311.png"
+    },
+    {
+      "path": "image_musicmode/track04_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00312.png"
+    },
+    {
+      "path": "image_musicmode/track04_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00313.png"
+    },
+    {
+      "path": "image_musicmode/track05_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00314.png"
+    },
+    {
+      "path": "image_musicmode/track05_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00315.png"
+    },
+    {
+      "path": "image_musicmode/track06_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00316.png"
+    },
+    {
+      "path": "image_musicmode/track06_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00317.png"
+    },
+    {
+      "path": "image_musicmode/track07_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00318.png"
+    },
+    {
+      "path": "image_musicmode/track07_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00319.png"
+    },
+    {
+      "path": "image_musicmode/track08_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00320.png"
+    },
+    {
+      "path": "image_musicmode/track08_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00321.png"
+    },
+    {
+      "path": "image_musicmode/track09_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00322.png"
+    },
+    {
+      "path": "image_musicmode/track09_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00323.png"
+    },
+    {
+      "path": "image_musicmode/track10_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00324.png"
+    },
+    {
+      "path": "image_musicmode/track10_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00325.png"
+    },
+    {
+      "path": "image_musicmode/track11_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00326.png"
+    },
+    {
+      "path": "image_musicmode/track11_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00327.png"
+    },
+    {
+      "path": "image_musicmode/track12_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00328.png"
+    },
+    {
+      "path": "image_musicmode/track12_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00329.png"
+    },
+    {
+      "path": "image_musicmode/track13_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00330.png"
+    },
+    {
+      "path": "image_musicmode/track13_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00331.png"
+    },
+    {
+      "path": "image_musicmode/track14_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00332.png"
+    },
+    {
+      "path": "image_musicmode/track14_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00333.png"
+    },
+    {
+      "path": "image_musicmode/track15_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00334.png"
+    },
+    {
+      "path": "image_musicmode/track15_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00335.png"
+    },
+    {
+      "path": "image_musicmode/track16_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00336.png"
+    },
+    {
+      "path": "image_musicmode/track16_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00337.png"
+    },
+    {
+      "path": "image_musicmode/track17_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00338.png"
+    },
+    {
+      "path": "image_musicmode/track17_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00339.png"
+    },
+    {
+      "path": "image_musicmode/track18_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00340.png"
+    },
+    {
+      "path": "image_musicmode/track18_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00341.png"
+    },
+    {
+      "path": "image_musicmode/track19_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00342.png"
+    },
+    {
+      "path": "image_musicmode/track19_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00343.png"
+    },
+    {
+      "path": "image_musicmode/track20_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00344.png"
+    },
+    {
+      "path": "image_musicmode/track20_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00345.png"
+    },
+    {
+      "path": "image_musicmode/track21_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00346.png"
+    },
+    {
+      "path": "image_musicmode/track21_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00347.png"
+    },
+    {
+      "path": "image_musicmode/track22_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00348.png"
+    },
+    {
+      "path": "image_musicmode/track22_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00349.png"
+    },
+    {
+      "path": "image_musicmode/track23_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00350.png"
+    },
+    {
+      "path": "image_musicmode/track23_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00351.png"
+    },
+    {
+      "path": "image_musicmode/track24_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00352.png"
+    },
+    {
+      "path": "image_musicmode/track24_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00353.png"
+    },
+    {
+      "path": "image_musicmode/track25_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00354.png"
+    },
+    {
+      "path": "image_musicmode/track25_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00355.png"
+    },
+    {
+      "path": "image_musicmode/track26_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00356.png"
+    },
+    {
+      "path": "image_musicmode/track26_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00357.png"
+    },
+    {
+      "path": "image_musicmode/track27_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00358.png"
+    },
+    {
+      "path": "image_musicmode/track27_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00359.png"
+    },
+    {
+      "path": "image_musicmode/track28_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00360.png"
+    },
+    {
+      "path": "image_musicmode/track28_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00361.png"
+    },
+    {
+      "path": "image_musicmode/track29_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00362.png"
+    },
+    {
+      "path": "image_musicmode/track29_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00363.png"
+    },
+    {
+      "path": "image_musicmode/track30_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00364.png"
+    },
+    {
+      "path": "image_musicmode/track30_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00365.png"
+    },
+    {
+      "path": "image_musicmode/track31_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00366.png"
+    },
+    {
+      "path": "image_musicmode/track31_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00367.png"
+    },
+    {
+      "path": "image_musicmode/track32_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00368.png"
+    },
+    {
+      "path": "image_musicmode/track32_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00369.png"
+    },
+    {
+      "path": "image_musicmode/track33_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00370.png"
+    },
+    {
+      "path": "image_musicmode/track33_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00371.png"
+    },
+    {
+      "path": "image_musicmode/track34_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00372.png"
+    },
+    {
+      "path": "image_musicmode/track34_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00373.png"
+    },
+    {
+      "path": "image_title/bbc.png",
+      "url": "https://wee1-9ld.pages.dev/f00374.png"
+    },
+    {
+      "path": "image_title/ch_logo.png",
+      "url": "https://wee1-9ld.pages.dev/f00375.png"
+    },
+    {
+      "path": "image_title/ch_logo2.png",
+      "url": "https://wee1-9ld.pages.dev/f00376.png"
+    },
+    {
+      "path": "image_title/config_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00377.png"
+    },
+    {
+      "path": "image_title/config_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00378.png"
+    },
+    {
+      "path": "image_title/exit_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00379.png"
+    },
+    {
+      "path": "image_title/exit_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00380.png"
+    },
+    {
+      "path": "image_title/image_title_base.png",
+      "url": "https://wee1-9ld.pages.dev/f00381.png"
+    },
+    {
+      "path": "image_title/image_title_cgmode_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00382.png"
+    },
+    {
+      "path": "image_title/image_title_cgmode_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00383.png"
+    },
+    {
+      "path": "image_title/image_title_config_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00384.png"
+    },
+    {
+      "path": "image_title/image_title_config_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00385.png"
+    },
+    {
+      "path": "image_title/image_title_exit_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00386.png"
+    },
+    {
+      "path": "image_title/image_title_exit_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00387.png"
+    },
+    {
+      "path": "image_title/image_title_load_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00388.png"
+    },
+    {
+      "path": "image_title/image_title_load_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00389.png"
+    },
+    {
+      "path": "image_title/image_title_musicmode_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00390.png"
+    },
+    {
+      "path": "image_title/image_title_musicmode_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00391.png"
+    },
+    {
+      "path": "image_title/image_title_start_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00392.png"
+    },
+    {
+      "path": "image_title/image_title_start_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00393.png"
+    },
+    {
+      "path": "image_title/load_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00394.png"
+    },
+    {
+      "path": "image_title/load_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00395.png"
+    },
+    {
+      "path": "image_title/start_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00396.png"
+    },
+    {
+      "path": "image_title/start_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00397.png"
+    },
+    {
+      "path": "image_title/st_logo.png",
+      "url": "https://wee1-9ld.pages.dev/f00398.png"
+    },
+    {
+      "path": "image_title/title.png",
+      "url": "https://wee1-9ld.pages.dev/f00399.png"
+    },
+    {
+      "path": "message/messagewindow.png",
+      "url": "https://wee1-9ld.pages.dev/f00400.png"
+    },
+    {
+      "path": "message/msg_auto_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00401.png"
+    },
+    {
+      "path": "message/msg_auto_on.png",
+      "url": "https://wee1-9ld.pages.dev/f00402.png"
+    },
+    {
+      "path": "message/msg_auto_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00403.png"
+    },
+    {
+      "path": "message/msg_config_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00404.png"
+    },
+    {
+      "path": "message/msg_config_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00405.png"
+    },
+    {
+      "path": "message/msg_exit_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00406.png"
+    },
+    {
+      "path": "message/msg_exit_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00407.png"
+    },
+    {
+      "path": "message/msg_hide_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00408.png"
+    },
+    {
+      "path": "message/msg_hide_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00409.png"
+    },
+    {
+      "path": "message/msg_load_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00410.png"
+    },
+    {
+      "path": "message/msg_load_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00411.png"
+    },
+    {
+      "path": "message/msg_qload_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00412.png"
+    },
+    {
+      "path": "message/msg_qload_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00413.png"
+    },
+    {
+      "path": "message/msg_qsave_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00414.png"
+    },
+    {
+      "path": "message/msg_qsave_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00415.png"
+    },
+    {
+      "path": "message/msg_save_normal.png",
+      "url": "https://wee1-9ld.pages.dev/f00416.png"
+    },
+    {
+      "path": "message/msg_save_over.png",
+      "url": "https://wee1-9ld.pages.dev/f00417.png"
+    },
+    {
+      "path": "rule/1.png",
+      "url": "https://wee1-9ld.pages.dev/f00418.png"
+    },
+    {
+      "path": "rule/10.png",
+      "url": "https://wee1-9ld.pages.dev/f00419.png"
+    },
+    {
+      "path": "rule/11.png",
+      "url": "https://wee1-9ld.pages.dev/f00420.png"
+    },
+    {
+      "path": "rule/12.png",
+      "url": "https://wee1-9ld.pages.dev/f00421.png"
+    },
+    {
+      "path": "rule/13.png",
+      "url": "https://wee1-9ld.pages.dev/f00422.png"
+    },
+    {
+      "path": "rule/14.png",
+      "url": "https://wee1-9ld.pages.dev/f00423.png"
+    },
+    {
+      "path": "rule/15.png",
+      "url": "https://wee1-9ld.pages.dev/f00424.png"
+    },
+    {
+      "path": "rule/16.png",
+      "url": "https://wee1-9ld.pages.dev/f00425.png"
+    },
+    {
+      "path": "rule/17.png",
+      "url": "https://wee1-9ld.pages.dev/f00426.png"
+    },
+    {
+      "path": "rule/18.png",
+      "url": "https://wee1-9ld.pages.dev/f00427.png"
+    },
+    {
+      "path": "rule/19.png",
+      "url": "https://wee1-9ld.pages.dev/f00428.png"
+    },
+    {
+      "path": "rule/2.png",
+      "url": "https://wee1-9ld.pages.dev/f00429.png"
+    },
+    {
+      "path": "rule/20.png",
+      "url": "https://wee1-9ld.pages.dev/f00430.png"
+    },
+    {
+      "path": "rule/21.png",
+      "url": "https://wee1-9ld.pages.dev/f00431.png"
+    },
+    {
+      "path": "rule/22.png",
+      "url": "https://wee1-9ld.pages.dev/f00432.png"
+    },
+    {
+      "path": "rule/23.png",
+      "url": "https://wee1-9ld.pages.dev/f00433.png"
+    },
+    {
+      "path": "rule/24.png",
+      "url": "https://wee1-9ld.pages.dev/f00434.png"
+    },
+    {
+      "path": "rule/25.png",
+      "url": "https://wee1-9ld.pages.dev/f00435.png"
+    },
+    {
+      "path": "rule/26.png",
+      "url": "https://wee1-9ld.pages.dev/f00436.png"
+    },
+    {
+      "path": "rule/27.png",
+      "url": "https://wee1-9ld.pages.dev/f00437.png"
+    },
+    {
+      "path": "rule/28.png",
+      "url": "https://wee1-9ld.pages.dev/f00438.png"
+    },
+    {
+      "path": "rule/29.png",
+      "url": "https://wee1-9ld.pages.dev/f00439.png"
+    },
+    {
+      "path": "rule/3.png",
+      "url": "https://wee1-9ld.pages.dev/f00440.png"
+    },
+    {
+      "path": "rule/30.png",
+      "url": "https://wee1-9ld.pages.dev/f00441.png"
+    },
+    {
+      "path": "rule/31.png",
+      "url": "https://wee1-9ld.pages.dev/f00442.png"
+    },
+    {
+      "path": "rule/32.png",
+      "url": "https://wee1-9ld.pages.dev/f00443.png"
+    },
+    {
+      "path": "rule/33.png",
+      "url": "https://wee1-9ld.pages.dev/f00444.png"
+    },
+    {
+      "path": "rule/34.png",
+      "url": "https://wee1-9ld.pages.dev/f00445.png"
+    },
+    {
+      "path": "rule/35.png",
+      "url": "https://wee1-9ld.pages.dev/f00446.png"
+    },
+    {
+      "path": "rule/36.png",
+      "url": "https://wee1-9ld.pages.dev/f00447.png"
+    },
+    {
+      "path": "rule/37.png",
+      "url": "https://wee1-9ld.pages.dev/f00448.png"
+    },
+    {
+      "path": "rule/38.png",
+      "url": "https://wee1-9ld.pages.dev/f00449.png"
+    },
+    {
+      "path": "rule/39.png",
+      "url": "https://wee1-9ld.pages.dev/f00450.png"
+    },
+    {
+      "path": "rule/4.png",
+      "url": "https://wee1-9ld.pages.dev/f00451.png"
+    },
+    {
+      "path": "rule/40.png",
+      "url": "https://wee1-9ld.pages.dev/f00452.png"
+    },
+    {
+      "path": "rule/41.png",
+      "url": "https://wee1-9ld.pages.dev/f00453.png"
+    },
+    {
+      "path": "rule/5.png",
+      "url": "https://wee1-9ld.pages.dev/f00454.png"
+    },
+    {
+      "path": "rule/6.png",
+      "url": "https://wee1-9ld.pages.dev/f00455.png"
+    },
+    {
+      "path": "rule/7.png",
+      "url": "https://wee1-9ld.pages.dev/f00456.png"
+    },
+    {
+      "path": "rule/8.png",
+      "url": "https://wee1-9ld.pages.dev/f00457.png"
+    },
+    {
+      "path": "rule/9.png",
+      "url": "https://wee1-9ld.pages.dev/f00458.png"
+    },
+    {
+      "path": "rule/\u3053\u3059\u308a_\u5de6.png",
+      "url": "https://wee1-9ld.pages.dev/f00459.png"
+    },
+    {
+      "path": "rule/\u30b7\u30e3\u30c3.png",
+      "url": "https://wee1-9ld.pages.dev/f00460.png"
+    },
+    {
+      "path": "rule/\u30ed\u30a6\u30bd\u30af\u8868\u793a_rr.png",
+      "url": "https://wee1-9ld.pages.dev/f00461.png"
+    },
+    {
+      "path": "rule/\u4e0b_\u5149.png",
+      "url": "https://wee1-9ld.pages.dev/f00462.png"
+    },
+    {
+      "path": "rule/\u98db\u3073_\u5de6\u4e0a.png",
+      "url": "https://wee1-9ld.pages.dev/f00463.png"
+    },
+    {
+      "path": "sound/1.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00464.wav"
+    },
+    {
+      "path": "sound/10.wav",
+      "url": "https://wee1-9ld.pages.dev/f00465.wav"
+    },
+    {
+      "path": "sound/100.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00466.wav"
+    },
+    {
+      "path": "sound/101.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00467.wav"
+    },
+    {
+      "path": "sound/102.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00468.wav"
+    },
+    {
+      "path": "sound/103.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00469.wav"
+    },
+    {
+      "path": "sound/104.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00470.wav"
+    },
+    {
+      "path": "sound/105.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00471.wav"
+    },
+    {
+      "path": "sound/106.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00472.wav"
+    },
+    {
+      "path": "sound/107.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00473.wav"
+    },
+    {
+      "path": "sound/108.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00474.wav"
+    },
+    {
+      "path": "sound/109.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00475.wav"
+    },
+    {
+      "path": "sound/11.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00476.wav"
+    },
+    {
+      "path": "sound/110.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00477.wav"
+    },
+    {
+      "path": "sound/111.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00478.wav"
+    },
+    {
+      "path": "sound/112.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00479.wav"
+    },
+    {
+      "path": "sound/113.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00480.wav"
+    },
+    {
+      "path": "sound/114.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00481.wav"
+    },
+    {
+      "path": "sound/115.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00482.wav"
+    },
+    {
+      "path": "sound/116.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00483.wav"
+    },
+    {
+      "path": "sound/117.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00484.wav"
+    },
+    {
+      "path": "sound/118.wav",
+      "url": "https://wee1-9ld.pages.dev/f00485.wav"
+    },
+    {
+      "path": "sound/119.wav",
+      "url": "https://wee1-9ld.pages.dev/f00486.wav"
+    },
+    {
+      "path": "sound/12.wav",
+      "url": "https://wee1-9ld.pages.dev/f00487.wav"
+    },
+    {
+      "path": "sound/120.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00488.wav"
+    },
+    {
+      "path": "sound/121.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00489.wav"
+    },
+    {
+      "path": "sound/122.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00490.wav"
+    },
+    {
+      "path": "sound/123.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00491.wav"
+    },
+    {
+      "path": "sound/124.wav",
+      "url": "https://wee1-9ld.pages.dev/f00492.wav"
+    },
+    {
+      "path": "sound/125.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00493.wav"
+    },
+    {
+      "path": "sound/126.wav",
+      "url": "https://wee1-9ld.pages.dev/f00494.wav"
+    },
+    {
+      "path": "sound/127.wav",
+      "url": "https://wee1-9ld.pages.dev/f00495.wav"
+    },
+    {
+      "path": "sound/128.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00496.wav"
+    },
+    {
+      "path": "sound/129.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00497.wav"
+    },
+    {
+      "path": "sound/13.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00498.wav"
+    },
+    {
+      "path": "sound/130.wav",
+      "url": "https://wee1-9ld.pages.dev/f00499.wav"
+    },
+    {
+      "path": "sound/131.wav",
+      "url": "https://wee1-9ld.pages.dev/f00500.wav"
+    },
+    {
+      "path": "sound/132.wav",
+      "url": "https://wee1-9ld.pages.dev/f00501.wav"
+    },
+    {
+      "path": "sound/133.wav",
+      "url": "https://wee1-9ld.pages.dev/f00502.wav"
+    },
+    {
+      "path": "sound/134.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00503.wav"
+    },
+    {
+      "path": "sound/135.wav",
+      "url": "https://wee1-9ld.pages.dev/f00504.wav"
+    },
+    {
+      "path": "sound/136.wav",
+      "url": "https://wee1-9ld.pages.dev/f00505.wav"
+    },
+    {
+      "path": "sound/137.wav",
+      "url": "https://wee1-9ld.pages.dev/f00506.wav"
+    },
+    {
+      "path": "sound/138.wav",
+      "url": "https://wee1-9ld.pages.dev/f00507.wav"
+    },
+    {
+      "path": "sound/139.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00508.wav"
+    },
+    {
+      "path": "sound/14.wav",
+      "url": "https://wee1-9ld.pages.dev/f00509.wav"
+    },
+    {
+      "path": "sound/140.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00510.wav"
+    },
+    {
+      "path": "sound/141.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00511.wav"
+    },
+    {
+      "path": "sound/142.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00512.wav"
+    },
+    {
+      "path": "sound/143.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00513.wav"
+    },
+    {
+      "path": "sound/144.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00514.wav"
+    },
+    {
+      "path": "sound/145.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00515.wav"
+    },
+    {
+      "path": "sound/146.wav",
+      "url": "https://wee1-9ld.pages.dev/f00516.wav"
+    },
+    {
+      "path": "sound/147.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00517.wav"
+    },
+    {
+      "path": "sound/148.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00518.wav"
+    },
+    {
+      "path": "sound/149.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00519.wav"
+    },
+    {
+      "path": "sound/15.wav",
+      "url": "https://wee1-9ld.pages.dev/f00520.wav"
+    },
+    {
+      "path": "sound/150.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00521.wav"
+    },
+    {
+      "path": "sound/151.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00522.wav"
+    },
+    {
+      "path": "sound/152.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00523.wav"
+    },
+    {
+      "path": "sound/153.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00524.wav"
+    },
+    {
+      "path": "sound/154.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00525.wav"
+    },
+    {
+      "path": "sound/155.wav",
+      "url": "https://wee1-9ld.pages.dev/f00526.wav"
+    },
+    {
+      "path": "sound/156.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00527.wav"
+    },
+    {
+      "path": "sound/157.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00528.wav"
+    },
+    {
+      "path": "sound/158.wav",
+      "url": "https://wee1-9ld.pages.dev/f00529.wav"
+    },
+    {
+      "path": "sound/159.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00530.wav"
+    },
+    {
+      "path": "sound/16.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00531.wav"
+    },
+    {
+      "path": "sound/160.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00532.wav"
+    },
+    {
+      "path": "sound/161.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00533.wav"
+    },
+    {
+      "path": "sound/162.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00534.wav"
+    },
+    {
+      "path": "sound/163.wav",
+      "url": "https://wee1-9ld.pages.dev/f00535.wav"
+    },
+    {
+      "path": "sound/164.wav",
+      "url": "https://wee1-9ld.pages.dev/f00536.wav"
+    },
+    {
+      "path": "sound/165.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00537.wav"
+    },
+    {
+      "path": "sound/166.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00538.wav"
+    },
+    {
+      "path": "sound/167.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00539.wav"
+    },
+    {
+      "path": "sound/168.wav",
+      "url": "https://wee1-9ld.pages.dev/f00540.wav"
+    },
+    {
+      "path": "sound/169.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00541.wav"
+    },
+    {
+      "path": "sound/17.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00542.wav"
+    },
+    {
+      "path": "sound/170.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00543.wav"
+    },
+    {
+      "path": "sound/171.wav",
+      "url": "https://wee1-9ld.pages.dev/f00544.wav"
+    },
+    {
+      "path": "sound/172.wav",
+      "url": "https://wee1-9ld.pages.dev/f00545.wav"
+    },
+    {
+      "path": "sound/173.wav",
+      "url": "https://wee1-9ld.pages.dev/f00546.wav"
+    },
+    {
+      "path": "sound/174.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00547.wav"
+    },
+    {
+      "path": "sound/175.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00548.wav"
+    },
+    {
+      "path": "sound/176.wav",
+      "url": "https://wee1-9ld.pages.dev/f00549.wav"
+    },
+    {
+      "path": "sound/177.wav",
+      "url": "https://wee1-9ld.pages.dev/f00550.wav"
+    },
+    {
+      "path": "sound/178.wav",
+      "url": "https://wee1-9ld.pages.dev/f00551.wav"
+    },
+    {
+      "path": "sound/179.wav",
+      "url": "https://wee1-9ld.pages.dev/f00552.wav"
+    },
+    {
+      "path": "sound/18.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00553.wav"
+    },
+    {
+      "path": "sound/180.wav",
+      "url": "https://wee1-9ld.pages.dev/f00554.wav"
+    },
+    {
+      "path": "sound/181.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00555.wav"
+    },
+    {
+      "path": "sound/182.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00556.wav"
+    },
+    {
+      "path": "sound/183.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00557.wav"
+    },
+    {
+      "path": "sound/184.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00558.wav"
+    },
+    {
+      "path": "sound/185.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00559.wav"
+    },
+    {
+      "path": "sound/186.wav",
+      "url": "https://wee1-9ld.pages.dev/f00560.wav"
+    },
+    {
+      "path": "sound/187.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00561.wav"
+    },
+    {
+      "path": "sound/19.wav",
+      "url": "https://wee1-9ld.pages.dev/f00562.wav"
+    },
+    {
+      "path": "sound/2.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00563.wav"
+    },
+    {
+      "path": "sound/20.wav",
+      "url": "https://wee1-9ld.pages.dev/f00564.wav"
+    },
+    {
+      "path": "sound/21.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00565.wav"
+    },
+    {
+      "path": "sound/22.wav",
+      "url": "https://wee1-9ld.pages.dev/f00566.wav"
+    },
+    {
+      "path": "sound/23.wav",
+      "url": "https://wee1-9ld.pages.dev/f00567.wav"
+    },
+    {
+      "path": "sound/24.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00568.wav"
+    },
+    {
+      "path": "sound/25.wav",
+      "url": "https://wee1-9ld.pages.dev/f00569.wav"
+    },
+    {
+      "path": "sound/26.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00570.wav"
+    },
+    {
+      "path": "sound/27.wav",
+      "url": "https://wee1-9ld.pages.dev/f00571.wav"
+    },
+    {
+      "path": "sound/28.wav",
+      "url": "https://wee1-9ld.pages.dev/f00572.wav"
+    },
+    {
+      "path": "sound/29.wav",
+      "url": "https://wee1-9ld.pages.dev/f00573.wav"
+    },
+    {
+      "path": "sound/3.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00574.wav"
+    },
+    {
+      "path": "sound/30.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00575.wav"
+    },
+    {
+      "path": "sound/31.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00576.wav"
+    },
+    {
+      "path": "sound/32.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00577.wav"
+    },
+    {
+      "path": "sound/33.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00578.wav"
+    },
+    {
+      "path": "sound/34.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00579.wav"
+    },
+    {
+      "path": "sound/35.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00580.wav"
+    },
+    {
+      "path": "sound/36.wav",
+      "url": "https://wee1-9ld.pages.dev/f00581.wav"
+    },
+    {
+      "path": "sound/37.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00582.wav"
+    },
+    {
+      "path": "sound/38.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00583.wav"
+    },
+    {
+      "path": "sound/39.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00584.wav"
+    },
+    {
+      "path": "sound/4.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00585.wav"
+    },
+    {
+      "path": "sound/40.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00586.wav"
+    },
+    {
+      "path": "sound/41.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00587.wav"
+    },
+    {
+      "path": "sound/42.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00588.wav"
+    },
+    {
+      "path": "sound/43.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00589.wav"
+    },
+    {
+      "path": "sound/44.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00590.wav"
+    },
+    {
+      "path": "sound/45.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00591.wav"
+    },
+    {
+      "path": "sound/46.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00592.wav"
+    },
+    {
+      "path": "sound/47.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00593.wav"
+    },
+    {
+      "path": "sound/48.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00594.wav"
+    },
+    {
+      "path": "sound/49.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00595.wav"
+    },
+    {
+      "path": "sound/5.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00596.wav"
+    },
+    {
+      "path": "sound/50.wav",
+      "url": "https://wee1-9ld.pages.dev/f00597.wav"
+    },
+    {
+      "path": "sound/51.wav",
+      "url": "https://wee1-9ld.pages.dev/f00598.wav"
+    },
+    {
+      "path": "sound/52.wav",
+      "url": "https://wee1-9ld.pages.dev/f00599.wav"
+    },
+    {
+      "path": "sound/53.wav",
+      "url": "https://wee1-9ld.pages.dev/f00600.wav"
+    },
+    {
+      "path": "sound/54.wav",
+      "url": "https://wee1-9ld.pages.dev/f00601.wav"
+    },
+    {
+      "path": "sound/55.wav",
+      "url": "https://wee1-9ld.pages.dev/f00602.wav"
+    },
+    {
+      "path": "sound/56.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00603.wav"
+    },
+    {
+      "path": "sound/57.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00604.wav"
+    },
+    {
+      "path": "sound/58.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00605.wav"
+    },
+    {
+      "path": "sound/59.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00606.wav"
+    },
+    {
+      "path": "sound/6.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00607.wav"
+    },
+    {
+      "path": "sound/60.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00608.wav"
+    },
+    {
+      "path": "sound/61.wav",
+      "url": "https://wee1-9ld.pages.dev/f00609.wav"
+    },
+    {
+      "path": "sound/62.wav",
+      "url": "https://wee1-9ld.pages.dev/f00610.wav"
+    },
+    {
+      "path": "sound/63.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00611.wav"
+    },
+    {
+      "path": "sound/64.wav",
+      "url": "https://wee1-9ld.pages.dev/f00612.wav"
+    },
+    {
+      "path": "sound/65.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00613.wav"
+    },
+    {
+      "path": "sound/66.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00614.wav"
+    },
+    {
+      "path": "sound/67.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00615.wav"
+    },
+    {
+      "path": "sound/68.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00616.wav"
+    },
+    {
+      "path": "sound/69.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00617.wav"
+    },
+    {
+      "path": "sound/7.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00618.wav"
+    },
+    {
+      "path": "sound/70.wav",
+      "url": "https://wee1-9ld.pages.dev/f00619.wav"
+    },
+    {
+      "path": "sound/71.wav",
+      "url": "https://wee1-9ld.pages.dev/f00620.wav"
+    },
+    {
+      "path": "sound/72.wav",
+      "url": "https://wee1-9ld.pages.dev/f00621.wav"
+    },
+    {
+      "path": "sound/73.wav",
+      "url": "https://wee1-9ld.pages.dev/f00622.wav"
+    },
+    {
+      "path": "sound/74.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00623.wav"
+    },
+    {
+      "path": "sound/75.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00624.wav"
+    },
+    {
+      "path": "sound/76.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00625.wav"
+    },
+    {
+      "path": "sound/77.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00626.wav"
+    },
+    {
+      "path": "sound/78.wav",
+      "url": "https://wee1-9ld.pages.dev/f00627.wav"
+    },
+    {
+      "path": "sound/79.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00628.wav"
+    },
+    {
+      "path": "sound/8.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00629.wav"
+    },
+    {
+      "path": "sound/80.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00630.wav"
+    },
+    {
+      "path": "sound/81.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00631.wav"
+    },
+    {
+      "path": "sound/82.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00632.wav"
+    },
+    {
+      "path": "sound/83.wav",
+      "url": "https://wee1-9ld.pages.dev/f00633.wav"
+    },
+    {
+      "path": "sound/84.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00634.wav"
+    },
+    {
+      "path": "sound/85.wav",
+      "url": "https://wee1-9ld.pages.dev/f00635.wav"
+    },
+    {
+      "path": "sound/86.wav",
+      "url": "https://wee1-9ld.pages.dev/f00636.wav"
+    },
+    {
+      "path": "sound/87.wav",
+      "url": "https://wee1-9ld.pages.dev/f00637.wav"
+    },
+    {
+      "path": "sound/88.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00638.wav"
+    },
+    {
+      "path": "sound/89.wav",
+      "url": "https://wee1-9ld.pages.dev/f00639.wav"
+    },
+    {
+      "path": "sound/9.wav",
+      "url": "https://wee1-9ld.pages.dev/f00640.wav"
+    },
+    {
+      "path": "sound/90.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00641.wav"
+    },
+    {
+      "path": "sound/91.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00642.wav"
+    },
+    {
+      "path": "sound/92.wav",
+      "url": "https://wee1-9ld.pages.dev/f00643.wav"
+    },
+    {
+      "path": "sound/93.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00644.wav"
+    },
+    {
+      "path": "sound/94.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00645.wav"
+    },
+    {
+      "path": "sound/95.wav",
+      "url": "https://wee1-9ld.pages.dev/f00646.wav"
+    },
+    {
+      "path": "sound/96.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00647.wav"
+    },
+    {
+      "path": "sound/97.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00648.wav"
+    },
+    {
+      "path": "sound/98.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00649.wav"
+    },
+    {
+      "path": "sound/99.WAV",
+      "url": "https://wee1-9ld.pages.dev/f00650.wav"
+    }
+  ]
+}
